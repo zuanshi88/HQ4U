@@ -1,0 +1,25 @@
+<img src="/home.png" class="icon" alt="">
+
+<h1>SinatraCRM</h1>
+
+<%@shadowman = "Shadowman"%>
+
+<% params[:directory] =  ["Tom", "Dick", "Harry"] %>
+
+
+
+<p>
+
+        <%person = ["Tom", "Dick", "Harry"] %>
+
+    <h1><%=person[rand(3)]%></h1>
+    <h1><%=@shadowman%></h1>
+    <h1><%= params[:directory][0]%></h1>
+    <ul>
+        <li><a href="/new" title="">new</a> page</li>
+        <li><a href="/about" title="">about</a> page</li>
+        <li><a href="/people"title="">people</a> page</li>
+        
+    </ul>
+
+</p>

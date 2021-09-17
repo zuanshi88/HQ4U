@@ -1,0 +1,25 @@
+<p>
+
+    <%person = Person.people[params[:id].to_i]%>
+
+   <div id="profile">
+        <ul>
+            <li>Name: <%=person.name%></li>
+            <li>Street: <%=person.street_address%></li>
+            <li>City: <%=person.city%></li>
+            <li>State: <%=person.state%></li>
+            <li>Zipcode: <%=person.zip_code%> </li>
+            
+        </ul>
+    </div>
+
+
+
+</p>
+
+  <ul>
+        <li><a href="/new" title="">new</a> page</li>
+        <li><a href="/about" title="">about</a> page</li>
+        <li><a href="/people"title="">people</a> page</li>
+        
+    </ul>
