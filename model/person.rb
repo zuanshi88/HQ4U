@@ -2,14 +2,15 @@ class Person
 
     @@people = []
 
-    attr_accessor :name, :street_address, :city, :state, :zip_code, :touch_points, :topics
+    attr_accessor :name, :street_address, :city, :state, :zip_code, :touch_points, :topics, :photo
     
-    def initialize(name, street_address, city, state, zip_code)
+    def initialize(name, street_address, city, state, zip_code, photo=nil)
         @name = name 
         @street_address = street_address
         @city = city 
         @state = state 
         @zip_code = zip_code
+        @photo = photo
         @@people << self 
         @touch_points = []
         @topics = []
@@ -20,7 +21,7 @@ class Person
         @@people
     end
 
-    def add_touchpoint(time_date, notes)
+    def add_touch_point(time_date, notes)
         @touch_points << TouchPoint.new(time_date, notes)
     end 
 
@@ -32,24 +33,27 @@ class Person
 
     class TouchPoint 
 
-        attr_reader :time_date, :notes 
+        attr_reader :date_time, :notes 
 
-        def initialize(time_date,notes)
-            @time_date = time_date
+        def initialize(date_time,notes)
+            @date_time = date_time
             @notes = notes
         end 
     end 
 
     class Topic 
-        def initialize(topic, note, time_date)
-            @time_date = time_date 
+
+        attr_reader :date_time, :topic, :note
+
+        def initialize(topic, note, date_time)
+            @date_time = date_time 
             @topic = topic 
             @note = Note.new("")
         end 
 
         class Note 
-            def initialize(time_date = Time.now, content)
-                @time_date = time_date 
+            def initialize(date_time = Time.now, content)
+                @date_time = date_time 
                 @content = content
             end 
         end 

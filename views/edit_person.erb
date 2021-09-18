@@ -1,0 +1,50 @@
+<p>
+
+    <%person = Person.people[params[:id].to_i]%>
+
+   <div id="profile">
+
+    <form method="POST" action="/people/method/">
+        <p>Your Name: <input type="text" name="name"></p>
+        <p>Your street address: <input type="text" name="street_address"></p>
+        <p>Your city: <input type="text" name="city"></p>
+        <p>Your state: <input type="text" name="state"></p>
+        <p>Your zipcode: <input type="text" name="zipcode"></p>
+        <input type="submit">
+    </form>
+        <ul>
+            <li>Name: <%=person.name%></li>
+            <li>Street: <%=person.street_address%></li>
+            <li>City: <%=person.city%></li>
+            <li>State: <%=person.state%></li>
+            <li>Zipcode: <%=person.zip_code%> </li>
+            
+        </ul>
+
+        <ul>
+        <h1> <%= person.name %> </h1>
+        
+            <% person.touch_points.each do |point| %>
+                <li><%= "#{point.time_date} : #{point.notes}" %></li>
+            <% end %>
+
+        </ul>
+
+          
+
+        <ul>
+            <li><a href="/people/<%=params[:id]%>/add_touch_point"> add touch point </a></li>
+            <li><a href="/people/:id/edit_contact">edit</a></li>
+        </ul>
+    </div>
+
+
+
+</p>
+
+  <ul>
+        <li><a href="/people/create" title="">new</a> page</li>
+        <li><a href="/about" title="">about</a> page</li>
+        <li><a href="/people"title="">people</a> page</li>
+        
+    </ul>

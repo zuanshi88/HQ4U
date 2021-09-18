@@ -9,6 +9,7 @@ body {
 
 ul li {
   list-style: none;
+  padding: 5px;
 }
 
 a {
@@ -83,7 +84,64 @@ img.logo {
 
 #profile {
   width: 50%;
-  margin: 0;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#profile_photo {
+
+  border: 2px solid black;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+
+}
+
+#profile_nav {
+
+  display: block;
+  float: right;
+  padding: 0;
+
+}
+
+#home {
+
+  background-image: url('DSCF1886.JPG');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  border: 3px solid black;
+  text-align: center;
+
+}
+
+#people {
+  text-align: center;
+  background-color: maroon;
+   background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+
+}
+
+#people a {
+  color: black;
+  font-weight: bold;;
+  font-size: 150%;
+}
+
+#touch_points {
+
+  background-color: silver;
+  width: 50%;
+  height: 400px;
+  text-align: center;
+  margin-left: 0px;
+
+ 
+
 }
 
 

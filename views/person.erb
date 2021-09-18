@@ -1,9 +1,24 @@
-<p>
+
 
     <%person = Person.people[params[:id].to_i]%>
 
    <div id="profile">
+
+
+  <div id="profile_nav">
         <ul>
+           <li><img id="profile_photo" src="/<%=person.photo%>" width="300px" height="200px" alt="Where is it?"></li> 
+            <li><a href="/people/create" title="">new</a> | <a href="/people"title="">people</a> | <a href="/" title="">home</a></li> 
+        </ul>
+</div>
+
+    <h1> <%= person.name %> </h1>
+        
+            <h5><a href="/people/<%=params[:id]%>/add_touch_point"> add </a> | <a href="/people/:id/edit_contact">edit</a></h5>
+        
+        
+        <ul>
+
             <li>Name: <%=person.name%></li>
             <li>Street: <%=person.street_address%></li>
             <li>City: <%=person.city%></li>
@@ -11,15 +26,18 @@
             <li>Zipcode: <%=person.zip_code%> </li>
             
         </ul>
-    </div>
 
-
-
-</p>
-
-  <ul>
-        <li><a href="/new" title="">new</a> page</li>
-        <li><a href="/about" title="">about</a> page</li>
-        <li><a href="/people"title="">people</a> page</li>
+        <ul>
         
-    </ul>
+        
+            <% person.touch_points.each do |point| %>
+                <li><%= "#{point.date_time} : #{point.notes}" %></li>
+            <% end %>
+
+        </ul>
+
+          
+
+    
+</div>
+

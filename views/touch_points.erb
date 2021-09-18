@@ -1,0 +1,21 @@
+
+<div id="touch_points">
+    <% all_points = [] %>
+    <% Person.people.each do |person|%>
+    <%  person.touch_points.each do |tp|%>
+    <%     all_points << tp %>
+    <%     all_points.sort_by!{|tp| tp.date_time}.reverse!%>
+         <% end %>
+    <% end %>
+    <ul>
+         <% all_points.each do |point|%>
+         <li><%= "#{point.date_time} : #{point.notes}"%></li>
+           <% end %>  
+
+        <li><a href="/people/create" title="">new</a> | <a href="/people"title="">people | </a><a href="/">home</a></li>
+
+
+    </ul>
+   
+  
+</div>

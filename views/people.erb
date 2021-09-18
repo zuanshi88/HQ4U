@@ -1,14 +1,20 @@
 
-<h1>Testing for the People Page</h1>
 
-<ul>    
-            <%Person.people.each_with_index do |person, index|%>
 
-        <li> <%=person.name%><a href="/people/<%=Person.people.index(person) %>"> <%= index %></a></li>
 
-        <%end %>
 
-        <li><a href="/new" title="">new</a> page</li>
-    
 
-</ul>
+
+<div id="people">
+    <ul>    
+                <%Person.people.each_with_index do |person, index|%>
+
+            <li><a href="/people/<%=Person.people.index(person)%>"><%=person.name%></a></li>
+
+            <%end %>
+
+            <li><a href="/people/create" title="">new</a> | <a href="/people/all/touch_points" title="">touch points</a> | <a href="/">home</a></li>
+        
+
+    </ul>
+</div>
