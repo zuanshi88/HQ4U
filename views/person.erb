@@ -7,37 +7,25 @@
 
   <div id="profile_nav">
         <ul>
-           <li><img id="profile_photo" src="/<%=person.photo%>" width="300px" height="200px" alt="Where is it?"></li> 
             <li><a href="/people/create" title="">new</a> | <a href="/people"title="">people</a> | <a href="/" title="">home</a></li> 
         </ul>
 </div>
 
-    <h1> <%= person.name %> </h1>
+    <h1> <%= @person.name %> </h1>
         
-            <h5><a href="/people/<%=params[:id]%>/add_touch_point"> add </a> | <a href="/people/:id/edit_contact">edit</a></h5>
-        
+            <h5><a href="/people/<%=params[:id]%>/add_touch_point"> add </a> | <a href="/people/<%=params[:id]%>/edit_contact">edit</a></h5>
+                    <h5><a href="/people/delete/<%=params[:id]%>"  name="_method" value="delete">Delete Post</a></h5>
+
         
         <ul>
 
-            <li>Name: <%=person.name%></li>
-            <li>Street: <%=person.street_address%></li>
-            <li>City: <%=person.city%></li>
-            <li>State: <%=person.state%></li>
-            <li>Zipcode: <%=person.zip_code%> </li>
+            <li>Name: <%=@person.name%></li>
+            <li>Street: <%=@person.street_address%></li>
+            <li>City: <%=@person.city%></li>
+            <li>State: <%=@person.state%></li>
+            <li>Zipcode: <%=@person.zipcode%> </li>
             
         </ul>
-
-        <ul>
-        
-        
-            <% person.touch_points.each do |point| %>
-                <li><%= "#{point.date_time} : #{point.notes}" %></li>
-            <% end %>
-
-        </ul>
-
-          
-
     
 </div>
 

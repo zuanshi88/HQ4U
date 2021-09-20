@@ -1,5 +1,10 @@
 require "sinatra"
+require "sinatra/activerecord"
 require_relative "model/person.rb"
+require_relative "model/account.rb"
+
+set :database, {adapter: "sqlite3", database: "crm.sqlite3"}
+
 # require_relative "model/directory.rb"
 
 
@@ -17,8 +22,7 @@ end
 
 
 get "/" do
-    @shadowman = "Shadowman"
-    params[:directory] = ["Tom", "Dick", "Harry"]
+  
 	erb :home
 end
 
@@ -34,9 +38,9 @@ end
 
 
 get '/people' do 
-    # params[:directory] = Directory.new(@entries_file)
-    # params[:people] = @people 
-    
+  
+    @people = Account.all
+
     erb :people 
 end 
 
@@ -45,6 +49,8 @@ get '/people/all/touch_points' do
 end 
 
 get "/people/:id" do 
+
+    @person = Account.find_by_id(params[:id])
 
     erb :person
  
@@ -68,7 +74,23 @@ post "/people/:id/add_touch_point" do
 end 
 
 get "/people/:id/edit_contact" do 
+    @person = Account.find(params[:id])
     erb :edit_person
+end 
+
+get "/people/delete/:id" do 
+    @person = Account.find_by_id(params[:id])
+    @person.destroy 
+
+    @shi_face = "SHit Face"
+    erb :people
+end  
+
+put "/people/:id" do 
+    @person = Account.find(params[:id])
+    @person.update(params[:people])
+
+    erb :person
 end 
 
 # post "/people/:id/edit_contact" do 
@@ -80,10 +102,10 @@ end
 
 
 post "/people/new" do 
-    params[:person] = Person.new(params[:name], params[:street_address], params[:city], params[:state], params[:zip_code], params[:photo])
-    # directory = Directory.new("./data/database.txt")
-    
-    # marshal_save(directory, @entries_file)
+    Account.create(name: params[:name], street_address: params[:street_address], city: params[:city], state: params[:state], zipcode: params[:zipcode])
+  
+    @people = Account.all
+   
     erb :people
 end 
 

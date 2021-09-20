@@ -6,10 +6,16 @@
 
 
 <div id="people">
-    <ul>    
-                <%Person.people.each_with_index do |person, index|%>
 
-            <li><a href="/people/<%=Person.people.index(person)%>"><%=person.name%></a></li>
+<h1>My People</h1>
+
+    <ul>    
+    <%=@people = Account.all%>
+                <%@people.each do |person|%>
+
+            <li><a href="/people/<%=person.id%>"><%=person.name%></a></li>
+          
+
 
             <%end %>
 

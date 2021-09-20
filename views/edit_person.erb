@@ -1,6 +1,5 @@
 <p>
 
-    <%person = Person.people[params[:id].to_i]%>
 
    <div id="profile">
 
@@ -13,24 +12,22 @@
         <input type="submit">
     </form>
         <ul>
-            <li>Name: <%=person.name%></li>
-            <li>Street: <%=person.street_address%></li>
-            <li>City: <%=person.city%></li>
-            <li>State: <%=person.state%></li>
-            <li>Zipcode: <%=person.zip_code%> </li>
+            <li>Name: <%=@person.name%></li>
+            <li>Street: <%=@person.street_address%></li>
+            <li>City: <%=@person.city%></li>
+            <li>State: <%=@person.state%></li>
+            <li>Zipcode: <%=@person.zipcode%> </li>
             
         </ul>
+        <form action="/people/<%=@person.id%>" method="post">
+            <input type="hidden" name="_method" value="PUT">
+            <input type="submit" value="Edit Account">
+        </form>
 
-        <ul>
-        <h1> <%= person.name %> </h1>
+      
+        <h1> <%= @person.name %> </h1>
         
-            <% person.touch_points.each do |point| %>
-                <li><%= "#{point.time_date} : #{point.notes}" %></li>
-            <% end %>
-
-        </ul>
-
-          
+            
 
         <ul>
             <li><a href="/people/<%=params[:id]%>/add_touch_point"> add touch point </a></li>
