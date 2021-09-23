@@ -10,7 +10,7 @@
            
             <img src="/<%=@person.photo%>" alt="Where's the photo?" width="300" height= "200" style="border: 2px solid black">
                <br>
-            <p><a href="/people/<%=params[:id]%>/edit_contact">edit</a> | <a href="/people/<%=params[:id]%>/add_touch_point"> add </a>
+            <p><a href="/people/<%=@person.id%>/edit_contact">edit</a> | <a href="/people/<%=params[:id]%>/add_touch_point"> add </a>
                |<a href="/people"title=""> people</a> | <a href="/" title="">home</a>
             </p> 
     
@@ -25,17 +25,44 @@
         </ul>
     </div>  
     <div>
-        <form method="POST" action="/people/<%=params[:id]%>/activity/new">
+        <form method="POST" action="/people/<%=@person.id%>/activity/create">
             <p>activity: <input type="text" name="title"></p>
             <p>description: <input type="text" name="description"></p>
                             <input type="submit">
         </form>
     </div>
+     <div>
+        <form method="POST" action="/people/<%=@person.id%>/project/create">
+            <p>project: <input type="text" name="title"></p>
+            <p>description: <input type="text" name="description"></p>
+                            <input type="submit">
+        </form>
+    </div>
 
-    <div>
+
+    <div class="activities">
         <ul>
             <% @person.activities.reverse.slice(0,3).each do |activity| %>
-            <li><%=activity.created_at.strftime('%m/%d')%> | <%=activity.created_at.strftime('%H:%M')%> : <%= activity.title %> : <%= activity.description %></li>
+            <li><%=activity.created_at.strftime('%m/%d')%> | <%=activity.created_at.strftime('%H:%M')%> : <%= activity.title %> : <%= activity.description %>
+                <form action="/people/<%=@person.id%>/delete/<%=activity.id %>" method="post">
+                        <input id="hidden" type="hidden" name="_method" value="delete">
+                        <input type="submit" value="delete">
+                </form> 
+            </li>
+            
+            <% end %>
+        </ul>
+    </div>
+    <div class="projects">
+        <ul>
+            <% @person.projects.reverse.slice(0,3).each do |project| %>
+            <li><%=project.created_at.strftime('%m/%d')%> | <%=project.created_at.strftime('%H:%M')%> : <a href="/people/<%=@person.id%>/project/<%=project.id%>"> <%= project.title %> : <%= project.description %> </a>
+                <form action="/people/<%=@person.id%>/project/delete/<%=project.id%>" method="post">
+                        <input id="hidden" type="hidden" name="_method" value="delete">
+                        <input type="submit" value="delete">
+                </form> 
+            </li>
+            
             <% end %>
         </ul>
     </div>

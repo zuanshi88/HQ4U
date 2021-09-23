@@ -4,6 +4,8 @@ require_relative "model/person.rb"
 require_relative "model/account.rb"
 require_relative "model/agendaday.rb"
 require_relative "model/activity.rb"
+require_relative "model/project.rb"
+require_relative "model/note.rb"
 
 set :database, {adapter: "sqlite3", database: "crm.sqlite3"}
 
@@ -33,13 +35,13 @@ get "/params/:name/:adj/:insult" do
     erb :params 
 end 
 
-get "/people/create" do 
+get "/people/new" do 
     
     erb :create
     
 end 
 
-post "/people/new" do 
+post "/people/create" do 
     Account.create(name: params[:name], street_address: params[:street_address], city: params[:city], state: params[:state], zipcode: params[:zipcode], photo: params[:photo])
   
     @people = Account.all
@@ -101,8 +103,8 @@ get "/secret" do
     erb :secret
 end 
 
-post "/people/:id/activity/new" do
-    @person = Account.find_by_id(params[:id])
+post "/people/:id/activity/create" do
+    @person = Account.find_by_id(params[:id].to_i)
     @person.activities << Activity.create(title: params[:title], description: params[:description])
     @person.save
 
@@ -110,26 +112,56 @@ post "/people/:id/activity/new" do
 
 end 
 
+delete "/people/:account_id/delete/:activity_id" do 
+    @activity = Activity.find_by_id(params[:activity_id].to_i)
+    @activity.destroy 
 
-get '/people/all/touch_points' do 
-    erb :touch_points
-end 
-
-
-get "/people/:id/add_touch_point" do 
+    @person = Account.find_by_id(params[:account_id].to_i)
     
-    erb :add_touch_point
-    
+    erb :person
 end 
 
-post "/people/:id/add_touch_point" do 
+post "/people/:id/project/create" do 
+    @project = Project.create(title: params[:title], description: params[:description])
+    @person = Account.find_by_id(params[:id].to_i)
+    @person.projects << @project 
+    @person.save
+    @person.save
 
-    Person.people[params[:id].to_i].add_touch_point(params[:time_date], params[:notes])
+    erb :person
 
-    erb :person 
 end 
 
+get "/people/:account_id/project/:project_id" do 
+    @project = Project.find_by_id(params[:project_id].to_i)
 
+    erb :project 
+
+end 
+
+delete "/people/:account_id/project/delete/:project_id" do 
+      @project = Project.find_by_id(params[:project_id].to_i)
+      @project.destroy
+
+      @person = Account.find_by_id(params[:account_id].to_i)
+
+      erb :person 
+end 
+
+post "/people/:id/project/:project_id/note/create" do 
+
+    @note = Note.create(comment: params[:comment])
+    @project = Project.find_by_id(params[:project_id].to_i)
+    @project.notes << @note 
+    @note.save 
+    @project.save 
+
+    @person = Account.find_by_id(params[:id])
+
+    erb :project
+
+
+end 
 
 
 

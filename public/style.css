@@ -82,7 +82,7 @@ img.logo {
 
 .float-container {
   width: 50%;
-  height: 350px;
+  height: 700px;
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -211,4 +211,12 @@ margin: auto;
 }
 
 
+.activities {
+  background-color: blue;
+}
+
+.projects {
+
+  background-color: darkslategray;
+}
 
