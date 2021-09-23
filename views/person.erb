@@ -1,31 +1,43 @@
 
 
-    <%person = Person.people[params[:id].to_i]%>
 
-   <div id="profile">
+ 
 
-
-  <div id="profile_nav">
-        <ul>
-            <li><a href="/people/create" title="">new</a> | <a href="/people"title="">people</a> | <a href="/" title="">home</a></li> 
-        </ul>
-</div>
-
-    <h1> <%= @person.name %> </h1>
-        
-            <h5><a href="/people/<%=params[:id]%>/add_touch_point"> add </a> | <a href="/people/<%=params[:id]%>/edit_contact">edit</a></h5>
-                    <h5><a href="/people/delete/<%=params[:id]%>"  name="_method" value="delete">Delete Post</a></h5>
+<div class="float-container">
 
         
-        <ul>
-
-            <li>Name: <%=@person.name%></li>
-            <li>Street: <%=@person.street_address%></li>
-            <li>City: <%=@person.city%></li>
-            <li>State: <%=@person.state%></li>
-            <li>Zipcode: <%=@person.zipcode%> </li>
-            
-        </ul>
+        <div class="float-child green">
+           
+            <img src="/<%=@person.photo%>" alt="Where's the photo?" width="300" height= "200" style="border: 2px solid black">
+               <br>
+            <p><a href="/people/<%=params[:id]%>/edit_contact">edit</a> | <a href="/people/<%=params[:id]%>/add_touch_point"> add </a>
+               |<a href="/people"title=""> people</a> | <a href="/" title="">home</a>
+            </p> 
     
+          
+        </div>
+    
+    <div class="float-child blue">
+        <ul>
+            <li style="font-size: 150%;"><%= @person.name %></li>
+            <li> <%=@person.street_address%></li>
+            <li> <%=@person.city%>, <%=@person.state%>   <%=@person.zipcode%></li>
+        </ul>
+    </div>  
+    <div>
+        <form method="POST" action="/people/<%=params[:id]%>/activity/new">
+            <p>activity: <input type="text" name="title"></p>
+            <p>description: <input type="text" name="description"></p>
+                            <input type="submit">
+        </form>
+    </div>
+
+    <div>
+        <ul>
+            <% @person.activities.reverse.slice(0,3).each do |activity| %>
+            <li><%=activity.created_at.strftime('%m/%d')%> | <%=activity.created_at.strftime('%H:%M')%> : <%= activity.title %> : <%= activity.description %></li>
+            <% end %>
+        </ul>
+    </div>
 </div>
 

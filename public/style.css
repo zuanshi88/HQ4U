@@ -2,18 +2,18 @@
 
 body {
   font-family: 'Consolas';
-  font-weight: 400;
-  margin:0px;
-  background-color: #ffffff;
+  background-color: pink;
+  color: black;
 }
 
-ul li {
-  list-style: none;
+ul {
+  list-style-type: none;
   padding: 5px;
 }
 
 a {
   text-decoration: none;
+  color:black;
 }
 
 h1, p {
@@ -64,13 +64,11 @@ img.logo {
 
 #header > a.nav {
   padding-top: 20px;
-  padding-left: 100px;
-  float: right;
-  font-size: 14px;
+  font-size: 20px;
   text-transform: uppercase;
   letter-spacing: 2px;
-  text-align: right;
-  color: #000000;
+  text-align: center;
+  color:red;
 }
 
 
@@ -82,54 +80,100 @@ img.logo {
   text-align:center;
 }
 
-#profile {
+.float-container {
   width: 50%;
+  height: 350px;
   display: block;
   margin-left: auto;
   margin-right: auto;
+  border: 3px solid black;
+  padding: 30px;
+  background-color: darkkhaki;
 }
 
-#profile_photo {
 
-  border: 2px solid black;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
+.float-child.green {
+
+  width: 50%;
+  float: left;
+}
+
+
+.float-child.blue {
+  margin-top: 35px;
+  float: left;
 
 }
 
-#profile_nav {
-
-  display: block;
-  float: right;
-  padding: 0;
+.float-child.blue li  {
+  padding: 5px;
+  margin-left: 60px;
 
 }
 
 #home {
-
+  
   background-image: url('DSCF1886.JPG');
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
   border: 3px solid black;
   text-align: center;
+  font-size: 150%;
+  letter-spacing: 2px;
+  font-weight: bold;
+}
 
+
+#home h1 {
+  color: rgb(3, 3, 65);
+  background-color: rgb(160, 46, 46, .2);
+  display: block;
+  width: 300px;
+  margin: auto;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+h3 {
+  background-color: rgb(160, 46, 46, .2);
+  display: block;
+  width: 150px;
+  margin: auto;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+h4 {
+  background-color: rgb(160, 46, 46, .2);
+  display: block;
+  width: 250px;
+  margin: auto;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
 #people {
+
+  display: block;
+  margin: auto;
+  margin-bottom: 10px;
+  width: 30%;
   text-align: center;
-  background-color: maroon;
-   background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-size: cover;
+  background-color: cornsilk;
+  border: 2px solid purple;
+  padding: 10px;
 
 }
 
 #people a {
   color: black;
-  font-weight: bold;;
+  font-weight: bold;
   font-size: 150%;
+}
+
+#people li {
+  background-color: pink;
+  padding-top: 5px;
 }
 
 #touch_points {
@@ -140,8 +184,31 @@ img.logo {
   text-align: center;
   margin-left: 0px;
 
- 
+}
+
+.profile-pic {
+  font-size: Arial;
+  color: pink;
+  background-color: red;
+}
+
+#calendar {
+
+padding: 5px;
+border: 3px black solid;
+background-color: pink;
+height:600px;
+width: 50%;
+margin: auto;
+
 
 }
+
+
+#list li {
+  color: black;
+  font-size: 200%;
+}
+
 
 

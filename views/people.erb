@@ -1,26 +1,18 @@
-
-
-
-
-
-
-
+<div>
+<h1>My People</h1>
+</div>
 <div id="people">
 
-<h1>My People</h1>
 
-    <ul>    
-    <%=@people = Account.all%>
+           <%@people = Account.all%>
                 <%@people.each do |person|%>
 
-            <li><a href="/people/<%=person.id%>"><%=person.name%></a></li>
+            <h4><a href="/people/<%=person.id%>"><%=person.name%></a></h4>  
           
 
 
-            <%end %>
-
-            <li><a href="/people/create" title="">new</a> | <a href="/people/all/touch_points" title="">touch points</a> | <a href="/">home</a></li>
-        
-
-    </ul>
+            <% end %>
 </div>
+            <div style="text-align: center;">
+           <a href="/people/create" title="">new</a> | <a href="/people/all/touch_points" title="">touch points</a> | <a href="/">home</a>
+             </div>

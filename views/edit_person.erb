@@ -1,47 +1,38 @@
-<p>
-
-
-   <div id="profile">
-
-    <form method="POST" action="/people/method/">
-        <p>Your Name: <input type="text" name="name"></p>
-        <p>Your street address: <input type="text" name="street_address"></p>
-        <p>Your city: <input type="text" name="city"></p>
-        <p>Your state: <input type="text" name="state"></p>
-        <p>Your zipcode: <input type="text" name="zipcode"></p>
-        <input type="submit">
-    </form>
-        <ul>
-            <li>Name: <%=@person.name%></li>
-            <li>Street: <%=@person.street_address%></li>
-            <li>City: <%=@person.city%></li>
-            <li>State: <%=@person.state%></li>
-            <li>Zipcode: <%=@person.zipcode%> </li>
-            
-        </ul>
-        <form action="/people/<%=@person.id%>" method="post">
-            <input type="hidden" name="_method" value="PUT">
-            <input type="submit" value="Edit Account">
-        </form>
-
-      
-        <h1> <%= @person.name %> </h1>
-        
-            
-
-        <ul>
-            <li><a href="/people/<%=params[:id]%>/add_touch_point"> add touch point </a></li>
-            <li><a href="/people/:id/edit_contact">edit</a></li>
-        </ul>
-    </div>
 
 
 
-</p>
+   <div class="profile">
 
-  <ul>
-        <li><a href="/people/create" title="">new</a> page</li>
-        <li><a href="/about" title="">about</a> page</li>
-        <li><a href="/people"title="">people</a> page</li>
-        
+    <h1> <%= @person.name %> </h1>
+
+    <img src="/<%=@person.photo%>" alt="Where's the photo?" width="150" height= "7">
+    <div class="profile-nav">
+
+   <ul>
+            <li>
+                <form action="/people/<%=params[:id]%>/edit" method="post">
+                    <input id="hidden" type="hidden" name="_method" value="patch">
+                    <p>Your Name: <input type="text" name="name" value="<%=@person.name%>"></p>
+                    <p>Your street address: <input type="text" name="street_address" value="<%=@person.street_address%>"></p>
+                    <p>Your city: <input type="text" name="city" value="<%=@person.city%>"></p>
+                    <p>Your state: <input type="text" name="state" value="<%=@person.state%>"></p>
+                    <p>Your zipcode: <input type="text" name="zipcode" value="<%=@person.zipcode%>"></p>
+                    <input type="submit">
+                </form>
+
+                <form action="/people/<%= params[:id] %>" method="post">
+                        <input id="hidden" type="hidden" name="_method" value="delete">
+                        <input type="submit" value="delete">
+                </form> 
+            </li>
     </ul>
+   
+     <form action="/people/<%=params[:id]%>/photo" method="post">
+        <input type="hidden" name="_method" value="patch">
+        <p>photo: <input type="file" alt="where's the photo?" name="photo">
+        <input type="submit"></p>
+    </form>
+
+
+    </div>
+ </div>
