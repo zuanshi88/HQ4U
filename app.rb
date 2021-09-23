@@ -6,22 +6,64 @@ require_relative "model/agendaday.rb"
 require_relative "model/activity.rb"
 require_relative "model/project.rb"
 require_relative "model/note.rb"
+require_relative "model/topic.rb"
+require_relative "model/flashcard.rb"
 
 set :database, {adapter: "sqlite3", database: "crm.sqlite3"}
 
-# require_relative "model/directory.rb"
 
 
-# include Address_Book_Module
+get "/flashcards" do 
+
+    @topics = Topic.all
+
+    erb :flashcards 
+end 
+
+get "/topic/:id" do 
+    @topic = Topic.find_by_id(params[:id].to_i)
+
+    erb :topic 
+end 
+
+delete "/topic/delete/:id" do 
+    @topic = Topic.find_by_id(params[:id])
+    @topic.destroy 
+
+    @topics = Topic.all
+
+    erb :flashcards
+
+end 
 
 
-@shadowman = "Shadowman"
-# @entries_file = "./data/database.txt"
+post "/topic/:id/flashcard/create" do 
+    @flashcard = Flashcard.create(front: params[:front], back: params[:back])
+    @topic = Topic.find_by_id(params[:id]) 
+    @topic.flashcards << @flashcard 
+    @topic.save 
 
-# @database = Directory.new(@entries_file)
+    @topics = Topic.all
 
-def marshal_save(obj_array, file)
-  File.open(file, "wb"){|f| f.write(Marshal.dump(obj_array))}
+    erb :flashcards
+
+end
+
+get "/topics" do 
+
+    @topics = Topic.all 
+
+erb :topics 
+
+end 
+
+post "/topic/create" do 
+    @topic = Topic.create(title: params[:title])
+
+    @topics = Topic.all
+
+    erb :flashcards
+
 end
 
 
@@ -125,7 +167,6 @@ post "/people/:id/project/create" do
     @project = Project.create(title: params[:title], description: params[:description])
     @person = Account.find_by_id(params[:id].to_i)
     @person.projects << @project 
-    @person.save
     @person.save
 
     erb :person

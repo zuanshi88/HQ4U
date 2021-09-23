@@ -1,0 +1,29 @@
+
+<a href="/topics"><label for="topics">TOPICS</label></a>
+    <form method= "POST" action="/topic/create" >
+        <input type="text" name= "title">
+        <input type="submit" value= "submit">
+    </form>
+<div>
+    <ul>
+        <% @topics.each do |topic| %>
+            <li><a href="/topic/<%=topic.id%>"> <%=topic.title%> : <%=topic.flashcards.length%> </a> 
+                
+            <div>
+                <label for="flashcards"></label>
+                    <form action="/topic/<%=topic.id%>/flashcard/create" method= "POST">
+                        <input type="text" name= "front">
+                        <input type="text" name= "back">
+                        <input type="hidden" name= "views" value= "0">
+                        <input type="hidden" name= "difficulty" value= "10">
+                        <input type="submit" value= "submit">
+                    </form>
+            </div>
+            
+            </li>
+        <% end %>
+    </ul>
+</div>
+
+
+

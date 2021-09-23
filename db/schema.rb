@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_23_184744) do
+ActiveRecord::Schema.define(version: 2021_09_23_205549) do
 
   create_table "accounts", force: :cascade do |t|
     t.string "name"
@@ -32,6 +32,17 @@ ActiveRecord::Schema.define(version: 2021_09_23_184744) do
     t.index ["account_id"], name: "index_activities_on_account_id"
   end
 
+  create_table "flashcards", force: :cascade do |t|
+    t.integer "topic_id"
+    t.string "front"
+    t.string "back"
+    t.integer "views"
+    t.integer "difficulty"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["topic_id"], name: "index_flashcards_on_topic_id"
+  end
+
   create_table "notes", force: :cascade do |t|
     t.integer "project_id"
     t.string "comment"
@@ -47,6 +58,12 @@ ActiveRecord::Schema.define(version: 2021_09_23_184744) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["account_id"], name: "index_projects_on_account_id"
+  end
+
+  create_table "topics", force: :cascade do |t|
+    t.string "title"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
 end

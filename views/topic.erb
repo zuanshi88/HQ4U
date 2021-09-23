@@ -1,0 +1,26 @@
+<h1><%=@topic.title%></h1>
+<h5><a href="/flashcards">FLASHBASE</a></h5>
+<form method="post" action="/topic/delete/<%=params[:id]%>">
+    <input type="hidden" id="hidden" name="_method" value="delete">
+    <input type="submit" value="delete">
+</form>
+
+<div>
+    <table>
+        <thead>
+            <tr>
+                <th> front </th>
+                <th> reverse </th>
+            </tr>
+        </thead>
+        <tbody>
+         <% @topic.flashcards.each do |card| %>
+                <tr>
+                    <td><%= card.front %></td>
+                    <td><%= card.back %></td>
+                </tr>
+            <% end %>
+        </tbody>
+    </table>
+
+</div>
