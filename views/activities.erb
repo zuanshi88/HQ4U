@@ -1,0 +1,8 @@
+
+<div class="reading-list">    
+    <ul>
+        <%@activities.each do |activity|%>
+        <li><%=activity.created_at.strftime('%m/%d')%> (<%=activity.created_at.strftime('%H:%M')%>)  <%=activity.title%>  :  <%=activity.description%> </li>
+        <% end %>
+    </ul>
+</div>

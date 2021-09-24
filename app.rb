@@ -8,6 +8,7 @@ require_relative "model/project.rb"
 require_relative "model/note.rb"
 require_relative "model/topic.rb"
 require_relative "model/flashcard.rb"
+require_relative "model/session.rb"
 
 set :database, {adapter: "sqlite3", database: "crm.sqlite3"}
 
@@ -143,6 +144,12 @@ end
 
 get "/secret" do 
     erb :secret
+end 
+
+get "/activites" do 
+    @activities = Activity.all 
+
+    erb :activities
 end 
 
 post "/people/:id/activity/create" do

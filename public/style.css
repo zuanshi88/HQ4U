@@ -81,33 +81,29 @@ img.logo {
 }
 
 .float-container {
-  width: 50%;
-  height: 700px;
+  height: 350px;
   display: block;
   margin-left: auto;
   margin-right: auto;
   border: 3px solid black;
-  padding: 30px;
+  padding: 20px;
   background-color: darkkhaki;
 }
 
 
 .float-child.green {
 
-  width: 50%;
   float: left;
 }
 
 
 .float-child.blue {
-  margin-top: 35px;
   float: left;
 
 }
 
 .float-child.blue li  {
   padding: 5px;
-  margin-left: 60px;
 
 }
 
@@ -186,6 +182,11 @@ h4 {
 
 }
 
+#profile {
+  margin-left: 60px;
+  
+}
+
 .profile-pic {
   font-size: Arial;
   color: pink;
@@ -212,11 +213,44 @@ margin: auto;
 
 
 .activities {
+  display: block;
   background-color: blue;
+  width: 90%;
+  margin-left: 50px;
+  margin-top: 50px;
+  margin-bottom: 10px;
+  border: 2px solid black;
 }
 
 .projects {
-
+  display: block;
   background-color: darkslategray;
+  width: 90%;
+  margin-left: 50px;
+  border: 2px solid black;
+  
 }
 
+.option-box h3 {
+  background-color: none;
+ 
+}
+
+.o-p {
+  float: left;
+  margin-left: 50px;
+  width: 100px;
+  text-align: center;
+  border: 2px solid black;
+}
+
+.info-drawer {
+  background-color: cornsilk;
+  padding: 10px;
+  width: 400px;
+}
+
+.reading-list li {
+  padding: 10px;
+
+}
