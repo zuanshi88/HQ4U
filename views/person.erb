@@ -1,30 +1,46 @@
 
 
+<style>
 
+
+.float-container {
+  height: 500px;
+  width: 800px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 25px;
+  border: 3px solid black;
+  padding: 20px;
+  background-color: darkkhaki;
+
+}
+
+.person-name {
+    margin-bottom: 10px;
+    border: 2px black solid; 
+    border-radius: 5px; 
+    background-color: white; 
+    text-align: center; 
+    font-size: 120%; 
+    width: 200px; 
+    float: left; 
+    display: inline;"
+}
+
+
+</style>
  
-
-<div class="float-container">
-        <div class="float-child green">
-           
-            <img src="/<%=@person.photo%>" alt="Where's the photo?" width="300" height= "200" style="border: 2px solid black">
-            
-            <p><a href="/people/<%=@person.id%>/edit_contact">edit</a> </a>
-               |<a href="/people" title=""> people</a> | <a href="/" title="">home</a>
-            </p> 
-    
-            <div id="profile">
-                <ul>
-                    <li style="font-size: 150%;"><%= @person.name %></li>
-                    <li> <%=@person.street_address%></li>
-                    <li> <%=@person.city%>, <%=@person.state%>   <%=@person.zipcode%></li>
-                </ul>
+    <div style="margin-left: 200px; margin-top: 0px;" >
+        <div style="margin-left: 65px;">
+            <div class="person-name" style="margin-left: 190px;">
+                <%= @person.name %>
             </div>
-          
-        </div>
-    
-    <div class="float-child blue">
+            <br>
+            <br>
         <div class="option-box">
-            <h3 class='o-p' onclick="call('create-activity')">activity</h3>
+            <h3 class='o-p' onclick="call('create-activity')" style="float: left; margin-left: 130px;">activity</h3>
+            
             <div class="info-drawer" style="display:none" id='create-activity'>
                 <form method="POST" action="/people/<%=@person.id%>/activity/create">
                     <p>activity: <input type="text" name="title"></p>
@@ -33,10 +49,10 @@
                 </form>
             </div>
         </div>
-         <br>
-         <br>
-        <div class="option-box">
-            <h3 class='o-p' onclick="call('create-project')">project</h3>
+        
+        <div class="option-box; float: left; display:inline">
+            <h3 class='o-p' onclick="call('create-project')" style="float: left">project</h3>
+            
             <div class="info-drawer" style="display:none" id='create-project'>
                 <form method="POST" action="/people/<%=@person.id%>/project/create">
                     <p>project: <input type="text" name="title"></p>
@@ -45,13 +61,39 @@
                 </form>
             </div>
         </div>
-    
 
+          <div class="options-box" style="float: left">
+            <h3 class='o-p' onclick="call('address')" style="float: left">address</h3>
+                
+                <div class="info-drawer" style="display:none" id='address'>
+                    <ul>
+                        <li> <%=@person.street_address%></li>
+                        <li> <%=@person.city%>, <%=@person.state%>   <%=@person.zipcode%></li>
+                    </ul>
+                </div>
+            </div>
 
-    <div class="activities">
+            <br>
+            <br>
+
+        
+            <div>
+                <img src="/<%=@person.photo%>" alt="Where's the photo?" width="300" height= "200" style="border: 2px solid black; border-radius:15px; margin-left: 145px; margin-bottom: 10px;">
+            </div>
+
+            <div style="display: inline; border: 2px black solid; border-radius: 5px; background-color: white; text-align: center; padding-left: 5px; padding-right: 5px; margin-left: 210px; margin-top: 20px;">
+                <a href="/people/<%=@person.id%>/edit_contact">edit</a> </a>
+                    |<a href="/people" title=""> people</a> | <a href="/" title="">home</a>  
+            </div>
+         </div>
+            <br>
+ 
+            
+    <div class="activities" style="float: left;">
+    <h3 class="op" style="color:maroon;">ACTIVITIES</h3>
         <ul>
             <% @person.activities.reverse.slice(0,3).each do |activity| %>
-            <li><%=activity.created_at.strftime('%m/%d')%> | <%=activity.created_at.strftime('%H:%M')%> : <%= activity.title %> : <%= activity.description %>
+            <li><%=activity.created_at.strftime('%m/%d')%> <span style="font-size: 75%"><%=activity.created_at.strftime('%H:%M')%></span> -- <span style="color:black; font-size:120%;"><%= activity.title %></span> : <span style="color:lightgrey"><%= activity.description %></span>
                 <form action="/people/<%=@person.id%>/delete/<%=activity.id %>" method="post" style="display:inline">
                         <input id="hidden" type="hidden" name="_method" value="delete">
                         <input type="submit" value="delete">
@@ -61,10 +103,12 @@
             <% end %>
         </ul>
     </div>
-        <div class="projects">
+
+        <div class="projects" style="float: left; margin-top:10px;">
+          <h3 class="op" style="color:maroon;">PROJECTS</h3>
             <ul>
                 <% @person.projects.reverse.slice(0,3).each do |project| %>
-                <li><%=project.created_at.strftime('%m/%d')%> | <%=project.created_at.strftime('%H:%M')%> : <a href="/people/<%=@person.id%>/project/<%=project.id%>"> <%= project.title %> : <%= project.description %> </a>
+                <li><%=project.created_at.strftime('%m/%d')%> <span style="font-size:75%"> <%=project.created_at.strftime('%H:%M')%> </span> -- <span style="font-size:120%"><a href="/people/<%=@person.id%>/project/<%=project.id%>"> <%= project.title %> </a></span>: <span style="color:lightgrey"><%= project.description %> </span>
                     <form action="/people/<%=@person.id%>/project/delete/<%=project.id%>" method="post" style="display:inline">
                             <input id="hidden" type="hidden" name="_method" value="delete">
                             <input type="submit" value="delete">
@@ -73,8 +117,9 @@
                 
                 <% end %>
             </ul>
-        </div>
+        </div>  
 
-    </div>  
+       </div> 
+        
+
     
-</div>

@@ -80,32 +80,6 @@ img.logo {
   text-align:center;
 }
 
-.float-container {
-  height: 350px;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  border: 3px solid black;
-  padding: 20px;
-  background-color: darkkhaki;
-}
-
-
-.float-child.green {
-
-  float: left;
-}
-
-
-.float-child.blue {
-  float: left;
-
-}
-
-.float-child.blue li  {
-  padding: 5px;
-
-}
 
 #home {
   
@@ -184,7 +158,8 @@ h4 {
 
 #profile {
   margin-left: 60px;
-  
+  display: inline;
+  margin: 0;
 }
 
 .profile-pic {
@@ -213,21 +188,24 @@ margin: auto;
 
 
 .activities {
-  display: block;
+  display: inline;
   background-color: blue;
-  width: 90%;
-  margin-left: 50px;
-  margin-top: 50px;
-  margin-bottom: 10px;
+  border-radius: 25px;
   border: 2px solid black;
+  color: white;
+  width: 675px;
+  padding-left: 50px;
+  
 }
 
 .projects {
-  display: block;
+  display: inline;
   background-color: darkslategray;
-  width: 90%;
-  margin-left: 50px;
+  border-radius: 25px;
   border: 2px solid black;
+  color: white;
+  width: 675px;
+  padding-left: 50px;
   
 }
 
@@ -236,21 +214,32 @@ margin: auto;
  
 }
 
+/* h3 in the person view */
+
 .o-p {
-  float: left;
-  margin-left: 50px;
   width: 100px;
+  margin-left: 10px;
   text-align: center;
+  border-radius: 5px;
   border: 2px solid black;
 }
 
 .info-drawer {
   background-color: cornsilk;
   padding: 10px;
-  width: 400px;
+  width: 300px;
 }
 
 .reading-list li {
   padding: 10px;
 
+}
+
+input[type=submit] {
+  border-radius: 5px;
+  background-color: maroon;
+  border: 1px solid black;
+  color:silver;
+  text-decoration: none;
+  margin: 4px 2px;
 }

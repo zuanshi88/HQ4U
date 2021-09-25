@@ -1,4 +1,28 @@
-<h1><%=@project.title%></h1>
+
+
+
+<h1><a href="www.google.com">Weblink 3000</a></h1>
+
+<form action="/people/<%=@project.account_id%>/project/<%=@project.id%>/weblink/create" method="POST">
+    <input type="hidden" id="hidden">
+    <label for="title">title</label>
+    <input type="text" name="title">
+    <label for="url">url</label>
+    <input type="text" name="url">
+    <label for="description">description</label>
+     <input type="text" name="description">
+    <input type="submit" value="link">
+</form>
+
+
+<ul>
+    <% @project.weblinks.each do |link| %>
+        <li><a href="<%=link.url %>"><%=link.title%></a></li>
+    <% end %>
+</ul>
+
+
+<h1 style="text-align: left"><%=@project.title%></h1>
 <h2><%=@project.description%></h2>
 <h1></h1>
 
@@ -11,7 +35,14 @@
 
 <ul>
     <% @project.notes.each do |note|%>
- <li><%= note.created_at.strftime('%H:%M')%> : <%= note.comment %></li>
+ <li><b><%= note.created_at.strftime('%m/%d/%y')%></b><span style="font-size: 75%"> <%= note.created_at.strftime('%H:%M')%></span> : <%= note.comment %>
+    <form action="/people/<%=@project.account_id%>/project/<%=@project.id%>/delete/<%=note.id%>" method="post" style="display:inline">
+            <input id="hidden" type="hidden" name="_method" value="delete">
+            <input type="submit" value="delete">
+    </form> 
+</li>
+ 
+ </li>
     <% end %>
 </ul>
 

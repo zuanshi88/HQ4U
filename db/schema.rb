@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_23_205549) do
+ActiveRecord::Schema.define(version: 2021_09_25_043247) do
 
   create_table "accounts", force: :cascade do |t|
     t.string "name"
@@ -64,6 +64,14 @@ ActiveRecord::Schema.define(version: 2021_09_23_205549) do
     t.string "title"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "weblinks", force: :cascade do |t|
+    t.integer "project_id"
+    t.string "title"
+    t.string "url"
+    t.string "description"
+    t.index ["project_id"], name: "index_weblinks_on_project_id"
   end
 
 end

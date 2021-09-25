@@ -9,9 +9,9 @@ require_relative "model/note.rb"
 require_relative "model/topic.rb"
 require_relative "model/flashcard.rb"
 require_relative "model/session.rb"
+require_relative "model/weblink.rb"
 
 set :database, {adapter: "sqlite3", database: "crm.sqlite3"}
-
 
 
 get "/flashcards" do 
@@ -210,6 +210,43 @@ post "/people/:id/project/:project_id/note/create" do
 
 
 end 
+
+delete "/people/:id/project/:project_id/delete/:note_id" do
+    @note = Note.find_by_id(params[:note_id].to_i)
+    @note.delete 
+    @project = Project.find_by_id(params[:project_id].to_i)
+    @project.save
+    
+    erb :project
+
+end 
+
+post "/people/:id/project/:project_id/weblink/create" do 
+
+    @weblink = Weblink.create(title: params[:title], url: params[:url], description: params[:description] )
+    @project = Project.find_by_id(params[:project_id].to_i)
+    @project.weblinks << @weblink
+    @weblink.save 
+    @project.save 
+
+    @person = Account.find_by_id(params[:id])
+
+    erb :project
+
+
+end 
+
+
+
+get '/activities' do 
+
+    @activities = Activity.all
+    @projects = Project.all 
+    @notes = Note.all 
+
+    erb :activities
+
+end
 
 
 

@@ -1,8 +1,22 @@
 
-<div class="reading-list">    
-    <ul>
+<div class="reading-list" style="width: 800px;">    
+
+        <div style="background-color: darkkhaki; padding: 20px; border: 2px solid black;">
         <%@activities.each do |activity|%>
-        <li><%=activity.created_at.strftime('%m/%d')%> (<%=activity.created_at.strftime('%H:%M')%>)  <%=activity.title%>  :  <%=activity.description%> </li>
+        <b><%=activity.created_at.strftime('%m/%d')%></b> <span style="font-size: 75%"><%=activity.created_at.strftime('%H:%M')%> </span> <%=activity.title%>  :  <%=activity.description%>
         <% end %>
-    </ul>
+        </div>
+        <div>
+        <%@projects.each do |project|%>
+            <div style="float: left; margin-top: 10px; background-color: white; padding: 15px; margin-right: 8px; border: 2px solid black;">
+            <b><%=project.created_at.strftime('%m/%d')%></b> <span style="font-size: 75%"><%=project.created_at.strftime('%H:%M')%></span><h2><%=project.title%></h2> :  <%=project.description%>
+            </div>
+        <% end %>
+             </div>
+             <br>
+    <div style="float:right; margin-top: 20px; background-color: yellow; padding: 20px; border: 2px solid black;">
+          <%@notes.each do |note|%>
+        <b><%=note.created_at.strftime('%m/%d')%> </b><span style="font-size: 75%"><%=note.created_at.strftime('%H:%M')%> </span>  :  <%=note.comment%>
+        <% end %>
+    </div>
 </div>
