@@ -1,0 +1,13 @@
+
+
+
+<div>
+    <% @projects.each do |project|%>
+        <h4><a href="/people/<%=project.account_id%>/project/<%=project.id%>"><%=project.title%></a></h4>
+    <% end %>
+</div>
+
+
+<p><a href="/people/<%=@person.id%>">back</a></p>
+<p><a href="/people">people</a></p>
+<p><a href="/activities" title="">activities & projects</a></p>

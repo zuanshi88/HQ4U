@@ -1,14 +1,82 @@
-<h1><%=@content.front%></h1>
-<h1><%=@content.reverse%></h1>
+
+
+<style>
+
+#flashcard-box {
+    margin: auto;
+    width: 50%;
+    border: 3px solid black;
+    width: 500px;
+    height: 500px;
+    display: block;
+    font-size: 50px;
+    font-weight: bolder;
+    line-height: 150px;
+     background-color: red;
+ 
+}
+
+
+#flashcard{
+   
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    
+   
+    text-align: center;
+}
 
 
 
-<form action="/flashcard/create" method: "PUSH">
-    <input type="text" name: "front">
-    <input type="text" name: "reverse">
-    <input type="hidden" name: "views" value: "0">
-    <input type="hidden" name: "difficulty value: "10">
-    <input type="submit" value: "submit">
-</form>
+</style>
+
+
+<div id="flashcard-box">
+    <div id="flashcard">
+            <h1 id="card" side="front"><%=@flashcard.front%></h1>
+            <button onclick="flip('card')">flip</button>
+            <button onclick="back('card')"></button>
+            <button onclick="next('card')"></button>
+            <span id="back" style="display:none;"><%=@flashcard.back%></span> 
+    </div>
+</div>
+
+
+<div style="display:none">
+    <ul>
+         <% @flashcards.each_with_index do |card, index|%>
+            <li class= "flashcards"> <%= card %> </li>
+        <% end %>
+    </ul>
+
+<style>
+    const flashcards = [];
+
+    document.addEventListener("DOMContentLoaded", function() {
+  you_function(...){
+      {
+       
+       var cardbox = document.getElementsByClassName("flashcards")
+       for(var i = cardbox.length-1; i >= 0; i-- ){
+           flashcard.push(flashcards[i].innerHTML)
+       }
+
+       console.log(flashcards[0])
+
+       return flashcards
+
+   } 
+
+  };
+});
+     function() 
+</style>
+
+
+</div>
+
+
+
 
 

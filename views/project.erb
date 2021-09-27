@@ -1,53 +1,62 @@
 
 
 
-<h1><a href="www.google.com">Weblink 3000</a></h1>
-
-<form action="/people/<%=@project.account_id%>/project/<%=@project.id%>/weblink/create" method="POST">
-    <input type="hidden" id="hidden">
-    <label for="title">title</label>
-    <input type="text" name="title">
-    <label for="url">url</label>
-    <input type="text" name="url">
-    <label for="description">description</label>
-     <input type="text" name="description">
-    <input type="submit" value="link">
-</form>
 
 
+
+
+
+
+<h1 style="text-align: left"><%=@project.title%>-- <%=@project.description%></h1>
 <ul>
+<h3 onclick="call('create-weblink')" style="float: left"> Weblink 3000 </h3>
+        <div id="create-weblink" style="display:none">
+            <form action="/people/<%=@person.id%>/project/<%=@project.id%>/weblink/create" method="POST">
+                <input type="hidden" id="hidden">
+                <label for="title">title</label>
+                <input type="text" name="title">
+                <label for="url">url</label>
+                <input type="text" name="url">
+                <label for="description">description</label>
+                <input type="text" name="description">
+                <input type="submit" value="link">
+            </form>
+        </div>
+<li>
     <% @project.weblinks.each do |link| %>
         <li><a href="<%=link.url %>"><%=link.title%></a></li>
+        <form action="/people/<%=@project.id%>/weblinks/delete/<%=link.id%>" method="post" style="display:inline">
+            <input id="hidden" type="hidden" name="_method" value="delete">
+            <input type="submit" value="delete">
+        </form> 
     <% end %>
+    </li>
 </ul>
-
-
-<h1 style="text-align: left"><%=@project.title%></h1>
-<h2><%=@project.description%></h2>
 <h1></h1>
-
-<form action="/people/<%=@project.account_id%>/project/<%=@project.id%>/note/create" method="POST">
-    <input type="hidden" id="hidden">
-    <input type="text" name="comment">
-    <input type="submit" value="note">
-</form>
+<h3 style="float: left" onclick="call('note')">NOTE</h3>
+    <div id="note" style="display: none;">
+        <form action="/people/<%=@project.account_id%>/project/<%=@project.id%>/note/create" method="POST">
+            <input type="hidden" id="hidden">
+            <input type="text" name="comment">
+            <input type="submit" value="note">
+        </form>
+    </div>
 
 
 <ul>
     <% @project.notes.each do |note|%>
- <li><b><%= note.created_at.strftime('%m/%d/%y')%></b><span style="font-size: 75%"> <%= note.created_at.strftime('%H:%M')%></span> : <%= note.comment %>
-    <form action="/people/<%=@project.account_id%>/project/<%=@project.id%>/delete/<%=note.id%>" method="post" style="display:inline">
+    <li><b><%= note.created_at.strftime('%m/%d/%y')%></b><span style="font-size: 75%"> <%= note.created_at.strftime('%H:%M')%></span> : <%= note.comment %>
+        <form action="/people/<%=@project.account_id%>/project/<%=@project.id%>/delete/<%=note.id%>" method="post" style="display:inline">
             <input id="hidden" type="hidden" name="_method" value="delete">
             <input type="submit" value="delete">
-    </form> 
-</li>
- 
- </li>
+        </form> 
+    </li>
     <% end %>
 </ul>
 
 <p><a href="/people/<%=@project.account_id%>">back</a></p>
 <p><a href="/people">people</a></p>
+<p><a href="/activities" title="">activities & projects</a></p>
 
 
 

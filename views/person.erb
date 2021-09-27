@@ -66,10 +66,10 @@
             <h3 class='o-p' onclick="call('address')" style="float: left">address</h3>
                 
                 <div class="info-drawer" style="display:none" id='address'>
-                    <ul>
-                        <li> <%=@person.street_address%></li>
-                        <li> <%=@person.city%>, <%=@person.state%>   <%=@person.zipcode%></li>
-                    </ul>
+                    
+                       <p><%=@person.street_address%></p>
+                        <p><%=@person.city%>, <%=@person.state%>   <%=@person.zipcode%></p>
+                    <
                 </div>
             </div>
 
@@ -90,7 +90,7 @@
  
             
     <div class="activities" style="float: left;">
-    <h3 class="op" style="color:maroon;">ACTIVITIES</h3>
+    <h2 style="color:maroon;"><a href="/activities/<%=@person.id%>">ACTIVITIES</a></h2>
         <ul>
             <% @person.activities.reverse.slice(0,3).each do |activity| %>
             <li><%=activity.created_at.strftime('%m/%d')%> <span style="font-size: 75%"><%=activity.created_at.strftime('%H:%M')%></span> -- <span style="color:black; font-size:120%;"><%= activity.title %></span> : <span style="color:lightgrey"><%= activity.description %></span>
@@ -98,14 +98,14 @@
                         <input id="hidden" type="hidden" name="_method" value="delete">
                         <input type="submit" value="delete">
                 </form> 
-            </li>
+            </li>   
             
             <% end %>
         </ul>
     </div>
 
         <div class="projects" style="float: left; margin-top:10px;">
-          <h3 class="op" style="color:maroon;">PROJECTS</h3>
+       <h2 style="color:red;"> <a href="/people/<%=@person.id%>/projects">  PROJECTS  </a></h2>
             <ul>
                 <% @person.projects.reverse.slice(0,3).each do |project| %>
                 <li><%=project.created_at.strftime('%m/%d')%> <span style="font-size:75%"> <%=project.created_at.strftime('%H:%M')%> </span> -- <span style="font-size:120%"><a href="/people/<%=@person.id%>/project/<%=project.id%>"> <%= project.title %> </a></span>: <span style="color:lightgrey"><%= project.description %> </span>

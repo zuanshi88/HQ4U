@@ -9,7 +9,7 @@
         <div>
         <%@projects.each do |project|%>
             <div style="float: left; margin-top: 10px; background-color: white; padding: 15px; margin-right: 8px; border: 2px solid black;">
-            <b><%=project.created_at.strftime('%m/%d')%></b> <span style="font-size: 75%"><%=project.created_at.strftime('%H:%M')%></span><h2><%=project.title%></h2> :  <%=project.description%>
+            <b><%=project.created_at.strftime('%m/%d')%></b> <span style="font-size: 75%"><%=project.created_at.strftime('%H:%M')%></span><h2><a href="/people/<%=project.account_id%>/project/<%=project.id%>"><%=project.title%></h2></a> :  <%=project.description%>
             </div>
         <% end %>
              </div>
@@ -20,3 +20,6 @@
         <% end %>
     </div>
 </div>
+
+
+<p><a href="/people">people</a></p>

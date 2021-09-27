@@ -200,7 +200,7 @@ margin: auto;
 
 .projects {
   display: inline;
-  background-color: darkslategray;
+  background-color: rgb(32, 184, 184);
   border-radius: 25px;
   border: 2px solid black;
   color: white;

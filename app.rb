@@ -21,6 +21,14 @@ get "/flashcards" do
     erb :flashcards 
 end 
 
+get "/flashcard/:id" do
+    @topic = Topic.find_by_id(params[:id].topic_id)
+
+    @flashcards = @topic.flashcards
+
+    erb :flashcard
+end 
+
 get "/topic/:id" do 
     @topic = Topic.find_by_id(params[:id].to_i)
 
@@ -146,10 +154,13 @@ get "/secret" do
     erb :secret
 end 
 
-get "/activites" do 
-    @activities = Activity.all 
+get "/activities/:id" do 
+  @person = Account.find(params[:id])
 
-    erb :activities
+  @activities = @person.activities 
+
+  erb :activities_personal
+
 end 
 
 post "/people/:id/activity/create" do
@@ -170,6 +181,13 @@ delete "/people/:account_id/delete/:activity_id" do
     erb :person
 end 
 
+get "/people/:id/projects" do 
+    @person = Account.find_by_id(params[:id].to_i)
+    @projects = @person.projects 
+
+    erb :projects   
+end 
+
 post "/people/:id/project/create" do 
     @project = Project.create(title: params[:title], description: params[:description])
     @person = Account.find_by_id(params[:id].to_i)
@@ -180,10 +198,11 @@ post "/people/:id/project/create" do
 
 end 
 
-get "/people/:account_id/project/:project_id" do 
-    @project = Project.find_by_id(params[:project_id].to_i)
+get "/people/:id/project/:p_id" do 
+    @project = Project.find_by_id(params[:p_id])
+    @person = Account.find(params[:id])
 
-    erb :project 
+    erb :project
 
 end 
 
@@ -235,6 +254,18 @@ post "/people/:id/project/:project_id/weblink/create" do
 
 
 end 
+
+delete "/people/:project_id/weblinks/delete/:link_id" do 
+    @weblink = Weblink.find_by_id(params[:link_id])
+    @project = Project.find_by_id(params[:project_id])
+    @person = Account.find_by_id(@project.account_id)
+    @weblink.destroy
+
+    erb :project  
+
+
+end 
+
 
 
 

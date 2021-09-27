@@ -1,0 +1,26 @@
+
+<ul>
+    <% @activities.each do |activity|%>
+    <div style="background-color: white; padding: 5px; border: 2px solid black; width: 700px; margin-left: 100px;">
+    <li style="padding-left: 10px"><%= activity.created_at.strftime('%m/%d/%y') %> <span style="font-size: 75%; color: red;"><%= activity.created_at.strftime('%H:%M') %></span></li>
+    <li style="padding-left: 10px"> <%= activity.title %> -- <%= activity.description %> </li>
+    </div>
+    <% end %>
+</ul>   
+
+<style>
+
+.link-button {
+
+    color: pink;
+
+}
+
+</style>
+
+
+<div>
+    <h5 class="link-button"><a href="/people/<%=@person.id%>">back</a></h5>
+    <h5 class="link-button"><a href="/people">people</a></p></h5>
+    <h5 class="link-button"><a href="/activities" title="">activities & projects</a></h5>
+</div>
