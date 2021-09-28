@@ -5,6 +5,59 @@
     <input type="submit" value="delete">
 </form>
 
+
+
+
+
+
+<style>
+
+#flashcard-box {
+    margin: auto;
+    width: 50%;
+    border: 3px solid black;
+    width: 300px;
+    height: 300px;
+    display: block;
+    font-size: 50px;
+    font-weight: bolder;
+    line-height: 150px;
+     background-color: red;
+ 
+}
+
+
+#flashcard{
+   
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    text-align: center;
+}
+
+</style>
+
+
+
+<div id="flashcard-box">
+    <div id="flashcard">
+        <span id="cardIndex" style="display: none;">0</span>
+
+            <% flashcards = @topic.flashcards%>
+            <% @flashcard = flashcards[0] %>
+           
+            <h1 id="card" side="front" margin-bottom: 0px;><%=@flashcard.front%></h1>
+            <button onclick="flip('card')">flip</button>
+            <button onclick="previous('card')">back</button>
+            <button onclick="next('card')">next</button>
+            <span id="backOfCard" style="display:none;"><%=@flashcard.back%></span> 
+    </div>
+</div>
+
+<h1 id="example"></h1>
+
+
+
 <div>
     <table>
         <thead>
@@ -14,10 +67,10 @@
             </tr>
         </thead>
         <tbody>
-         <% @topic.flashcards.each do |card| %>
+         <% @topic.flashcards.each_with_index do |card, index| %>
                 <tr>
-                    <td><%= card.front %></td>
-                    <td><%= card.back %></td>
+                    <td class=<%=index%>><%= card.front %></td>
+                    <td class=<%=index%>><%= card.back %></td>
                 </tr>
             <% end %>
         </tbody>

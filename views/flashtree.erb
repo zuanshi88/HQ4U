@@ -1,0 +1,102 @@
+
+
+
+<style>
+
+#flashtree {
+
+height: 500px;
+width: 75%;
+position: relative;
+border: 3px solid black;
+margin: auto;
+padding: 30px;
+background-color: blue;
+
+}
+
+#flashbox {
+
+margin-top: 150px;
+
+}
+
+#top-node {
+
+
+text-align: center;
+margin: auto;
+float: center;
+
+
+
+
+}
+
+#right-node {
+
+
+text-align: center;
+margin: 0px;
+
+}
+
+#center-node {
+
+
+display: inline;
+text-align: center;
+margin: 0px;
+
+
+
+
+}
+
+
+
+
+#left-node {
+
+
+margin-right: 0px;
+margin-bottom: 0px;
+
+}
+
+#right-node {
+
+text-align: right;
+margin-top: 0px;
+
+}
+
+
+</style>
+
+
+<div id="flashtree" height: 500px;>
+    <div id="flashbox">
+        <div id="center-node" class="word" style="display: none;">
+            <h2>top word</h2>
+        </div>
+
+        <div id="left-node" class="word" style="display: none;">
+            <h2>relatated word- left</h2>
+        </div>
+
+        <div id="center-node">
+            <h2 onclick="reveal('word');">word</h2>
+        </div>
+
+        <div id="right-node" class="word" style="display: none;" >
+            <h2>relatated word- right</h2>
+        </div>
+
+        <div id="bottom-node" style="display: none;" class="word">
+            <h2>bottom word</h2>
+        </div>
+    </div>
+</div>
+
+

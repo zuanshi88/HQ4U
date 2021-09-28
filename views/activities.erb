@@ -15,7 +15,7 @@
              </div>
              <br>
     <div style="float:right; margin-top: 20px; background-color: yellow; padding: 20px; border: 2px solid black;">
-          <%@notes.each do |note|%>
+          <%@notes.reverse.each do |note|%>
         <b><%=note.created_at.strftime('%m/%d')%> </b><span style="font-size: 75%"><%=note.created_at.strftime('%H:%M')%> </span>  :  <%=note.comment%>
         <% end %>
     </div>

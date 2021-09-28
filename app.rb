@@ -1,5 +1,7 @@
 require "sinatra"
+require "sinatra/reloader"
 require "sinatra/activerecord"
+
 require_relative "model/person.rb"
 require_relative "model/account.rb"
 require_relative "model/agendaday.rb"
@@ -13,6 +15,10 @@ require_relative "model/weblink.rb"
 
 set :database, {adapter: "sqlite3", database: "crm.sqlite3"}
 
+# class App < Sinatra::Base
+#     configure :development do
+#         register Sinatra::Reloader
+#   end
 
 get "/flashcards" do 
 
@@ -30,9 +36,10 @@ get "/flashcard/:id" do
 end 
 
 get "/topic/:id" do 
+
     @topic = Topic.find_by_id(params[:id].to_i)
 
-    erb :topic 
+    erb :topic
 end 
 
 delete "/topic/delete/:id" do 
@@ -233,9 +240,9 @@ end
 delete "/people/:id/project/:project_id/delete/:note_id" do
     @note = Note.find_by_id(params[:note_id].to_i)
     @note.delete 
-    @project = Project.find_by_id(params[:project_id].to_i)
-    @project.save
-    
+ 
+    @project = Project.find_by_id(params[:project_id])
+    @person = Account.find(params[:id])
     erb :project
 
 end 
@@ -271,8 +278,8 @@ end
 
 get '/activities' do 
 
-    @activities = Activity.all
-    @projects = Project.all 
+    @activities = Activity.all.reverse
+    @projects = Project.all.reverse
     @notes = Note.all 
 
     erb :activities
@@ -289,3 +296,20 @@ end
 get '/meetings' do 
     erb :meetings
 end 
+
+
+
+get '/flashtree' do 
+
+
+    erb :flashtree
+end 
+
+get '/flashbox' do
+
+    erb :flashbox
+end
+
+
+
+# end 

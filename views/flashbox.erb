@@ -1,0 +1,331 @@
+
+<style>
+
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  margin: 50px;
+  background: rgba(200,200,100,100);
+}
+
+
+.flashboxes-level-two, 
+.flashboxes-level-three, .flashboxes-level-four,
+.flashboxes-level-five, .flashboxes-level-six, 
+.flashboxes-level-seven {
+  float: left;
+  color: black;
+  width: 10%;
+  margin: 2px;
+  height: 10%%;
+  text-align: center;
+  border: 2px black solid;
+  border-radius: 50%;
+  padding: 10px;
+  line-height: 80px;
+  display: none;
+  
+}
+
+.flashboxes-level-one {
+    background-color: silver;
+}
+
+.flashboxes-level-two {
+    background-color: yellow;
+}
+
+.flashboxes-level-three {
+    background-color: green;
+}
+
+.flashboxes-level-four {
+    background-color: blue;
+}
+
+.flashboxes-level-five {
+    background-color: orange;
+}
+
+.flashboxes-level-six {
+    background-color: purple;
+}
+
+.flashboxes-level-seven {
+    background-color: white;
+
+}
+
+.flashboxes-anchor {
+  color: black;
+  width: 15%;
+  margin: 2px;
+  height: 15%;
+  text-align: center;
+  border: 2px black solid;
+  border-radius: 50%;
+  padding: 10px;
+  line-height: 80px;
+  top: 50%;
+  left: 50%;
+  position: fixed;
+  transform: translate(-50%, -50%);
+
+}
+
+
+.flashboxes-level-one {
+  color: black;
+  width: 15%;
+  margin: 2px;
+  height: 15%;
+  text-align: center;
+  border: 2px black solid;
+  border-radius: 50%;
+  padding: 10px;
+  line-height: 80px;
+}
+
+#level-2 {
+  top: 34%;
+  left: 32%;
+  position: fixed;
+  transform: translate(-35%, -28%);
+
+}
+
+#level-2-a {
+
+  top: 32%;
+  left: 15%;
+  position: fixed;
+  transform: translate(-32%, -12%);    
+
+}
+#level-2-b {
+  top: 10%;
+  left: 17%;
+  position: fixed;
+  transform: translate(-15%, -10%);
+    
+}
+#level-2-c {
+
+  top: 10%;
+  left: 30%;
+  position: fixed;
+  transform: translate(-13%, -28%);
+    
+}
+
+#level-3 {
+  top: 28%;
+  left: 48%;
+  position: fixed;
+  transform: translate(-28%, -48%);
+
+}
+
+
+#level-3-a {
+
+  top: 3%;
+  left: 46%;
+  position: fixed;
+  transform: translate(-35%, -12%);    
+
+}
+#level-3-b {
+  top: 7%;
+  left: 58%;
+  position: fixed;
+  transform: translate(-35%, -32%);
+    
+}
+#level-3-c {
+
+  top: 14%;
+  left: 68%;
+  position: fixed;
+  transform: translate(-35%, -32%);
+    
+}
+
+#level-4 {
+
+top: 35%;
+left: 68%;
+position: fixed;
+transform: translate(-35%, -32%);
+
+}
+
+#level-4-a {
+
+  top: 18%;
+  left: 81%;
+  position: fixed;
+  transform: translate(-50%, -15%);    
+
+}
+#level-4-b {
+  top: 30%;
+  left: 90%;
+  position: fixed;
+  transform: translate(-35%, -32%);
+    
+}
+#level-4-c {
+
+  top: 43%;
+  left: 83%;
+  position: fixed;
+  transform: translate(-35%, -32%);
+    
+}
+
+
+#level-5 {
+
+  top: 65%;
+  left: 71%;
+  position: fixed;
+  transform: translate(-50%, -70%);
+
+}
+
+#level-5-a {
+
+  top: 55%;
+  left: 87%;
+  position: fixed;
+  transform: translate(-50%, -15%);    
+
+}
+#level-5-b {
+  top: 75%;
+  left: 78%;
+  position: fixed;
+  transform: translate(-35%, -32%);
+    
+}
+#level-5-c {
+
+  top: 78%;
+  left: 65%;
+  position: fixed;
+  transform: translate(-35%, -32%);
+    
+}
+
+#level-6 {
+  
+  top: 75%;
+  left: 53%;
+  position: fixed;
+  transform: translate(-70%, -70%);
+
+
+}
+
+#level-6-a {
+
+  top: 80%;
+  left: 57%;
+  position: fixed;
+  transform: translate(-50%, -15%);    
+
+}
+#level-6-b {
+  top: 85%;
+  left: 45%;
+  position: fixed;
+  transform: translate(-35%, -32%);
+    
+}
+#level-6-c {
+
+  top: 80%;
+  left: 35%;
+  position: fixed;
+  transform: translate(-35%, -32%);
+    
+}
+
+#level-7 {
+  top: 65%;
+  left: 28%;
+  position: fixed;
+  transform: translate(-50%, -50%);
+
+}
+
+#level-7-a {
+
+  top: 70%;
+  left: 12%;
+  position: fixed;
+  transform: translate(-50%, -15%);    
+
+}
+#level-7-b {
+  top: 55%;
+  left: 12%;
+  position: fixed;
+  transform: translate(-35%, -32%);
+    
+}
+#level-7-c {
+
+  top: 82%;
+  left: 22%;
+  position: fixed;
+  transform: translate(-35%, -32%);
+    
+}
+
+#container {
+
+
+    height: 600px;
+    width: 900px;
+
+
+}
+
+</style>
+
+<div id='container'>
+
+
+<div id="level-2-a" class="flashboxes-level-two">1</div>
+<div id="level-3-a" class="flashboxes-level-three">2</div>
+<div id="level-3-b" class="flashboxes-level-three">3</div>
+<div id="level-3-c" class="flashboxes-level-three">4</div>
+<div id="level-4-a" class="flashboxes-level-four">5</div>
+<div id="level-2-b" class="flashboxes-level-two">6</div>
+<div id="level-2" class="flashboxes-level-one" onclick="reveal('flashboxes-level-two', this, 'yellow')">level 2</div>
+<div id="level-3" class="flashboxes-level-one" onclick="reveal('flashboxes-level-three', this, 'green')">level 3</div>
+<div id="level-4"class="flashboxes-level-one" onclick="reveal('flashboxes-level-four', this, 'blue')">level 4</div>
+<div id="level-4-b" class="flashboxes-level-four">10</div>
+<div id="level-2-c" class="flashboxes-level-two">11</div>
+<div id="level-7" class="flashboxes-level-one" onclick="reveal('flashboxes-level-seven', this, 'white')">Level 7</div>
+<div class="flashboxes-anchor" onclick="reveal('flashboxes-level-one', this, 'red')">WORD-13</div>
+<div id="level-5" class="flashboxes-level-one" onclick="reveal('flashboxes-level-five', this, 'orange')">Level 5</div>
+<div id="level-4-c" class="flashboxes-level-four">15</div>
+<div id="level-7-a" class="flashboxes-level-seven">16</div>
+<div id="level-7-b" class="flashboxes-level-seven">17</div>
+<div id ="level-6" class="flashboxes-level-one" onclick="reveal('flashboxes-level-six', this, 'purple')">Level 6</div>
+<div id="level-5-a" class="flashboxes-level-five">19</div>
+<div id="level-5-b" class="flashboxes-level-five">20</div>
+<div id="level-7-c" class="flashboxes-level-seven">21</div>
+<div id="level-6-a" class="flashboxes-level-six">22</div>
+<div id="level-6-b" class="flashboxes-level-six">23</div>
+<div id="level-6-c" class="flashboxes-level-six">24</div>
+<div id="level-5-c" class="flashboxes-level-five">25</div>
+
+</div>
