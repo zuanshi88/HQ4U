@@ -1,0 +1,67 @@
+
+<div style="width:50%; margin: auto; border: 2px solid black; background-color: maroon;">
+<h1><b><%=@dictionary.title%></b></h1>
+
+<ul style="margin-left: 160px;">
+    <li style="display: inline;"><span class="on-click" onclick="call('addEntry')">add |</span></li>
+    <li style="display: inline;"><a href="/dictionary/edit/<%=@dictionary.id%>">edit |</a></li>
+    <li style="display: inline;"><span class="on-click" onclick="call('search-box')">search</span></li>
+</ul> 
+
+<hr style="color: silver; height: 2px; width: 75%; font-weight: bold;">
+
+<ul style="margin-left: 50px; margin-right: 50px;">
+
+    <% @topic_tags = @dictionary.entries.map{|entry| entry.topic_tag}.uniq!%>
+    <% @topic_tags.each_with_index do |tag, index|%>
+        <li style="display: inline;"> <a href="/dictionary/<%=@dictionary.id%>/tag/<%=tag%>"><span style="color: darkgray"><%=tag%></span>
+        <% unless index == @topic_tags.length - 1 %>
+         |
+         <% end %>
+        </a></li>
+    <% end %>
+
+</ul>
+    
+</div>
+    <div id='addEntry' style="display:none">
+           <form action="/dictionary/<%=@dictionary.id%>/entry/create" method= "POST" style="margin-top: 5px;">
+              <input type="text" name= "term" placeholder="term">
+               <input type="text" name= "info" placeholder="info">
+               <input type="text" name= "more_info" placeholder="more info">
+               <input type="text" name= "topic_tag" placeholder="topic tag">
+               <input type="file" name= "photo" placeholder="photo">
+                <input type="submit" value= "submit">
+           </form>
+    </div>
+
+<div id="search-box" style="display:none;">
+    <form action="/dictionary/<%=@dictionary.id%>/search" method="get" style="width:50%; margin:auto;">
+        <input type="text" name="search">
+        <input type="submit" value="submit">
+    </form>
+</div>
+
+   
+   <% if @result%>
+    <div style="margin-left: 20px;">
+            <a href="/dictionary/<%=@dictionary.id%>/tag/<%=@result[0].topic_tag%>"><h2 style="font-weight: bold"><%=@result[0].term%>   <span style="color: silver; background-color: black;  font-size: 75%">[<%=@result[0].topic_tag%>]</span></h2></a>
+        <dl style="padding: 5px; background-color: white; border: 2px solid black;"> 
+            <dd style="padding: 5px;">- <%=@result[0].info%></li>
+            <dd style="padding: 5px;">- <%=@result[0].more_info%></li>
+        <% if @result[0].examples[0] %>
+        <dl>
+            <%@result[0].examples.each do |example|%>
+            <li><%=example.info%></li>
+        <% end %>
+            </ul>
+        <% end %>
+
+        </ul>
+    </div>
+   <% if @result[0].photo %>
+    <div style="float:left;">
+        <img src="/<%= @result[0].photo %>" alt="Where is the photo?" width="300" height= "200" style="border: 2px solid black; border-radius:15px; margin-left: 145px; margin-bottom: 10px;">
+    </div>
+<% end %>
+    <% end %>

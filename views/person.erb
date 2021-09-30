@@ -25,63 +25,65 @@
     font-size: 120%; 
     width: 200px; 
     float: left; 
-    display: inline;"
+    display: inline;
 }
 
 
 </style>
  
-    <div style="margin-left: 200px; margin-top: 0px;" >
-        <div style="margin-left: 65px;">
-            <div class="person-name" style="margin-left: 190px;">
+    <div style="margin-top: 0px;" >
+        <div>
+            <div class="person-name" style="margin-left: 90px;">
                 <%= @person.name %>
-            </div>
+            </div> 
             <br>
             <br>
-        <div class="option-box">
-            <h3 class='o-p' onclick="call('create-activity')" style="float: left; margin-left: 130px;">activity</h3>
+        <div class="option-box" class="on-click">
+            <h3 class='o-p' onclick="call('create-activity')" style="float: left; margin-left: 30px;">activity</h3>
             
-            <div class="info-drawer" style="display:none" id='create-activity'>
-                <form method="POST" action="/people/<%=@person.id%>/activity/create">
+            <div class="info-drawer" style="display:none; margin-top: 10px; margin-left: 5px;" id='create-activity'>
+            <br>
+                <form method="POST" action="/people/<%=@person.id%>/activity/create" style="margin-top: 10px;">
                     <p>activity: <input type="text" name="title"></p>
                     <p>description: <input type="text" name="description"></p>
-                                    <input type="submit" onclick="call('create-activity')">
+                                    <input class="on-click" type="submit" onclick="call('create-project')">
                 </form>
             </div>
         </div>
         
-        <div class="option-box; float: left; display:inline">
+        <div class="option-box" class="on-click" style="float: left; display:inline;">
             <h3 class='o-p' onclick="call('create-project')" style="float: left">project</h3>
             
-            <div class="info-drawer" style="display:none" id='create-project'>
+            <div class="info-drawer" style="display:none; margin-top: 10px; margin-left: 5px;" id='create-project'>
                 <form method="POST" action="/people/<%=@person.id%>/project/create">
                     <p>project: <input type="text" name="title"></p>
-                    <p>description: <input type="text" name="description"></p>
-                                    <input type="submit" onclick="call('create-project')">
+                    <p style="margin-top: 5px;">description: <input type="text" name="description"></p>
+                                    <input class="on-click" type="submit" onclick="call('create-project')">
                 </form>
             </div>
         </div>
 
-          <div class="options-box" style="float: left">
+          <div class="options-box" class="on-click" style="float: left">
             <h3 class='o-p' onclick="call('address')" style="float: left">address</h3>
                 
-                <div class="info-drawer" style="display:none" id='address'>
-                    
-                       <p><%=@person.street_address%></p>
-                        <p><%=@person.city%>, <%=@person.state%>   <%=@person.zipcode%></p>
-                    <
+                <div class="info-drawer" style="display:none; margin-top: 10xpx; margin-left: 5px;" id='address'>
+                    <ul>
+                        <li style="margin-top: 10px;"> <%=@person.street_address%></li>
+                        <li style="margin-top: 5px;"><%=@person.city%>, <%=@person.state%><%=@person.zipcode%></li>
+                    </ul>
+                      
+                        
                 </div>
             </div>
-
+    
             <br>
             <br>
 
-        
             <div>
-                <img src="/<%=@person.photo%>" alt="Where's the photo?" width="300" height= "200" style="border: 2px solid black; border-radius:15px; margin-left: 145px; margin-bottom: 10px;">
+                <img src="/<%=@person.photo%>" alt="Where's the photo?" width="300" height= "200" style="border: 2px solid black; border-radius:15px; margin-left: 45px; margin-bottom: 10px; display: inline;">
             </div>
 
-            <div style="display: inline; border: 2px black solid; border-radius: 5px; background-color: white; text-align: center; padding-left: 5px; padding-right: 5px; margin-left: 210px; margin-top: 20px;">
+            <div style="display: inline; border: 2px black solid; border-radius: 5px; background-color: white; text-align: center; padding-left: 5px; padding-right: 5px; margin-left: 110px; margin-top: 20px;">
                 <a href="/people/<%=@person.id%>/edit_contact">edit</a> </a>
                     |<a href="/people" title=""> people</a> | <a href="/" title="">home</a>  
             </div>
@@ -89,16 +91,11 @@
             <br>
  
             
-    <div class="activities" style="float: left;">
+    <div class="activities" style="float: left; display: inline; margin: auto;">
     <h2 style="color:maroon;"><a href="/activities/<%=@person.id%>">ACTIVITIES</a></h2>
         <ul>
             <% @person.activities.reverse.slice(0,3).each do |activity| %>
-            <li><%=activity.created_at.strftime('%m/%d')%> <span style="font-size: 75%"><%=activity.created_at.strftime('%H:%M')%></span> -- <span style="color:black; font-size:120%;"><%= activity.title %></span> : <span style="color:lightgrey"><%= activity.description %></span>
-                <form action="/people/<%=@person.id%>/delete/<%=activity.id %>" method="post" style="display:inline">
-                        <input id="hidden" type="hidden" name="_method" value="delete">
-                        <input type="submit" value="delete">
-                </form> 
-            </li>   
+            <li><%=activity.created_at.strftime('%m/%d')%> <span style="font-size: 75%"><%=activity.created_at.strftime('%H:%M')%></span> -- <span style="color:black; font-size:120%;"><%= activity.title %></span> : <span style="color:lightgrey"><%= activity.description %></span></li>   
             
             <% end %>
         </ul>
@@ -107,19 +104,13 @@
         <div class="projects" style="float: left; margin-top:10px;">
        <h2 style="color:red;"> <a href="/people/<%=@person.id%>/projects">  PROJECTS  </a></h2>
             <ul>
-                <% @person.projects.reverse.slice(0,3).each do |project| %>
-                <li><%=project.created_at.strftime('%m/%d')%> <span style="font-size:75%"> <%=project.created_at.strftime('%H:%M')%> </span> -- <span style="font-size:120%"><a href="/people/<%=@person.id%>/project/<%=project.id%>"> <%= project.title %> </a></span>: <span style="color:lightgrey"><%= project.description %> </span>
-                    <form action="/people/<%=@person.id%>/project/delete/<%=project.id%>" method="post" style="display:inline">
-                            <input id="hidden" type="hidden" name="_method" value="delete">
-                            <input type="submit" value="delete">
-                    </form> 
-                </li>
-                
+                <% @person.projects.sort_by{|project| project.notes[0].created_at}.reverse.slice(0,3).each do |project| %>
+                    <li><%=project.notes[-1].created_at.strftime('%m/%d')%> <span style="font-size:75%"> <%=project.created_at.strftime('%H:%M')%> </span> -- <span style="font-size:120%"><a href="/people/<%=@person.id%>/project/<%=project.id%>"> <%= project.title %> </a></span>: <span style="color:lightgrey"><%= project.description %> </span></li>
                 <% end %>
             </ul>
         </div>  
 
-       </div> 
+     </div> 
         
 
     

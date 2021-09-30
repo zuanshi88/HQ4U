@@ -1,21 +1,49 @@
 
 
 
+<h1><%=@project.title%>-- <%=@project.description%></h1>
 
+<% if @project.photos[0] %>
+    
+<div class="on-click" style="float:left;" onclick="call('options')">
+    <img src="/<%= @project.photos[0].photo %>" alt="Where is the photo?" width="300" height= "200" style="border: 2px solid black; border-radius:15px; margin-left: 145px; margin-bottom: 10px;">
+</div>
 
+<% end %>
 
-
-
-
-<h1 style="float: left;"><%=@project.title%>-- <%=@project.description%></h1>
-<br>
-<br>
-<br>
-<br>
-<br>
 <br>
 
-<h3 style="float: center; width:80; text-align: center; border: 2px solid black" onclick="call('create-weblink')"> Weblink 3000 </h3>
+
+<h3 style="float: center; width:80; text-align: center; border: 2px solid black;"><a href="/people/<%=@project.account_id%>/projects">all projects</a></h3>
+
+<h3 class="on-click" style=" float: center; width:80; text-align: center; border: 2px solid black;" onclick="call('note');">NOTE</h3>
+
+    <div id="note" style="display: none;">
+
+        <form action="/people/<%=@project.account_id%>/project/<%=@project.id%>/note/create" method="POST">
+            <input type="hidden" id="hidden">
+            <input type="text" name="comment">
+            <input type="submit" value="note">
+        </form>
+    </div>
+    
+    <h3 class="on-click" style="float: center; width:80; text-align: center; border: 2px solid black;" onclick="call('add-photo');"> add photo </h3>
+        <div id="add-photo" style="display:none">
+            <form action="/people/<%=@project.account_id%>/project/<%=@project.id%>/photo" method="POST">
+                <input type="hidden" id="hidden">
+                <label for="title">title</label>
+                <input type="text" name="title">
+                <label for="description">description</label>
+                <input type="text" name="description">
+                <label for="photo">photo</label>
+                <input type="file" name="photo">
+                <input type="submit" value="photo">
+            </form>
+        </div>
+
+<h3 style="float: center; width:80; text-align: center; border: 2px solid black">  <a href="/photoroom/<%=@project.id%>">Photoroom</a></h3>
+
+<h3 class="on-click" style="float: center; width:80; text-align: center; border: 2px solid black" onclick="call('create-weblink')"> Weblink 3000 </h3>
         <div id="create-weblink" style="display:none">
             <form action="/people/<%=@person.id%>/project/<%=@project.id%>/weblink/create" method="POST">
                 <input type="hidden" id="hidden">
@@ -28,25 +56,27 @@
                 <input type="submit" value="link">
             </form>
         </div>
-<ul style="display: inline;">
-    <% @project.weblinks.each do |link| %>
-        <li><a href="<%=link.url %>"><%=link.title%></a></li>
-        <form action="/people/<%=@project.id%>/weblinks/delete/<%=link.id%>" method="post" style="display:inline">
-            <input id="hidden" type="hidden" name="_method" value="delete">
-            <input type="submit" value="delete" style="width: 25px; height: 15px; font-size: 30%; text-align: center; padding: 0px;">
-        </form> 
-    <% end %>
-    </li>
-</ul>
+
+
+
+<div style="margin-top: 60px;">
+
+    <h4 style="float: left; width: 100px; text-align: center;">Weblinks</h4>
+    <br>
+    <ul style="display: inline;">
+        <% @project.weblinks.each do |link| %>
+            <li><a href="<%=link.url %>"><%=link.title%></a> | 
+            <form action="/people/<%=@project.id%>/weblinks/delete/<%=link.id%>" method="post" style="display:inline">
+                <input id="hidden" type="hidden" name="_method" value="delete">
+                <input type="submit" value="delete" style="width: 25px; height: 15px; font-size: 30%; text-align: center; padding: 0px;">
+            </form>
+        </li>
+ <% end %>
+    </ul>
+<div>
+
+
 <br>
-<h3 style="float: center; width:80; text-align: center; border: 2px solid black;" onclick="call('note');">NOTE</h3>
-    <div id="note" style="display: none;">
-        <form action="/people/<%=@project.account_id%>/project/<%=@project.id%>/note/create" method="POST">
-            <input type="hidden" id="hidden">
-            <input type="text" name="comment">
-            <input type="submit" value="note">
-        </form>
-    </div>
 
 <br>
 <ul margin-left: 20px;>

@@ -1,5 +1,5 @@
 <div>
-<h1>My People</h1>
+<h1 style="background-color:red; border: 3px solid black; width: 225px; margin: auto; margin-bottom: 10px; padding: 5px; font-weight: bold; ">My People</h1>
 </div>
 <div id="people">
 
@@ -7,12 +7,12 @@
            <%@people = Account.all%>
                 <%@people.each do |person|%>
 
-            <h4><a href="/people/<%=person.id%>"><%=person.name%></a></h4>  
+            <h4 style="border: 2px solid black;"><a href="/people/<%=person.id%>"><%=person.name%></a></h4>  
           
 
 
             <% end %>
 </div>
             <div style="text-align: center;">
-           <a href="/people/new" title="">new</a> | <a href="/activities" title="">touch points</a> | <a href="/">home</a>
+           <a href="/people/new" title="">new</a> | <a href="/activities" title="">action</a> | <a href="/">home</a>
              </div>

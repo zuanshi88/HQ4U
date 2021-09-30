@@ -1,0 +1,33 @@
+
+<div>
+<h1>Dictionaries</h1>
+        <h2 class="on-click" style="margin:auto; width:100px; text-align: center;" onclick="call('createDictionary')">create</h2>
+    <div id="createDictionary" style="display:none; margin:auto; width:15%;" >
+        <form method= "POST" action="/dictionary/create" style="margin-top: 5px;">
+            <input type="text" name= "title">
+            <input type="submit" value= "submit" style="float:right;">
+        </form>
+    </div>
+</div>
+<div>
+    <ul>
+        <% @dictionaries.each do |dictionary| %>
+            <li style="margin-bottom: 20px; border: 2px solid black; width: 300px; text-align: center; margin-left: 20px; padding: 5px"><a href="/dictionary/<%=dictionary.id%>"> <b style="font-size: 110%"><%=dictionary.title%></b></a> 
+                <span class= "on-click" onclick="call('addEntry')">add</span> | 
+                <span><a href="/dictionary/edit/<%=dictionary.id%>">edit</a></span>
+            <div id='addEntry' style="display:none">
+                    <form action="/dictionary/<%=dictionary.id%>/entry/create" method= "POST" style="margin-top: 5px;">
+                        <input type="text" name= "term" placeholder="term">
+                        <input type="text" name= "info" placeholder="info">
+                        <input type="text" name= "more_info" placeholder="more_info">
+                        <input type="file" name= "photo" placeholder="photo">
+                        <input type="submit" value= "submit">
+                    </form>
+            </div>
+            </li>
+        <% end %>
+    </ul>
+</div>
+
+
+

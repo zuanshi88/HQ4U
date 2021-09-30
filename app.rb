@@ -12,6 +12,10 @@ require_relative "model/topic.rb"
 require_relative "model/flashcard.rb"
 require_relative "model/session.rb"
 require_relative "model/weblink.rb"
+require_relative "model/photo.rb"
+require_relative "model/dictionary.rb"
+require_relative "model/entry.rb"
+require_relative "model/example.rb"
 
 set :database, {adapter: "sqlite3", database: "crm.sqlite3"}
 
@@ -35,11 +39,26 @@ get "/flashcard/:id" do
     erb :flashcard
 end 
 
+delete "/flashcard/delete/:id" do
+    @flashcard = Flashcard.all.find(params[:id])
+    @topic = Topic.all.find(@flashcard.topic_id)
+    @flashcard.destroy
+
+    erb :topic_edit
+
+end
+
 get "/topic/:id" do 
 
     @topic = Topic.find_by_id(params[:id].to_i)
 
     erb :topic
+end 
+
+get "/topic/edit/:id" do 
+    @topic = Topic.find(params[:id])
+
+    erb :topic_edit
 end 
 
 delete "/topic/delete/:id" do 
@@ -190,13 +209,15 @@ end
 
 get "/people/:id/projects" do 
     @person = Account.find_by_id(params[:id].to_i)
-    @projects = @person.projects 
+    @projects = @person.projects
 
     erb :projects   
 end 
 
 post "/people/:id/project/create" do 
     @project = Project.create(title: params[:title], description: params[:description])
+    @note = Note.create(comment: "another auspicious beginning!")
+    @project.notes << @note 
     @person = Account.find_by_id(params[:id].to_i)
     @person.projects << @project 
     @person.save
@@ -205,11 +226,32 @@ post "/people/:id/project/create" do
 
 end 
 
+
 get "/people/:id/project/:p_id" do 
     @project = Project.find_by_id(params[:p_id])
     @person = Account.find(params[:id])
 
     erb :project
+
+end 
+
+post "/people/:id/project/:project_id/photo" do
+    @photo = Photo.create(title: params[:title], photo: params[:photo], description: params[:description])
+    @project = Project.find(params[:project_id])
+    @project.photos << @photo 
+    @project.save
+    @person = Account.find(@project.account_id)
+
+    erb :project
+
+end
+
+
+get "/photoroom/:id" do 
+    @project = Project.all.find_by_id(params[:id])
+    @person = Account.find(@project.account_id)
+
+    erb :photoroom
 
 end 
 
@@ -311,5 +353,76 @@ get '/flashbox' do
 end
 
 
+get '/dictionaries' do 
+     @dictionaries = Dictionary.all
+    erb :dictionaries
+end 
+
+post '/dictionary/create' do
+    @dictionary = Dictionary.create(title: params[:title])
+    @dictionaries = Dictionary.all 
+    erb :dictionaries
+end 
+
+delete '/dictionary/:id/delete' do 
+    @dictionary = Dictionary.find(params[:id])
+
+    @dictionary.destroy
+
+    @dictionaries = Dictionary.all
+
+    erb :dictionaries
+
+end 
+
+get '/dictionary/edit/:id' do 
+    @dictionary = Dictionary.find(params[:id])
+
+    erb :edit_dictionary
+end 
+
+get '/dictionary/:id' do 
+    @dictionary = Dictionary.find(params[:id])
+    erb :dictionary
+end 
+
+get '/dictionary/:id/tag/:tag' do 
+    @dictionary = Dictionary.find(params[:id])
+    @topic_entries = @dictionary.entries.select{|entry| entry.topic_tag == params[:tag]}
+
+    erb :dictionary_collection
+end 
+
+post '/dictionary/:id/entry/create' do
+    @entry = Entry.create(term: params[:term], info: params[:info], more_info: params[:more_info], photo: params[:photo], topic_tag: params[:topic_tag])
+    @dictionary = Dictionary.find(params[:id])
+    @dictionary.entries << @entry 
+    @dictionary.save  
+
+    erb :dictionary 
+
+end 
+
+
+delete '/dictionary/:id/delete/:entry_id' do 
+    @dictionary = Dictionary.find(params[:id])
+    @entry = Entry.find(params[:entry_id])
+
+    @entry.destroy 
+
+    erb :edit_dictionary 
+end 
+
+
+
+
+get '/dictionary/:id/search' do
+    @search = params[:search] 
+    @dictionary = Dictionary.find(params[:id])
+    @result = @dictionary.entries.select{|entry| entry.term == @search}
+  
+    erb :dictionary
+        
+end 
 
 # end 

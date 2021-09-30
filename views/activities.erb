@@ -1,25 +1,35 @@
-
+                <% @color_array=[" #624d60", " #e7ee8f", " #878db5", " #b335a6", " #25a5da", " #919dc5", " #44fee3", " #384f14", " #39ced9", " #fd0fbb", " #b4d36b", " #0b84cc", " #072f47", " #9f600c", " #6246a7", " #d9b8ab", " #7a8d21", " #688fae", " #44dd7d", " #9c33f6", " #89038b", " #c85ce1", " #2b6e90", " #136888", " #52ebeb", " #99fc8c", " #29d441", " #98bed7", " #246c06", " #0e8996", " #e37d26", " #2d1521", " #587900", " #44d76b", " #3095b2", " #b58e54", " #4c144a", " #c5ac66", " #62c734", " #dbfa4c", " #3ea511", " #0361b8", " #484346", " #0121e5", " #660b0c", " #d6c861", " #64ae22", " #c4b645", " #56310c", " #dfce8e", " #b60762", " #56cd8e", " #482c95", " #6e352c", " #5c4d98", " #f0f870", " #b8d191", " #9ab838", " #6c7dea", " #5e109b", " #aebd16", " #c941c9", " #872b3b", " #2392c5"]
+%>
 <div class="reading-list" style="width: 800px;">    
 
-        <div style="background-color: darkkhaki; padding: 20px; border: 2px solid black;">
-        <%@activities.each do |activity|%>
-        <b><%=activity.created_at.strftime('%m/%d')%></b> <span style="font-size: 75%"><%=activity.created_at.strftime('%H:%M')%> </span> <%=activity.title%>  :  <%=activity.description%>
-        <% end %>
+<h1 class="on-click" onclick="call('activity-log')" style="border: 3px solid black; border-radius: 5px; width: 250px; margin: auto; margin-top: 0px; margin-bottom: 10px;text-align: center; font-weight: bold;background-color: <%=@color_array[rand(63)]%>">activitiy log</h2>
+   <h1 class="on-click" onclick="call('project-log')" style="border: 3px solid black; border-radius: 5px; width: 250px; margin: auto;  margin-bottom: 10px; text-align: center; font-weight: bold; background-color: <%=@color_array[rand(63)]%>">project log</h2>
+        <div id="activity-log" style="display: none; background-color: <%=@color_array[rand(63)]%>; padding: 20px; border: 5px solid black; line-height: 25px;">
+            <%@activities.each do |activity|%>
+               <span style="padding: 5px; margin-bottom: 20px;"> <span style="background-color: white; border: 2px solid black; border-radius: 10px; padding-left: 2px; padding-right: 2px;"><b><%=activity.created_at.strftime('%m/%d')%></b></span> <span style="font-size: 75%"><%=activity.created_at.strftime('%H:%M')%> </span> <%=activity.title%>  :  <%=activity.description%></span>
+    
+            <% end %>
         </div>
-        <div>
-        <%@projects.each do |project|%>
-            <div style="float: left; margin-top: 10px; background-color: white; padding: 15px; margin-right: 8px; border: 2px solid black;">
-            <b><%=project.created_at.strftime('%m/%d')%></b> <span style="font-size: 75%"><%=project.created_at.strftime('%H:%M')%></span><h2><a href="/people/<%=project.account_id%>/project/<%=project.id%>"><%=project.title%></h2></a> :  <%=project.description%>
-            </div>
-        <% end %>
-             </div>
-             <br>
-    <div style="float:right; margin-top: 20px; background-color: yellow; padding: 20px; border: 2px solid black;">
+
+    <div id="project-log" style="display: none; margin-top: 20px; background-color: <%=@color_array[rand(63)]%>; padding: 20px; border: 5px solid black; line-height:25px;">
           <%@notes.reverse.each do |note|%>
-        <b><%=note.created_at.strftime('%m/%d')%> </b><span style="font-size: 75%"><%=note.created_at.strftime('%H:%M')%> </span>  :  <%=note.comment%>
+        <span style="background-color: white; border: 2px solid black; border-radius: 10px; padding-left: 2px; padding-right: 2px;"><b><%=note.created_at.strftime('%m/%d')%> </b>  </span><span>  <%=note.comment%></span>
         <% end %>
     </div>
+    <div>
+            <%@projects.each do |project|%>
+        <a href="/people/<%=project.account_id%>/project/<%=project.id%>">
+            <div style="float: left; background-color: <%=@color_array[rand(63)]%>; padding: 10px; border-radius: 8px; border: 5px solid black; margin-top:5px; margin-bottom: 5px; margin-right: 5px;">
+                    <span style="display:block; text-align: center;"><b><%=project.notes[-1].created_at.strftime('%m/%d')%></b></span>
+                    <span style="font-size: 75%; display:block; text-align: center;">(<%=project.created_at.strftime('%m/%d/%y')%>)</span>
+                    <h2 style="text-align: center;"><%=project.title%></h2>
+            </div>
+        </a>
+            <% end %>
+    </div>
+             
+     
+              
+    
 </div>
 
-
-<p><a href="/people">people</a></p>

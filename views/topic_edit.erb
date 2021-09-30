@@ -1,0 +1,41 @@
+
+
+<div style="margin-left: 200px;">
+<h1 style="text-align: left; border: 2px solid black; background-color: lightgray; width: 200px; text-align:center;"><b><%=@topic.title%></b> </h1>
+   <span onclick="call('addCard')" style="font-size: 120%; text-align: center; border: 1px solid black; padding: 2px; background-color: green;">add card</span> 
+            <div id='addCard' style="display:none">
+                <label for="flashcards"></label>
+                    <form action="/topic/<%=@topic.id%>/flashcard/create" method= "POST" style="margin-top: 5px;">
+                        <input type="text" name= "front" placeholder="front">
+                        <input type="text" name= "back" placeholder="back">
+                        <input type="hidden" name= "views" value= "0">
+                        <input type="hidden" name= "difficulty" value= "10">
+                        <input type="submit" value= "submit">
+                    </form>
+            </div>  
+<div>
+    <table style="margin-top: 10px; border: 2px solid black; padding: 10px;">
+        <thead>
+            <tr style="background-color: orange;">
+                <th> front </th>
+                <th> reverse </th>
+            </tr>
+        </thead>
+        <tbody>
+         <% @topic.flashcards.each_with_index do |card, index| %>
+                <tr>
+                    <td class=<%=index%>><%= card.front %></td>
+                    <td class=<%=index%>><%= card.back %></td>
+                    <td>  <form action="/flashcard/delete/<%=card.id%>" method="post" style="display:inline">
+                            <input id="hidden" type="hidden" name="_method" value="delete">
+                            <input type="submit" value="delete">
+                        </form> 
+                    </td>
+                </tr>
+            <% end %>
+        </tbody>
+    </table>
+
+</div>
+
+</div>

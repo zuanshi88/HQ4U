@@ -2,7 +2,7 @@
 
 body {
   font-family: 'Consolas';
-  background-color: pink;
+  background-color: lightslategray;
   color: black;
 }
 
@@ -16,6 +16,17 @@ a {
   color:black;
 }
 
+a:hover {
+
+  background-color: maroon;
+  color: rgb(200,200,100);
+}
+
+.on-click:hover {
+  background-color: maroon;
+  color: rgb(200,200,100);
+}
+
 h1, p {
   text-align: center;
   font-weight: normal;
@@ -23,16 +34,17 @@ h1, p {
 
 #container {
   width: 1180px;
-  height: 543px;
+  height: 1180px;
   margin-left: auto;
   margin-right: auto;
 }
 
 #main{
-  width: 1180px;
+  width: 1000px;
   min-height: 200px;
   border-radius: 4px;
   border: 1px solid #e3dcdc;
+  margin-left: 75px;
 }
 
 #main {
@@ -59,7 +71,9 @@ img.logo {
   display: block;
   padding-top: 30px;
   height: 90px;
-  margin:0px;
+  width: 50%;
+  margin:auto;
+  margin-left: 200px;
 }
 
 #header > a.nav {
@@ -68,7 +82,7 @@ img.logo {
   text-transform: uppercase;
   letter-spacing: 2px;
   text-align: center;
-  color:red;
+  color: white;
 }
 
 

@@ -20,7 +20,7 @@
                     <input type="submit">
                 </form>
 
-                <form action="/people/<%= params[:id] %>" method="post">
+                <form action="/people/<%=params[:id] %>" method="post">
                         <input id="hidden" type="hidden" name="_method" value="delete">
                         <input type="submit" value="delete">
                 </form> 
