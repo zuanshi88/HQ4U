@@ -10,18 +10,18 @@
 
 <hr style="color: silver; height: 2px; width: 75%; font-weight: bold;">
 
-<ul style="margin-left: 50px; margin-right: 50px;">
-
-    <% @topic_tags = @dictionary.entries.map{|entry| entry.topic_tag}.uniq!%>
-    <% @topic_tags.each_with_index do |tag, index|%>
-        <li style="display: inline;"> <a href="/dictionary/<%=@dictionary.id%>/tag/<%=tag%>"><span style="color: darkgray"><%=tag%></span>
-        <% unless index == @topic_tags.length - 1 %>
-         |
-         <% end %>
-        </a></li>
-    <% end %>
-
-</ul>
+    <% @tags = @dictionary.entries.map{|entry| entry.topic_tag}%>
+<% if @tags%>
+    <ul style="margin-left: 50px; margin-right: 50px;">
+        <% @tags.uniq.each_with_index do |tag, index|%>
+            <li style="display: inline;"><span style="color: darkgray" onclick="call('<%=tag%>-entries')"><%=tag%></span>
+            <% unless index == @tags.uniq.length - 1 %>
+            |
+            <% end %>
+        </li>
+        <% end %>
+    </ul>
+   <% end %>
     
 </div>
     <div id='addEntry' style="display:none">
@@ -45,23 +45,88 @@
    
    <% if @result%>
     <div style="margin-left: 20px;">
-            <a href="/dictionary/<%=@dictionary.id%>/tag/<%=@result[0].topic_tag%>"><h2 style="font-weight: bold"><%=@result[0].term%>   <span style="color: silver; background-color: black;  font-size: 75%">[<%=@result[0].topic_tag%>]</span></h2></a>
+            <a href="/dictionary/<%=@dictionary.id%>/tag/<%=@result[0].topic_tag%>"><h2 style="font-weight: bold"><%=@result[0].term%> </a>  
+            <span style="color: silver; background-color: black;  font-size: 75%">[<%=@result[0].topic_tag%>]</span>
+            <span class="on-click" onclick="call('add_example');" style="color: silver; background-color: black;  font-size: 75%">info+ </span>
+                <div id="add_example" style="display: none;">
+                    <form action="/example/<%=@result[0].id%>/create" method="POST">
+                        <input type="hidden" id="hidden">
+                        <input type="text" name="info">
+                        <input type="submit" value="info">
+                    </form>
+                </div>     
         <dl style="padding: 5px; background-color: white; border: 2px solid black;"> 
-            <dd style="padding: 5px;">- <%=@result[0].info%></li>
-            <dd style="padding: 5px;">- <%=@result[0].more_info%></li>
-        <% if @result[0].examples[0] %>
+            <dd style="padding: 5px;">- <%=@result[0].info%></dd>
+            <% if @result[0].more_info %>
+            <dd style="padding: 5px;">- <%=@result[0].more_info%></dd>
+            <% end %>
         <dl>
+        <% if @result[0].examples[0] %>
+            <ul style="margin-left: 20px; font-size: 75%; list-style-type: disc;">
             <%@result[0].examples.each do |example|%>
-            <li><%=example.info%></li>
+            <li><%=example.info%>
+                <form action="/example/<%=@result[0].id%>/<%=example.id%>/delete" method="post" style="display:inline">
+                    <input id="hidden" type="hidden" name="_method" value="delete">
+                    <input type="submit" value="del" style="width: 25px; height: 15px; font-size: 50%">
+                </form> 
+            </li>
         <% end %>
             </ul>
         <% end %>
-
-        </ul>
     </div>
    <% if @result[0].photo %>
     <div style="float:left;">
         <img src="/<%= @result[0].photo %>" alt="Where is the photo?" width="300" height= "200" style="border: 2px solid black; border-radius:15px; margin-left: 145px; margin-bottom: 10px;">
     </div>
 <% end %>
+    <% end %>
+
+        <% if @tags%>
+
+        <% @tags.uniq.each do |topic| %>
+            <% @collection = @dictionary.entries.select{|entry| entry.topic_tag == topic} %>
+                <% if @collection %>
+                    <div id="<%=topic%>-entries" style="display: none;">
+                        <ul>
+                        <% @collection.each do |entry| %>
+                               <div style="margin-left: 20px;">
+            <h2 style="font-weight: bold"><%=entry.term%> </a>  
+            <span style="color: silver; background-color: black;  font-size: 75%">[<%=entry.topic_tag%>]</span>
+            <span class="on-click" onclick="call('add-<%=entry.term%>-example');" style="color: silver; background-color: black;  font-size: 75%">info+ </span>
+                <div id="add-<%=entry.term%>-example" style="display: none;">
+                    <form action="/example/<%=entry.id%>/create" method="POST">
+                        <input type="hidden" id="hidden">
+                        <input type="text" name="info">
+                        <input type="submit" value="info">
+                    </form>
+                </div>     
+        <dl style="padding: 5px; background-color: white; border: 2px solid black;"> 
+            <dd style="padding: 5px;">- <%=entry.info%></dd>
+            <% if entry.more_info %>
+            <dd style="padding: 5px;">- <%=entry.more_info%></dd>
+            <% end %>
+        <dl>
+        <% if entry.examples[0] %>
+            <ul style="margin-left: 20px; font-size: 75%; list-style-type: disc;">
+            <%entry.examples.each do |example|%>
+            <li><%=example.info%>
+                <form action="/example/<%=entry.id%>/<%=example.id%>/delete" method="post" style="display:inline">
+                    <input id="hidden" type="hidden" name="_method" value="delete">
+                    <input type="submit" value="del" style="width: 25px; height: 15px; font-size: 50%;"  onclick="clicked(event)">
+                </form> 
+            </li>
+        <% end %>
+            </ul>
+        <% end %>
+    </div>
+   <% unless entry.photo == "" %>
+    <div style="float:left;">
+        <img src="/<%= entry.photo %>" alt="Where's the Photo?" width="300" height= "200" style="border: 2px solid black; border-radius:15px; margin-left: 145px; margin-bottom: 10px;">
+    </div>
+<% end %>
+                            <% end %>
+                        </ul>
+                    </div>
+                <% end %>
+        <% end %>
     <% end %>

@@ -1,12 +1,12 @@
 
 <ul>
-    <% @activities.each do |activity|%>
+    <% @activities.reverse.each do |activity|%>
     <div style="background-color: white; padding: 5px; border: 2px solid black; width: 700px; margin-left: 100px;">
     <li style="padding-left: 10px"><%= activity.created_at.strftime('%m/%d/%y') %> <span style="font-size: 75%; color: red;"><%= activity.created_at.strftime('%H:%M') %></span></li>
     <li style="padding-left: 10px"> <%= activity.title %> -- <%= activity.description %> 
      <form action="/people/<%=@person.id%>/delete/<%=activity.id %>" method="post" style="display:inline">
                         <input id="hidden" type="hidden" name="_method" value="delete">
-                        <input type="submit" value="delete" style="float:right;">
+                        <input type="submit" value="delete" style="float:right;" onclick="clicked(event)">
     </form> 
     </li>
     </div>

@@ -6,7 +6,7 @@
         <h4 style="width: 300px;"><a href="/people/<%=project.account_id%>/project/<%=project.id%>"><%=project.title%></a> <%=project.notes[-1].created_at.strftime('%m/%d')%>
          <form action="/people/<%=@person.id%>/project/delete/<%=project.id%>" method="post" style="display:inline">
                             <input id="hidden" type="hidden" name="_method" value="delete">
-                            <input type="submit" value="delete" style="text-align: right; margin-left: 20px;;">
+                            <input type="submit" value="delete" style="text-align: right; margin-left: 20px;" onclick="clicked(event)">
         </form>
         </h4> 
     <% end %>

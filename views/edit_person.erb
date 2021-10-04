@@ -22,7 +22,7 @@
 
                 <form action="/people/<%=params[:id] %>" method="post">
                         <input id="hidden" type="hidden" name="_method" value="delete">
-                        <input type="submit" value="delete">
+                        <input type="submit" value="delete" onclick="clicked(event)">
                 </form> 
             </li>
     </ul>

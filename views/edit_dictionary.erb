@@ -6,7 +6,7 @@
     <li style="display: inline;"><span class="on-click" onclick="call('addEntry')">add |</span>
                <form action="/dictionary/<%=@dictionary.id%>/delete" method="post">
                         <input id="hidden" type="hidden" name="_method" value="delete">
-                        <input type="submit" value="delete">
+                        <input type="submit" value="delete" onclick="clicked(event)">
                 </form> 
     
     </li>
@@ -14,19 +14,18 @@
 
 <hr style="color: silver; height: 2px; width: 75%; font-weight: bold;">
 
-    <% @topic_tags = @dictionary.entries.map{|entry| entry.topic_tag}.uniq!%>
-<% if @topic_tags %>
+    <% @tags = @dictionary.entries.map{|entry| entry.topic_tag}%>
+<% if @tags %>
     <ul style="margin-left: 50px; margin-right: 50px;">
-        <% @topic_tags.each_with_index do |tag, index|%>
+        <% @tags.uniq.each_with_index do |tag, index|%>
             <li style="display: inline;"><span style="color: darkgray" onclick="call('<%=tag%>-entries')"><%=tag%></span>
-            <% unless index == @topic_tags.length - 1 %>
+            <% unless index == @tags.length - 1 %>
             |
             <% end %>
         </li>
         <% end %>
+    </ul>
    <% end %>
-
-</ul>
     
 </div>
     <div id='addEntry' style="display:none">
@@ -73,25 +72,25 @@
 
 
 
-    <% if @topic_tags%>
+    <% if @tags%>
 
-    <% @topic_tags.each do |topic| %>
-        <% @entries = @dictionary.entries.select{|entry| entry.topic_tag = topic} %>
-        <% if @entries %>
-          
-        <div id="<%=topic%>-entries" style="display: none">
-            <ul>
-            <% @entries.each do |entry| %>
-                <li><%=entry.term %> |
-                    <form action="/dictionary/<%=@dictionary.id%>/delete/<%=entry.id%>" method="post">
-                                <input id="hidden" type="hidden" name="_method" value="delete">
-                                <input type="submit" value="delete">
-                    </form> 
-                </li>
+        <% @tags.uniq.each do |topic| %>
+            <% @collection = @dictionary.entries.select{|entry| entry.topic_tag == topic} %>
+                <% if @collection %>
+                    <div id="<%=topic%>-entries" style="display: none;">
+                        <ul>
+                        <% @collection.each do |entry| %>
+                                <li> <%=entry.term %> |
+                                    <form action="/dictionary/<%=@dictionary.id%>/delete/<%=entry.id%>" method="post" style="float:left">
+                                            <input id="hidden" type="hidden" name="_method" value="delete">
+                                            <input type="submit" value="delete" onclick="clicked(event)">
+                                    </form> 
+                                </li>
+                            <% end %>
+                        </ul>
+                    </div>
                 <% end %>
-            </ul>
-        
-        </div>
-        <% end %>
         <% end %>
     <% end %>
+
+

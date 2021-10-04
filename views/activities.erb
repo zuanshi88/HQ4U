@@ -17,12 +17,13 @@
         <% end %>
     </div>
     <div>
-            <%@projects.each do |project|%>
+            <%last_touched_ascending = @projects.sort_by{|project| project.notes[-1].created_at}%>
+            <%last_touched_ascending.reverse.each do |project|%>
         <a href="/people/<%=project.account_id%>/project/<%=project.id%>">
-            <div style="float: left; background-color: <%=@color_array[rand(63)]%>; padding: 10px; border-radius: 8px; border: 5px solid black; margin-top:5px; margin-bottom: 5px; margin-right: 5px;">
-                    <span style="display:block; text-align: center;"><b><%=project.notes[-1].created_at.strftime('%m/%d')%></b></span>
-                    <span style="font-size: 75%; display:block; text-align: center;">(<%=project.created_at.strftime('%m/%d/%y')%>)</span>
-                    <h2 style="text-align: center;"><%=project.title%></h2>
+            <div style="float: left; background-color: <%=@color_array[rand(63)]%>; max-width: 125px; height: 80px; padding: 5px; border-radius: 8px; border: 5px solid black; margin-top:5px; margin-right: 5px;">
+                    <h5 style="font-size: 110%; text-align: center; font-weight: bold; margin: 0px; margin-bottom: 5px; margin-top: 5px; color: white;"><%=project.title%></h5>
+                    <span style="display: block; text-align: center;"><b><%=project.notes[-1].created_at.strftime('%m/%d')%></b></span>
+                    <span style="display: block; font-size: 75%; text-align: center; color: red;">(<%=project.created_at.strftime('%m/%d/%y')%>)</span>
             </div>
         </a>
             <% end %>
@@ -33,3 +34,5 @@
     
 </div>
 
+
+<b style="color: red">Delighted!!</b> to stumbled on the fact that <i>I</i>can feed css styled html via these inputs.
