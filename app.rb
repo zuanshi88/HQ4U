@@ -410,7 +410,7 @@ delete '/dictionary/:id/delete/:entry_id' do
 
     @entry.destroy 
 
-    erb :edit_dictionary 
+    erb :dictionary 
 end 
 
 
@@ -424,5 +424,28 @@ get '/dictionary/:id/search' do
     erb :dictionary
         
 end 
+
+
+post '/example/:entry_id/create' do 
+    @example = Example.create(info: params[:info])
+    @entry = Entry.find(params[:entry_id])
+    @dictionary = Dictionary.find(@entry.dictionary_id)
+
+    @entry.examples << @example 
+ 
+    erb :dictionary 
+end 
+
+delete '/example/:entry_id/:example_id/delete' do 
+    @example = Example.find(params[:example_id])
+    @example.destroy 
+    @entry = Entry.find(params[:entry_id])
+    @dictionary = Dictionary.find(@entry.dictionary_id)
+
+
+    erb :dictionary
+
+end 
+
 
 # end 

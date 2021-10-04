@@ -1,5 +1,6 @@
 
     var call = function(elementId){
+      console.log(elementId)
   var drawer = document.getElementById(elementId)
     if (drawer.style.display == "none"){
         drawer.style.display = "block";
@@ -82,6 +83,13 @@ for(let card of wordNodes){
 
 var colorChange = function(color){
   this.style.background = color;
+}
+
+
+var clicked = function clicked(e) {
+  if (!confirm('Are you sure?')) {
+    e.preventDefault();
+  }
 }
 
 

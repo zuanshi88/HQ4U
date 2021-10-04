@@ -20,11 +20,13 @@ a:hover {
 
   background-color: maroon;
   color: rgb(200,200,100);
+  transform: scale(1.2);
 }
 
 .on-click:hover {
   background-color: maroon;
   color: rgb(200,200,100);
+  transform: scale(1.2);
 }
 
 h1, p {
