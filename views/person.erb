@@ -46,7 +46,8 @@
                 <form method="POST" action="/people/<%=@person.id%>/activity/create" style="margin-top: 10px;">
                     <p>activity: <input type="text" name="title"></p>
                     <p>description: <input type="text" name="description"></p>
-                                    <input class="on-click" type="submit" onclick="call('create-project')">
+                    <p>date: <input type="date" name="date" value="<%=Time.now%>"></p>
+                    <input class="on-click" type="submit" onclick="call('create-project')">
                 </form>
             </div>
         </div>

@@ -7,3 +7,60 @@
     <% end %>
 
 </ul>
+
+
+
+
+
+<% if @tags%>
+<% @sorted_tags = @tags.sort%>
+
+        <% @sorted_tags.each do |tag| %>
+            <% @collection = @dictionary.entries.select{|entry| entry.topic_tag == tag} %>
+            <% @collection.sort_by!{|entry| entry.term}%>
+                  
+                        <div id="<%=tag%>-entries" style="display: none;">
+                                    <% @collection.each do |entry| %>
+                                        <div style="margin-left: 20px;">
+                                            <h2 style="font-weight: bold"><%=entry.term%> </h2>  
+                                            <span style="color: silver; background-color: black;  font-size: 75%">[<%=entry.topic_tag%>]</span>
+                                            <span class="on-click" onclick="call('add-<%=entry.term%>-example');" style="color: silver; background-color: black;  font-size: 75%">info+ </span>
+                                                <div id="add-<%=entry.term%>-example" style="display: none;">
+                                                    <form action="/example/<%=entry.id%>/create" method="POST">
+                                                        <input type="hidden" id="hidden">
+                                                        <input type="text" name="info">
+                                                        <input type="submit" value="info">
+                                                    </form>
+                                                </div>     
+                                            <dl style="padding: 5px; background-color: white; border: 2px solid black;"> 
+                                                <dd style="padding: 5px;">- <%=entry.info%></dd>
+                                                <% if entry.more_info %>
+                                                <dd style="padding: 5px;">- <%=entry.more_info%></dd>
+                                                <% end %>
+                                            <dl>
+                                
+                                                <% if entry.examples[0] %>
+
+                                                    <ul style="margin-left: 20px; font-size: 75%; list-style-type: disc;">
+                                                        <%entry.examples.each do |example|%>
+                                                        <li><%=example.info%>
+                                                            <form action="/example/<%=entry.id%>/<%=example.id%>/delete" method="post" style="display:inline">
+                                                                <input id="hidden" type="hidden" name="_method" value="delete">
+                                                                <input type="submit" value="del" style="width: 25px; height: 15px; font-size: 50%;"  onclick="clicked(event)">
+                                                            </form> 
+                                                        </li>
+                                                <% end %>
+                                                    </ul>
+                                                <% end %>
+                                        </div>
+
+                                        <% unless entry.photo == "" %>
+                                            <div style="float:left;">
+                                                <img src="/<%= entry.photo %>" alt="Where's the Photo?" width="300" height= "200" style="border: 2px solid black; border-radius:15px; margin-left: 145px; margin-bottom: 10px;">
+                                            </div>
+                                        <% end %>
+                                    <% end %>
+                                </div>
+                            <% end %>
+                     
+    <% end %>

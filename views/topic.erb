@@ -1,4 +1,4 @@
-<h1><%=@topic.title%></h1>
+<h1><%=@dictionary.title%></h1>
 
 
 <style>
@@ -7,12 +7,11 @@
     margin: auto;
     width: 50%;
     border: 3px solid black;
-    width: 300px;
-    height: 300px;
+    width: 500px;
+    height: 400px;
     display: block;
-    font-size: 50px;
+    font-size: 25px;
     font-weight: bolder;
-    line-height: 150px;
      background-color: red;
  
 }
@@ -34,14 +33,55 @@
     <div id="flashcard">
         <span id="cardIndex" style="display: none;">0</span>
 
-            <% flashcards = @topic.flashcards%>
-            <% @flashcard = flashcards[0] %>
-           
-            <h1 id="card" side="front" margin-bottom: 0px;><%=@flashcard.front%></h1>
-            <button onclick="flip('card')">flip</button>
-            <button onclick="previous('card')">back</button>
-            <button onclick="next('card')">next</button>
-            <span id="backOfCard" style="display:none;"><%=@flashcard.back%></span> 
+            <% entries = @dictionary.entries %> 
+        <span id="array-length"><%@dictionary.entries.size %> </span>
+            
+           <div id='card-frame' style="height: 200px; background-color: white; margin: 15px; margin-bottom: 0px;;  border: 2px solid black;">
+            <p id="card" side="front" style="padding-top: 60px; padding-left: 10px; padding-right: 10px;"><%=entries[@index].term%></p>
+            <span id="backOfCard" style="display:none;"><%=entries[@index].info%></span> 
+            </div>
+            <br>
+                <div style="margin: 0; ">
+                    <button onclick="flip('card','card-frame')">flip</button>
+                    <button onclick="previous('card')">back</button>
+                    <button onclick="next('card')">next</button>
+                </div>
+                <br>
+                <div onclick="call('more-info')" style="margin: 0; margin-left: 40px; float: left;">
+                         more info |  
+                    <div id="more-info" style="display:none; background: blue;">
+
+                        <% if @dictionary.entries[0].more_info == '' %>
+                                 no info
+                        <% else %>
+
+                                <%= @dictionary.entries[0].more_info%>
+                        <% end %>
+
+                    </div>
+                </div> 
+                <div onclick="call('entry-example')" style="margin: 0; float: left;">
+                    examples | 
+                    <div id='entry-example' style="display:none; background: blue;">
+                          <% if @dictionary.entries[0].examples[0] == nil  %>
+                      no examples
+                          <% else %>
+                                <%= @dictionary.entries[0].examples[0].info%>
+                        <% end %>
+
+                    </div>
+                </div>
+                <div onclick="call('card-info')" style="margin: 0; float: left;">
+                card info
+                    <div id='card-info' style="display:none; background: blue;">
+                        <ul>
+                            <li id="touches">touches: <%=entries[@index].views%></li>
+                            <li id="rating">rating:  <%=entries[@index].difficulty%></li>
+                            <li id="last_view">last view: <%=entries[@index].updated_at.strftime('%m/%d/%y')%></li>
+                        </ul>
+                    </div>
+
+                </div>
     </div>
 </div>
 
@@ -58,10 +98,24 @@
             </tr>
         </thead>
         <tbody>
-         <% @topic.flashcards.each_with_index do |card, index| %>
+         <% @dictionary.entries.each_with_index do |card, index| %>
                 <tr>
-                    <td class=<%=index%>><%= card.front %></td>
-                    <td class=<%=index%>><%= card.back %></td>
+                    <td class=<%=index%>><%= card.term %></td>
+                    <td class=<%=index%>><%= card.info %></td>
+                    <% if card.more_info == '' %>
+                     <td class=<%=index%>>no info</td>
+                     <% else %>
+                    <td class=<%=index%>><%= card.more_info%></td>
+                    <% end %>
+                    <% if card.examples[0] == nil%>
+                     <td class=<%=index%>> no examples</td>
+                     <% else %>
+                    <td class=<%=index%>><%= card.examples[0].info %></td>
+                    <% end %>
+                    <td class=<%=index%>><%= card.views %></td>
+                    <td class=<%=index%>><%= card.difficulty %></td>
+                    <td class=<%=index%>><%= card.updated_at.strftime('%m/%d/%y') %></td>
+            
                 </tr>
             <% end %>
         </tbody>

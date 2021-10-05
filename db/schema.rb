@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_29_172817) do
+ActiveRecord::Schema.define(version: 2021_10_05_180510) do
 
   create_table "accounts", force: :cascade do |t|
     t.string "name"
@@ -41,12 +41,14 @@ ActiveRecord::Schema.define(version: 2021_09_29_172817) do
   create_table "entries", force: :cascade do |t|
     t.integer "dictionary_id"
     t.string "term"
-    t.string "info"
+    t.string "entry_info"
     t.string "more_info"
     t.string "photo"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "topic_tag"
+    t.integer "views", default: 0
+    t.integer "difficulty", default: 10
     t.index ["dictionary_id"], name: "index_entries_on_dictionary_id"
   end
 

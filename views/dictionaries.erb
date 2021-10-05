@@ -13,17 +13,18 @@
 <div>
     <ul>
         <% @dictionaries.each do |dictionary| %>
-            <li style="margin-bottom: 20px; border: 2px solid black; width: 300px; text-align: center; margin-left: 20px; padding: 5px; background-color: <%=@color_array[rand(63)]%>"><a href="/dictionary/<%=dictionary.id%>"> <b style="font-size: 110%"><%=dictionary.title%></b></a> 
+            <li style="margin-bottom: 20px; border: 2px solid black; width: 350px; text-align: center; margin-left: 20px; padding: 5px; background-color: <%=@color_array[rand(63)]%>"><a href="/dictionary/<%=dictionary.id%>"> <b style="font-size: 110%"><%=dictionary.title%></b></a> 
                 <span class= "on-click" onclick="call('add-<%=dictionary.title%>-entry')">add</span> | 
-                <span><a href="/dictionary/edit/<%=dictionary.id%>">edit</a></span>
+                <span><a href="/dictionary/edit/<%=dictionary.id%>">edit</a></span> | 
+                 <span><a href="/topic/<%=dictionary.id%>">cards</a></span>
             </li>
             <div id='add-<%=dictionary.title%>-entry' style="display:none">
                     <form action="/dictionary/<%=dictionary.id%>/entry/create" method= "POST" style="margin-top: 5px;">
-                        <input type="text" name= "term" placeholder="term">
-                        <input type="text" name= "info" placeholder="info">
-                        <input type="text" name= "more_info" placeholder="more_info">
-                        <input type="text" name= "topic_tag" placeholder="topic tag">
-                        <input type="file" name= "photo" placeholder="photo">
+                        <input type="text" name="term" placeholder="term">
+                        <input type="text" name="entry_info" placeholder="entry info">
+                        <input type="text" name="more_info" placeholder="more_info">
+                        <input type="text" name="topic_tag" placeholder="topic tag">
+                        <input type="file" name="photo" placeholder="photo">
                         <input type="submit" value= "submit">
                     </form>
             </div>

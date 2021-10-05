@@ -26,15 +26,15 @@ set :database, {adapter: "sqlite3", database: "crm.sqlite3"}
 
 get "/flashcards" do 
 
-    @topics = Topic.all
+    @dictionaries = Dictionary.all
 
     erb :flashcards 
 end 
 
 get "/flashcard/:id" do
-    @topic = Topic.find_by_id(params[:id].topic_id)
+    @dictionary = Dictionary.find_by_id(params[:id].topic_id)
 
-    @flashcards = @topic.flashcards
+    @entries = @dictionary.entries
 
     erb :flashcard
 end 
@@ -50,7 +50,8 @@ end
 
 get "/topic/:id" do 
 
-    @topic = Topic.find_by_id(params[:id].to_i)
+    @dictionary = Dictionary.find_by_id(params[:id])
+    @index = 0
 
     erb :topic
 end 
@@ -191,7 +192,9 @@ end
 
 post "/people/:id/activity/create" do
     @person = Account.find_by_id(params[:id].to_i)
-    @person.activities << Activity.create(title: params[:title], description: params[:description])
+    @activity = Activity.create(title: params[:title], description: params[:description])
+    @activity.created_at = params[:date]
+    @person.activities << @activity
     @person.save
 
     erb :person
@@ -319,9 +322,9 @@ end
 
 
 get '/activities' do 
-
-    @activities = Activity.all.reverse
-    @projects = Project.all.reverse
+    @account = Account.find(40)
+    @activities = Activity.all
+    @projects = @account.projects
     @notes = Note.all 
 
     erb :activities
@@ -394,11 +397,10 @@ get '/dictionary/:id/tag/:tag' do
 end 
 
 post '/dictionary/:id/entry/create' do
-    @entry = Entry.create(term: params[:term], info: params[:info], more_info: params[:more_info], photo: params[:photo], topic_tag: params[:topic_tag])
+    @entry = Entry.create(term: params[:term], entry_info: params[:entry_info], more_info: params[:more_info], topic_tag: params[:topic_tag], photo: params[:photo])
     @dictionary = Dictionary.find(params[:id])
     @dictionary.entries << @entry 
-    @dictionary.save  
-
+   
     erb :dictionary 
 
 end 
@@ -416,7 +418,7 @@ end
 
 
 
-get '/dictionary/:id/search' do
+get '/dictionary/search/:id' do
     @search = params[:search] 
     @dictionary = Dictionary.find(params[:id])
     @result = @dictionary.entries.select{|entry| entry.term == @search}
