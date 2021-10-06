@@ -24,29 +24,12 @@ set :database, {adapter: "sqlite3", database: "crm.sqlite3"}
 #         register Sinatra::Reloader
 #   end
 
-get "/flashcards" do 
 
-    @dictionaries = Dictionary.all
+get "/annuals" do
+    @activities = Activity.all 
 
-    erb :flashcards 
+    erb :annuals
 end 
-
-get "/flashcard/:id" do
-    @dictionary = Dictionary.find_by_id(params[:id].topic_id)
-
-    @entries = @dictionary.entries
-
-    erb :flashcard
-end 
-
-delete "/flashcard/delete/:id" do
-    @flashcard = Flashcard.all.find(params[:id])
-    @topic = Topic.all.find(@flashcard.topic_id)
-    @flashcard.destroy
-
-    erb :topic_edit
-
-end
 
 get "/topic/:id" do 
 
@@ -192,7 +175,7 @@ end
 
 post "/people/:id/activity/create" do
     @person = Account.find_by_id(params[:id].to_i)
-    @activity = Activity.create(title: params[:title], description: params[:description])
+    @activity = Activity.create(title: params[:title], description: params[:description], annual: params[:annual])
     @activity.created_at = params[:date]
     @person.activities << @activity
     @person.save

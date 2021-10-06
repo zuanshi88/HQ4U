@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_05_180510) do
+ActiveRecord::Schema.define(version: 2021_10_06_195731) do
 
   create_table "accounts", force: :cascade do |t|
     t.string "name"
@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 2021_10_05_180510) do
     t.string "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "annual", default: false
     t.index ["account_id"], name: "index_activities_on_account_id"
   end
 

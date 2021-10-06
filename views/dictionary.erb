@@ -1,5 +1,9 @@
 
-<div style="width:50%; margin: auto; border: 2px solid black; background-color: maroon;">
+             <% @color_array=[" #624d60", " #e7ee8f", " #878db5", " #b335a6", " #25a5da", " #919dc5", " #44fee3", " #384f14", " #39ced9", " #fd0fbb", " #b4d36b", " #0b84cc", " #072f47", " #9f600c", " #6246a7", " #d9b8ab", " #7a8d21", " #688fae", " #44dd7d", " #9c33f6", " #89038b", " #c85ce1", " #2b6e90", " #136888", " #52ebeb", " #99fc8c", " #29d441", " #98bed7", " #246c06", " #0e8996", " #e37d26", " #2d1521", " #587900", " #44d76b", " #3095b2", " #b58e54", " #4c144a", " #c5ac66", " #62c734", " #dbfa4c", " #3ea511", " #0361b8", " #484346", " #0121e5", " #660b0c", " #d6c861", " #64ae22", " #c4b645", " #56310c", " #dfce8e", " #b60762", " #56cd8e", " #482c95", " #6e352c", " #5c4d98", " #f0f870", " #b8d191", " #9ab838", " #6c7dea", " #5e109b", " #aebd16", " #c941c9", " #872b3b", " #2392c5"]
+%>
+
+
+<div style="width:50%; margin: auto; border: 2px solid black; background-color: <%=@color_array[rand(63)]%>;">
         <h1><b><%=@dictionary.title%></b></h1>
 
         <ul style="margin-left: 160px;">
@@ -16,7 +20,7 @@
                     <ul style="margin-left: 50px; margin-right: 50px;">
                         <% @sorted_array.each_with_index do |tag, index|%>
                             <li style="display: inline;"><span style="color: darkgray" onclick="call('<%=tag%>-entries')"><%=tag%></span>
-                            <% unless index == @sorted_array.length - 1 || 0 %>
+                            <% unless index == @sorted_array.length - 1 %>
                             |
                             <% end %>
                         </li>
@@ -52,17 +56,25 @@
    
 
     <% if @tags%>
-
+<div style="margin-left: 100px; margin-top: 50px;">
         <% @tags.uniq.each do |topic| %>
             <% @collection = @dictionary.entries.select{|entry| entry.topic_tag == topic} %>
                 <% if @collection %>
                     <div id="<%=topic%>-entries" style="display: none;">
                     
                         <% @collection.each do |entry| %>
-                                <div> 
-                                    <h2 style="font-weight: bold"><%=entry.term%> </h2>  
-                                            <span style="color: silver; background-color: black;  font-size: 75%">[<%=entry.topic_tag%>]</span>
-                                            <span class="on-click" onclick="call('add-<%=entry.term%>-example');" style="color: silver; background-color: black;  font-size: 75%; margin-right: 10px;">info+ </span>
+                                <div style="background-color: #FCFFDB; padding: 10px; margin-bottom: 5px;"> 
+                                    <h2 style="font-weight: bold; margin-left: 50px;"><span style="background-color: <%=@color_array[rand(63)]%>; padding: 10px; text-align: center; "><%=entry.term%> </span> <span style="color: silver; background-color: black;  font-size: 75%;">[<%=entry.topic_tag%>]</span> 
+                                    
+                              <form action="/dictionary/<%=@dictionary.id%>/delete/<%=entry.id%>" method="post" style="margin: auto; color: red; width: 10px; height: 5px; border-radius: 5;">
+                                            <input id="hidden" type="hidden" name="_method" value="delete">
+                                            <input type="submit" value="delete" onclick="clicked(event)">
+                                    </form> 
+                                
+                                    
+                                    </h2>  
+                                           
+                                            <span class="on-click" onclick="call('add-<%=entry.term%>-example');" style="color: silver; background-color: black; border: 2px solid silver; padding: 2px;  font-size: 75%; margin-left: 50px;margin-right: 10px;"><b>+ add info +</b></span>
                                                 <div id="add-<%=entry.term%>-example" style="display: none;">
                                                     <form action="/example/<%=entry.id%>/create" method="POST">
                                                         <input type="hidden" id="hidden">
@@ -70,21 +82,32 @@
                                                         <input type="submit" value="info">
                                                     </form>
                                                 </div>  
-                                    <form action="/dictionary/<%=@dictionary.id%>/delete/<%=entry.id%>" method="post" style="float: left; margin-left: 10px;">
-                                            <input id="hidden" type="hidden" name="_method" value="delete">
-                                            <input type="submit" value="delete" onclick="clicked(event)">
-                                    </form> 
+                                <div style="margin-left: 50px;">
 
+
+                                <style>
+                                
+                                    .entry-info {
+
+                                        background-color: <%=@color_array[rand(63)]%>;
+                                        padding: 10px;
+                                        margin-bottom: 3px;
+                                        border: 2px solid silver;
+                                        margin-left: 30px;
+                                        margin-right: 50px;
+                                    }
+                                
+                                </style>
                                    <ul>
                                     
                                         
                                        
-                                            <li><%=entry.entry_info%></li>
-                                            <li><%=entry.more_info%></li>
+                                            <li class="entry-info"><%=entry.entry_info%></li>
+                                            <li class="entry-info"><%=entry.more_info%></li>
                                      
                                      
                                         <% entry.examples.each do |example| %>
-                                            <li><%=example.info%></li>
+                                            <li class="entry-info"><%=example.info%></li>
                                         <% end %>
                               
                                          
@@ -93,7 +116,7 @@
                                    
                                    </ul>
 
-                                   
+                                  </div> 
 
 
 
@@ -108,7 +131,7 @@
         <% end %>
     <% end %>
 
-   
+  </div> 
 
    <% if @result%>
     <div style="margin-left: 20px;">
