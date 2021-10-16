@@ -14,8 +14,8 @@
 <div style="padding: 10px;">
     <%if @project.photos[0]%>
         <%@project.photos.each do |photo|%>
-        <div style="border: float: left; display: inline;  margin-top: 5px; margin-bottom: 5px; margin-right: 5px;">
-    <img src="/<%=photo.photo%>" alt="where's the photo?" style="width:302px; height: 202px; margin: 0;">
+        <div style="border: float: left; display: inline;  margin-top: 5px; margin-bottom: 5px; margin-right: 0px; margin-left: 0px;">
+    <img src="/<%=photo.photo%>" alt="where's the photo?" style="width:300px; height: 200px; margin: 0;">
         </div>
         <%end%>
     <%end%>

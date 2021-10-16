@@ -3,7 +3,11 @@
 %>
 
 
-
+<div>
+    <h5 class="link-button"><a href="/people/<%=@person.id%>">back</a></h5>
+    <h5 class="link-button"><a href="/people">people</a></p></h5>
+    <h5 class="link-button"><a href="/activities" title="">activities & projects</a></h5>
+</div>
 
 <ul>
     <% @activities.sort_by{|activity| activity.created_at}.reverse.each do |activity|%>

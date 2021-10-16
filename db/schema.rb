@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_06_195731) do
+ActiveRecord::Schema.define(version: 2021_10_07_213709) do
 
   create_table "accounts", force: :cascade do |t|
     t.string "name"
@@ -31,6 +31,27 @@ ActiveRecord::Schema.define(version: 2021_10_06_195731) do
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "annual", default: false
     t.index ["account_id"], name: "index_activities_on_account_id"
+  end
+
+  create_table "addendums", force: :cascade do |t|
+    t.integer "note_id"
+    t.string "addition"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["note_id"], name: "index_addendums_on_note_id"
+  end
+
+  create_table "books", force: :cascade do |t|
+    t.integer "project_id"
+    t.string "title"
+    t.string "author"
+    t.string "synopsis"
+    t.integer "pages"
+    t.boolean "completed", default: false
+    t.integer "times_read", default: 0
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["project_id"], name: "index_books_on_project_id"
   end
 
   create_table "dictionaries", force: :cascade do |t|
@@ -58,7 +79,11 @@ ActiveRecord::Schema.define(version: 2021_10_06_195731) do
     t.string "info"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "note_id"
+    t.integer "addendum_id"
+    t.index ["addendum_id"], name: "index_examples_on_addendum_id"
     t.index ["entry_id"], name: "index_examples_on_entry_id"
+    t.index ["note_id"], name: "index_examples_on_note_id"
   end
 
   create_table "flashcards", force: :cascade do |t|
@@ -77,7 +102,11 @@ ActiveRecord::Schema.define(version: 2021_10_06_195731) do
     t.string "comment"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "book_id"
+    t.integer "quote_id"
+    t.index ["book_id"], name: "index_notes_on_book_id"
     t.index ["project_id"], name: "index_notes_on_project_id"
+    t.index ["quote_id"], name: "index_notes_on_quote_id"
   end
 
   create_table "photos", force: :cascade do |t|
@@ -87,6 +116,8 @@ ActiveRecord::Schema.define(version: 2021_10_06_195731) do
     t.string "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "book_id"
+    t.index ["book_id"], name: "index_photos_on_book_id"
     t.index ["project_id"], name: "index_photos_on_project_id"
   end
 
@@ -100,6 +131,18 @@ ActiveRecord::Schema.define(version: 2021_10_06_195731) do
     t.index ["account_id"], name: "index_projects_on_account_id"
   end
 
+  create_table "quotes", force: :cascade do |t|
+    t.string "text"
+    t.string "author"
+    t.string "source"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "entry_id"
+    t.integer "book_id"
+    t.index ["book_id"], name: "index_quotes_on_book_id"
+    t.index ["entry_id"], name: "index_quotes_on_entry_id"
+  end
+
   create_table "topics", force: :cascade do |t|
     t.string "title"
     t.datetime "created_at", precision: 6, null: false
@@ -111,6 +154,8 @@ ActiveRecord::Schema.define(version: 2021_10_06_195731) do
     t.string "title"
     t.string "url"
     t.string "description"
+    t.integer "book_id"
+    t.index ["book_id"], name: "index_weblinks_on_book_id"
     t.index ["project_id"], name: "index_weblinks_on_project_id"
   end
 

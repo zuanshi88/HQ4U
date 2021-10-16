@@ -64,3 +64,25 @@
                             <% end %>
                      
     <% end %>
+
+
+<div style="margin-top: 60px;">
+
+    <h4 style="float: left; width: 100px; text-align: center;">Weblinks?????</h4>
+    <br>
+
+    <% if @book.weblinks %>
+      
+
+    <ul style="display: inline;">
+        <% @book.weblinks.each do |link| %>
+            <li><a href="<%=link.url %>"><%=link.title%></a> | 
+            <form action="/project/<%=@book.project_id%>/book/<%=@book.id%>/weblink/<%=link.id%>/delete" method="POST">
+                <input id="hidden" type="hidden" name="_method" value="delete">
+                <input type="submit" value="delete" style="width: 25px; height: 15px; font-size: 30%; text-align: center; padding: 0px;" onclick="clicked(event)">
+            </form>
+        </li>
+ <% end %>
+    </ul>
+        <% end %>
+<div>

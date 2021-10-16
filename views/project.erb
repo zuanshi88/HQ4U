@@ -1,69 +1,103 @@
+              <% @color_array=[" #624d60", " #e7ee8f", " #878db5", " #b335a6", " #25a5da", " #919dc5", " #44fee3", " #384f14", " #39ced9", " #fd0fbb", " #b4d36b", " #0b84cc", " #072f47", " #9f600c", " #6246a7", " #d9b8ab", " #7a8d21", " #688fae", " #44dd7d", " #9c33f6", " #89038b", " #c85ce1", " #2b6e90", " #136888", " #52ebeb", " #99fc8c", " #29d441", " #98bed7", " #246c06", " #0e8996", " #e37d26", " #2d1521", " #587900", " #44d76b", " #3095b2", " #b58e54", " #4c144a", " #c5ac66", " #62c734", " #dbfa4c", " #3ea511", " #0361b8", " #484346", " #0121e5", " #660b0c", " #d6c861", " #64ae22", " #c4b645", " #56310c", " #dfce8e", " #b60762", " #56cd8e", " #482c95", " #6e352c", " #5c4d98", " #f0f870", " #b8d191", " #9ab838", " #6c7dea", " #5e109b", " #aebd16", " #c941c9", " #872b3b", " #2392c5"]
+%>
 
 
 
-<h1><%=@project.title%>-- <%=@project.description%></h1>
+<h1><%=@project.title%></h1>
 
 <% if @project.photos[0] %>
     
-<div class="on-click" style="float:left;" onclick="call('options')">
+<div style="float:left;" onclick="call('options')">
     <img src="/<%= @project.photos[0].photo %>" alt="Where is the photo?" width="300" height= "200" style="border: 2px solid black; border-radius:15px; margin-left: 145px; margin-bottom: 10px;">
 </div>
 
+
+
 <% end %>
 
+
+
+<div id="options" style="display: none;">
+        <h3 style="float: center; text-align: center; border: 2px solid black;"><a href="/people/<%=@project.account_id%>/projects">all projects</a></h3>
+
+        <h3 class="on-click" style=" float: center; text-align: center; border: 2px solid black;" onclick="call('note');">NOTE</h3>
+
+            <div id="note" style="display: none;">
+
+                <form action="/people/<%=@project.account_id%>/project/<%=@project.id%>/note/create" method="POST">
+                    <input type="hidden" id="hidden">
+                    <input type="text" name="comment">
+                    <input type="submit" value="note">
+                </form>
+            </div>
+            
+            <h3 class="on-click" style="float: center; text-align: center; border: 2px solid black;" onclick="call('add-photo');"> add photo </h3>
+                <div id="add-photo" style="display:none">
+                    <form action="/people/<%=@project.account_id%>/project/<%=@project.id%>/photo" method="POST">
+                        <input type="hidden" id="hidden">
+                        <label for="title">title</label>
+                        <input type="text" name="title">
+                        <label for="description">description</label>
+                        <input type="text" name="description">
+                        <label for="photo">photo</label>
+                        <input type="file" name="photo">
+                        <input type="submit" value="photo">
+                    </form>
+                </div>
+        <h3 class="on-click" style="float: center; text-align: center; border: 2px solid black;" onclick="call('books')">Books</a></h3>
+                <div id="books" style="display:none">
+                    <div style="background-color: white;" onclick="call('new-book')">new book</div>
+                        <% unless @project.books == nil%>
+                            <ul>
+                            <% @project.books.each do |book|%>
+                                <li><a href="/project/<%=@project.id%>/book/<%=book.id%>"><%=book.title%></a></li>
+                                <% end %>
+                            </ul>
+                        <% end %>
+                    <div id="new-book" style="display:none;">
+                        <form action="/people/<%=@person.id%>/project/<%=@project.id%>/book/create" method="POST">
+                            <input type="hidden" id="hidden">
+                            <label for="title">title</label>
+                            <input type="text" name="title">
+                            <label for="url">author</label>
+                            <input type="text" name="author">
+                            <label for="synopsis">synopsis</label>
+                            <input type="textarea" name="synopsis">
+                            <label for="pages">pages</label>
+                            <input type="integer" name="pages">
+                            <input type="submit" value="link">
+                        </form>
+                    </div>
+                </div>
+        <h3 style="float: center; text-align: center; border: 2px solid black">  <a href="/photoroom/<%=@project.id%>">Photoroom</a></h3>
+
+        <h3 class="on-click" style="float: center; text-align: center; border: 2px solid black" onclick="call('create-weblink')"> Weblink 3000 </h3>
+                <div id="create-weblink" style="display:none">
+                    <form action="/people/<%=@person.id%>/project/<%=@project.id%>/weblink/create" method="POST">
+                        <input type="hidden" id="hidden">
+                        <label for="title">title</label>
+                        <input type="text" name="title">
+                        <label for="url">url</label>
+                        <input type="text" name="url">
+                        <label for="description">description</label>
+                        <input type="text" name="description">
+                        <input type="submit" value="link">
+                    </form>
+                </div>
+</div>
+
+<div style="float:left;" onclick="call('options')">
+    <img src="/<%= @project.photos[0].photo %>" alt="Where is the photo?" width="300" height= "200" style="border: 2px solid black; border-radius:15px; margin-left: 145px; margin-bottom: 10px;">
+</div>
+
 <br>
+<% unless @project.weblinks[0] == nil %>
+<div style="margin-bottom: 200px;"></div>
+<div style="margin-top: 50px;">
 
+    <span onclick="call('weblinks')" style="border: 3px solid <%=@color_array[rand(63)]%>; padding: 3px; margin-left: 20px; background: <%=@color_array[rand(63)]%>">Weblinks</span>
 
-<h3 style="float: center; width:80; text-align: center; border: 2px solid black;"><a href="/people/<%=@project.account_id%>/projects">all projects</a></h3>
-
-<h3 class="on-click" style=" float: center; width:80; text-align: center; border: 2px solid black;" onclick="call('note');">NOTE</h3>
-
-    <div id="note" style="display: none;">
-
-        <form action="/people/<%=@project.account_id%>/project/<%=@project.id%>/note/create" method="POST">
-            <input type="hidden" id="hidden">
-            <input type="text" name="comment">
-            <input type="submit" value="note">
-        </form>
-    </div>
-    
-    <h3 class="on-click" style="float: center; width:80; text-align: center; border: 2px solid black;" onclick="call('add-photo');"> add photo </h3>
-        <div id="add-photo" style="display:none">
-            <form action="/people/<%=@project.account_id%>/project/<%=@project.id%>/photo" method="POST">
-                <input type="hidden" id="hidden">
-                <label for="title">title</label>
-                <input type="text" name="title">
-                <label for="description">description</label>
-                <input type="text" name="description">
-                <label for="photo">photo</label>
-                <input type="file" name="photo">
-                <input type="submit" value="photo">
-            </form>
-        </div>
-
-<h3 style="float: center; width:80; text-align: center; border: 2px solid black">  <a href="/photoroom/<%=@project.id%>">Photoroom</a></h3>
-
-<h3 class="on-click" style="float: center; width:80; text-align: center; border: 2px solid black" onclick="call('create-weblink')"> Weblink 3000 </h3>
-        <div id="create-weblink" style="display:none">
-            <form action="/people/<%=@person.id%>/project/<%=@project.id%>/weblink/create" method="POST">
-                <input type="hidden" id="hidden">
-                <label for="title">title</label>
-                <input type="text" name="title">
-                <label for="url">url</label>
-                <input type="text" name="url">
-                <label for="description">description</label>
-                <input type="text" name="description">
-                <input type="submit" value="link">
-            </form>
-        </div>
-
-
-
-<div style="margin-top: 60px;">
-
-    <h4 style="float: left; width: 100px; text-align: center;">Weblinks</h4>
-    <br>
-    <ul style="display: inline;">
+    <ul id="weblinks" style="display: none; margin-left: 20px;">
         <% @project.weblinks.each do |link| %>
             <li><a href="<%=link.url %>"><%=link.title%></a> | 
             <form action="/people/<%=@project.id%>/weblinks/delete/<%=link.id%>" method="post" style="display:inline">
@@ -74,18 +108,48 @@
  <% end %>
     </ul>
 <div>
+<% end %>
 
-
-<br>
-
-<br>
 <ul margin-left: 20px;>
     <% @project.notes.reverse.each do |note|%>
-    <li><b><%= note.created_at.strftime('%m/%d/%y')%></b><span style="font-size: 75%"> <%= note.created_at.strftime('%H:%M')%></span> : <%= note.comment %>
+    <li style="background: <%=@color_array[rand(63)]%>; margin-top: 5px; padding: 10px; border: 2px solid <%=@color_array[rand(63)] %>"><b><%= note.created_at.strftime('%m/%d/%y')%></b>  <span style="text-align: right; color: black; background: <%=@color_array[rand(63)]%>; border: 1px solid black; border-radius: 5px width: 50px; height: 30px; font-size: 50%; text-align: center; padding: left: 2px; display: <%= note.addendums[0]? 'inline' : 'none' %>" onclick="call('show-addendum-<%=note.id%>')"> all </span>
+              <span onclick="call('add-add-<%=note.id%>')" style="font-size: 110%; color: black; background: <%= @color_array[rand(63)]%>; border: 1px solid black; border-radius: 5px; width: 50px; height: 30px; text-align: center; margin-left: 5px; font-size: 50%; "><b> add </b></span>
+       
         <form action="/people/<%=@project.account_id%>/project/<%=@project.id%>/delete/<%=note.id%>" method="post" style="display:inline">
             <input id="hidden" type="hidden" name="_method" value="delete">
-            <input type="submit" value="del" style="width: 25px; height: 15px; font-size: 50%;" onclick="clicked(event)">
+            <input type="submit" value="del" style="width: 25px; height: 15px; font-size: 50%; color: black; background: <%= @color_array[rand(63)]%>" onclick="clicked(event)">
         </form> 
+       
+        <div id="add-add-<%=note.id%>" style="display: none;">
+            <form action="/project/<%=@project.id%>/note/<%=note.id%>/addendum/create" method="post">
+                    <input id="hidden" type="hidden" name="_method" value="post">
+                <input type="text" name="addition">
+                <input type="submit" value="submit">
+            </form>
+        </div>
+        <div>
+            <%= note.comment %>
+        </div>
+                
+                <div id="show-addendum-<%=note.id%>" style="display:none;">
+                    <% unless note.addendums[0] == nil %>
+                        <ul style="padding: 10px;">
+                    <% note.addendums.each do |addendum|%>
+                            <li style="background: <%=@color_array[rand(63)]%>; border: 2px solid <%=@color_array[rand(63)]%>; margin-top: 5px; margin-left: 20px; padding: 20px;">=>
+                              <span onclick="call('delete-button-<%=addendum.id%>')"><%=addendum.addition %></span>
+                              <span id="delete-button-<%=addendum.id%>" style="display: none; margins: 0px; float: left;">
+                                    <form action="/project/<%=@project.id%>/note/<%=note.id%>/addendum/<%=addendum.id%>/delete" method="post">
+                                        <input id="hidden" type="hidden" name="_method" value="delete">
+                                        <input type="submit" value="del" onclick="clicked(event)">
+                                    </form> 
+                                </span>
+                            </li>
+                            <% end %>
+                        </ul>
+                    <% end %>
+                </div>
+
+       
     </li>
     <% end %>
 </ul>

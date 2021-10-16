@@ -1,0 +1,27 @@
+<
+    
+    <style>
+    
+    body{
+
+        background-color:black;
+    }
+    
+    </style>
+    <a href="/project/<%=@project.id%>/book/<%=@book.id%>"><h1 style="margin-top: 0px; color: silver;">回</h1></a>
+    <h3><a href="/photoroom/book/edit/<%=@book.id%>"> edit </a></h3>
+    
+<div style="padding: 10px;">
+    <%if @book.photos[0]%>
+        <%@book.photos.each do |photo|%>
+        <div style="border: 3px solid red; float: left; display: inline;  margin-top: 5px; margin-bottom: 5px; margin-right: 5px;">
+    <img src="/<%=photo.photo%>" alt="where's the photo?" style="width:302px; height: 202px; margin: 0;">
+            <form action="/project/<%=@project.id%>/book/<%=@book.id%>/photo/<%=photo.id%>/delete" method="post" style="display: inline;">
+                        <input id="hidden" type="hidden" name="_method" value="delete">
+                        <input type="submit" value="delete" style="float:right;" onclick="clicked(event)">
+            </form> 
+        </div>
+        </a>
+        <%end%>
+    <%end%>
+</div>

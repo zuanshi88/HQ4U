@@ -16,6 +16,9 @@ require_relative "model/photo.rb"
 require_relative "model/dictionary.rb"
 require_relative "model/entry.rb"
 require_relative "model/example.rb"
+require_relative "model/book.rb"
+require_relative "model/quote.rb"
+require_relative "model/addendum.rb"
 
 set :database, {adapter: "sqlite3", database: "crm.sqlite3"}
 
@@ -24,6 +27,12 @@ set :database, {adapter: "sqlite3", database: "crm.sqlite3"}
 #         register Sinatra::Reloader
 #   end
 
+
+
+get "/video" do 
+
+    erb :video
+end 
 
 get "/annuals" do
     @activities = Activity.all 
@@ -193,6 +202,157 @@ delete "/people/:account_id/delete/:activity_id" do
     erb :person
 end 
 
+
+
+post '/people/:person_id/project/:project_id/book/create' do
+
+    @book = Book.create(title: params[:title], author: params[:author], synopsis: params[:synopsis], pages: params[:pages])
+    @project = Project.find(params[:project_id])
+    @person = Account.find(params[:person_id])
+    @project.books << @book
+    @photos = Photos.all 
+    erb :project
+
+end 
+
+get '/project/:project_id/book/:book_id' do 
+    @project = Project.find(params[:project_id])
+    @book = Book.find(params[:book_id])
+    @person = Account.find(@project.account_id)
+
+    erb :book
+
+end 
+
+
+post '/project/:project_id/book/:book_id/note/create' do
+    @note = Note.create(comment: params[:comment])
+    @book = Book.find(params[:book_id])
+    @book.notes << @note 
+    @project = Project.find(params[:project_id])
+    @person = @project.account_id
+
+    erb :book 
+
+end 
+
+delete '/project/:project_id/book/:book_id/note/:note_id/delete' do
+    @note = Note.find(*params[:note_id])
+    @note.destroy 
+    @project = Project.find(params[:project_id])
+    @person = Account.find(@project.account_id)
+    @book = Book.find(params[:book_id])
+
+    erb :book_edit_notes_and_quotes
+end 
+
+post '/project/:project_id/book/:book_id/note/:note_id/addendum/create' do 
+    @addendum = Addendum.create(addition: params[:addition])
+    @note = Note.find(params[:note_id])
+    @project = Project.find(params[:project_id])
+    @book = Book.find(params[:book_id])
+
+    @note.addendums << @addendum 
+
+    erb :book 
+
+end 
+
+
+
+post '/project/:project_id/note/:note_id/addendum/create' do 
+    @addendum = Addendum.create(addition: params[:addition])
+    @note = Note.find(params[:note_id])
+    @project = Project.find(params[:project_id])
+    @person = Account.find(@project.account_id)
+    @note.addendums << @addendum 
+
+    erb :project
+
+end 
+
+
+delete '/project/:project_id/note/:note_id/addendum/:addendum_id/delete' do 
+    @addendum = Addendum.find(params[:addendum_id])
+    @note = Note.find(params[:note_id])
+    @project = Project.find(params[:project_id])
+    @person = Account.find(@project.account_id)
+    @addendum.destroy
+
+    erb :project
+end 
+
+post '/project/:project_id/book/:book_id/photo/create' do
+    @photo = Photo.create(title: params[:title], photo: params[:photo], description: params[:description])
+    @book = Book.find(params[:book_id])
+    @book.photos << @photo 
+
+    erb :book
+
+end 
+
+
+delete '/project/:project_id/book/:book_id/photo/:photo_id/delete' do
+    @photo = Photo.find(params[:photo_id])
+    @photo.destroy 
+    @book = Book.find(params[:book_id])
+    @project = Project.find(params[:project_id])
+
+    erb :photoroom_book_edit
+
+end 
+
+post '/project/:project_id/book/:book_id/quote/create' do
+    @quote = Quote.create(text: params[:text], author: params[:author], source: params[:source])
+    @book = Book.find(params[:book_id])
+    @book.quotes << @quote
+    @project = Project.find(params[:project_id])
+
+    erb :book 
+
+end 
+
+post '/project/:project_id/book/:book_id/quote/:quote_id/delete' do
+    @quote = Quote.find(params[:quote_id])
+    @quote.destroy 
+
+    erb :book 
+
+end 
+
+
+get '/project/:project_id/book/:book_id/edit_notes_and_quotes' do 
+    @project = Project.find(params[:project_id])
+    @book = Book.find(params[:book_id])
+    @person = Account.find(@project.account_id)
+
+    erb :book_edit_notes_and_quotes
+
+
+end 
+
+post '/project/:project_id/book/:book_id/weblink/create' do 
+    @weblink = Weblink.create(title: params[:title], url: params[:url], description: params[:description])
+    @book = Book.find(params[:book_id])
+    @book.weblinks << @weblink 
+
+    erb :book 
+
+end 
+
+delete '/project/:project_id/book/:book_id/weblink/:weblink_id/delete' do 
+    @weblink = Weblink.find(params[:weblink_id])
+    @weblink.destroy 
+    @book = Book.find(params[:book_id])
+
+    erb :book 
+
+end 
+
+
+
+
+
 get "/people/:id/projects" do 
     @person = Account.find_by_id(params[:id].to_i)
     @projects = @person.projects
@@ -240,6 +400,23 @@ get "/photoroom/:id" do
     erb :photoroom
 
 end 
+
+get "/photoroom/book/:id" do
+    @book = Book.find(params[:id]) 
+    @project = Project.find(@book.project_id)
+
+    erb :photoroom_book 
+
+end 
+
+get "/photoroom/book/edit/:id" do 
+    @book = Book.find(params[:id])
+    @project = Project.find(@book.project_id)
+
+    erb :photoroom_book_edit
+
+end 
+
 
 delete "/people/:account_id/project/delete/:project_id" do 
       @project = Project.find_by_id(params[:project_id].to_i)

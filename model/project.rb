@@ -3,4 +3,5 @@ class Project < ActiveRecord::Base
     has_many :notes
     has_many :weblinks
     has_many :photos
+    has_many :books
 end 

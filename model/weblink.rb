@@ -1,3 +1,4 @@
 class Weblink < ActiveRecord::Base 
     belongs_to :project
+    belongs_to :book
 end 
