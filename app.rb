@@ -210,7 +210,8 @@ post '/people/:person_id/project/:project_id/book/create' do
     @project = Project.find(params[:project_id])
     @person = Account.find(params[:person_id])
     @project.books << @book
-    @photos = Photos.all 
+    
+    
     erb :project
 
 end 
@@ -286,6 +287,7 @@ post '/project/:project_id/book/:book_id/photo/create' do
     @photo = Photo.create(title: params[:title], photo: params[:photo], description: params[:description])
     @book = Book.find(params[:book_id])
     @book.photos << @photo 
+    @project = Project.find(params[:project_id])
 
     erb :book
 
@@ -452,14 +454,32 @@ delete "/people/:id/project/:project_id/delete/:note_id" do
 
 end 
 
-post "/people/:id/project/:project_id/weblink/create" do 
+post "/people/:id/project/:project_id/*/*/weblink/create" do
+    @hash = {title: params[:title], url: params[:url], description: params[:description]} 
 
-    @weblink = Weblink.create(title: params[:title], url: params[:url], description: params[:description] )
-    @project = Project.find_by_id(params[:project_id].to_i)
-    @project.weblinks << @weblink
-    @weblink.save 
-    @project.save 
+        if params['splat'][0] =~ /main/
+            @weblink = Weblink.create(@hash)
+            @project = Project.find_by_id(params['splat'][1].to_i)
+            @project.weblinks << @weblink
+            @weblink.save 
+            @project.save 
 
+    elsif params['splat'][0] =~ /note/
+        @hash[:note_id] = params[:note_id]
+        @weblink = Weblink.create(@hash)
+        @note = Note.find_by_id(params['splat'][1])
+        @note.weblinks << @weblink
+
+    elsif params['splat'][0] =~ /addendum/
+        @weblink = Weblink.create(@hash)
+        @addendum = Addendum.find_by_id(params['splat'][1])
+        @addendum.weblinks << @weblink
+
+    else 
+          erb :project
+    end 
+
+    @project = @project || Project.find_by_id(params[:project_id])
     @person = Account.find_by_id(params[:id])
 
     erb :project
@@ -477,6 +497,7 @@ delete "/people/:project_id/weblinks/delete/:link_id" do
 
 
 end 
+
 
 
 
@@ -581,7 +602,7 @@ end
 get '/dictionary/search/:id' do
     @search = params[:search] 
     @dictionary = Dictionary.find(params[:id])
-    @result = @dictionary.entries.select{|entry| entry.term == @search}
+    @result = @dictionary.entries.filter{|entry| entry.term.downcase == @search.downcase || entry.topic_tag.downcase ==   @search.downcase }
   
     erb :dictionary
         

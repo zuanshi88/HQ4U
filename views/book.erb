@@ -5,13 +5,17 @@
 
 <h1><%=@book.title%></h1>
 
-<% if @book.photos[0] %>
+
     
 <div onclick="call('options')" style="float: left; margin-right:20px;">
-    <img src="/<%= @book.photos[0].photo %>" alt="Where is the photo?" width="300" height= "200" style="border: 2px solid black; border-radius:15px; margin-left: 145px; margin-bottom: 10px;">
+    <% if @book.photos[0] %>
+        <img src="/<%= @book.photos[rand(@book.photos.length)].photo %>" alt="Where is the photo?" width="300" height= "200" style="border: 2px solid black; border-radius:15px; margin-left: 145px; margin-bottom: 10px;">
+    <% else %>
+    <h2>OPTIONS</h2>
+    <% end %>
 </div>
+    
 
-<% end %>
 
 <div id="options" style="display:none;">
 <h3 style="float: center; width:80; text-align: center; border: 2px solid black;"><a href="/people/<%=@project.account_id%>/project/<%=@book.project_id%>">project</a></h3>
@@ -146,6 +150,4 @@
     <p class="bottom-nav"><a href="/people">people</a></p>
     <p class="bottom-nav"><a href="/activities" title="">action</a></p>
 </div>
-
-
 

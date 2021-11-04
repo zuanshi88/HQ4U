@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_07_213709) do
+ActiveRecord::Schema.define(version: 2021_10_22_161643) do
 
   create_table "accounts", force: :cascade do |t|
     t.string "name"
@@ -155,7 +155,11 @@ ActiveRecord::Schema.define(version: 2021_10_07_213709) do
     t.string "url"
     t.string "description"
     t.integer "book_id"
+    t.integer "note_id"
+    t.integer "addendum_id"
+    t.index ["addendum_id"], name: "index_weblinks_on_addendum_id"
     t.index ["book_id"], name: "index_weblinks_on_book_id"
+    t.index ["note_id"], name: "index_weblinks_on_note_id"
     t.index ["project_id"], name: "index_weblinks_on_project_id"
   end
 

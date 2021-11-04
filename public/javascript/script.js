@@ -9,26 +9,48 @@
   }
 }
 
-  var flip = function(elementId, frameId){
-    var frame = document.getElementById(frameId);
-    var front = document.getElementById(elementId);
-    var temp = document.getElementById(elementId).innerHTML;
-    var back = document.getElementById('backOfCard');
-      if( front.side  == "front") {
+
+var testCall = function(id){
+  console.log(id)
+  let targetId = document.getElementById(id);
+  targetId.style.backgroundColor = "red";
+
+}
+
+var colorDate = function (id) {
+  let sameDate = document.getElementById('same-name-check').innerHTML;
+  var dateSpan = document.getElementById(id);
+  if(sameDate == "true"){
+  dateSpan.style.backgroundColor = "white";
+  } else {
+  dateSpan.style.backgroundColor = "blue";
+  }
+  console.log(id);
+
+
+}
+
+  function flip(elementId, frameId) {
+  var frame = document.getElementById(frameId);
+  var front = document.getElementById(elementId);
+  var temp = document.getElementById(elementId).innerHTML;
+  var back = document.getElementById('backOfCard');
+  if (front.side == "front") {
     front.innerHTML = back.innerHTML;
-    frame.style.backgroundColor="white";
+    frame.style.backgroundColor = "white";
     frame.style.color = "black";
     front.side = back;
     back.innerHTML = temp;
-    } else {
-      front.innerHTML = back.innerHTML;
-        frame.style.backgroundColor = "blue";
-        frame.style.color = "white";
-        front.side="front";
-      back.innerHTML = temp;
-      console.log("Flip");
-    }
-  };
+  } else {
+    front.innerHTML = back.innerHTML;
+    frame.style.backgroundColor = "blue";
+    frame.style.color = "white";
+    front.side = "front";
+    back.innerHTML = temp;
+    console.log("Flip");
+  }
+}
+
 
 
 

@@ -44,8 +44,6 @@ h1, p {
 #main{
   width: 1000px;
   min-height: 200px;
-  border-radius: 4px;
-  border: 1px solid #e3dcdc;
   margin-left: 75px;
 }
 
@@ -70,20 +68,27 @@ img.logo {
 }
 
 #header {
-  display: block;
+
   padding-top: 30px;
   height: 90px;
-  width: 50%;
+  width: 60%;
   margin:auto;
-  margin-left: 200px;
+   text-align:center;
+}
+
+.divider {
+  color: black;
+  padding-top: 20px;
+  font-size: 30px;
 }
 
 #header > a.nav {
   padding-top: 20px;
-  font-size: 20px;
+  font-size: 30px;
   text-transform: uppercase;
   letter-spacing: 2px;
-  text-align: center;
+  padding-top: 20px;
+  font-size: 30px;
   color: white;
 }
 
