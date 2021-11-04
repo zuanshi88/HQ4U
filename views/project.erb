@@ -148,7 +148,7 @@
                 <div id="add-add-<%=note.id%>" style="display: none;">
                     <form action="/project/<%=@project.id%>/note/<%=note.id%>/addendum/create" method="post">
                             <input id="hidden" type="hidden" name="_method" value="post">
-                            <input type="text" name="addition">
+                            <textarea rows="3" cols="50" name="addition"></textarea>
                             <input type="submit" value="submit">
                     </form>
                 </div>
