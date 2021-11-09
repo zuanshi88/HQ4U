@@ -204,6 +204,7 @@
                                             <input type="submit" value="link">
                                         </form>
                                     </div>
+                                <span style="color: black; background: <%= @color_array[rand(63)]%>; border: 1px solid black; border-radius: 5px; width: 75px; height: 30px; text-align: center; margin-left: 5px; padding: 10px;" onclick="call('create-note-weblink-<%=addendum.id%>')">add</span>
                                 <span class="on-click" style="font-size: 110%; color: black; background: <%= @color_array[rand(63)]%>; border: 1px solid black; border-radius: 5px; width: 75px; height: 30px; text-align: center; margin-left: 5px; padding: 10px;" onclick="call('create-addendum-weblink-<%=addendum.id%>')"> link </span>
                                     <form action="/project/<%=@project.id%>/note/<%=note.id%>/addendum/<%=addendum.id%>/delete" method="post">
                                         <input id="hidden" type="hidden" name="_method" value="delete">
