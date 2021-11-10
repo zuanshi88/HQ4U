@@ -204,11 +204,11 @@ end
 
 
 
-post '/people/:person_id/project/:project_id/book/create' do
+post '/project/:project_id/book/create' do
 
     @book = Book.create(title: params[:title], author: params[:author], synopsis: params[:synopsis], pages: params[:pages])
     @project = Project.find(params[:project_id])
-    @person = Account.find(params[:person_id])
+    @person = Account.find(params[:project_id].account_id)
     @project.books << @book
     
     
@@ -282,6 +282,29 @@ delete '/project/:project_id/note/:note_id/addendum/:addendum_id/delete' do
 
     erb :project
 end 
+
+post '/project/:project_id/addendum/:addendum_id/note/create' do 
+    @note = Note.create(comment: params[:comment])
+    @addendum = Addendum.find(params[:addendum_id])
+    @addendum.notes << @note 
+
+    @project = Project.find(params[:project_id])
+
+    erb :project 
+end 
+
+
+delete '/project/:project_id/addendum/:addendum_id/note/:note_id/delete' do
+    @note = Note.find(params[:note_id])
+    @note.destroy 
+    @project = Project.find(params[:project_id])
+
+
+    erb :project
+    
+
+end 
+
 
 post '/project/:project_id/book/:book_id/photo/create' do
     @photo = Photo.create(title: params[:title], photo: params[:photo], description: params[:description])
@@ -454,7 +477,7 @@ delete "/people/:id/project/:project_id/delete/:note_id" do
 
 end 
 
-post "/people/:id/project/:project_id/*/*/weblink/create" do
+post "/project/:project_id/*/*/weblink/create" do
     @hash = {title: params[:title], url: params[:url], description: params[:description]} 
 
         if params['splat'][0] =~ /main/
@@ -480,7 +503,7 @@ post "/people/:id/project/:project_id/*/*/weblink/create" do
     end 
 
     @project = @project || Project.find_by_id(params[:project_id])
-    @person = Account.find_by_id(params[:id])
+    @person = Account.find_by_id(@project.account_id)
 
     erb :project
 

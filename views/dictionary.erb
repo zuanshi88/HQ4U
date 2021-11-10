@@ -1,16 +1,16 @@
 
-             <% @color_array=[" #624d60", " #e7ee8f", " #878db5", " #b335a6", " #25a5da", " #919dc5", " #44fee3", " #384f14", " #39ced9", " #fd0fbb", " #b4d36b", " #0b84cc", " #072f47", " #9f600c", " #6246a7", " #d9b8ab", " #7a8d21", " #688fae", " #44dd7d", " #9c33f6", " #89038b", " #c85ce1", " #2b6e90", " #136888", " #52ebeb", " #99fc8c", " #29d441", " #98bed7", " #246c06", " #0e8996", " #e37d26", " #2d1521", " #587900", " #44d76b", " #3095b2", " #b58e54", " #4c144a", " #c5ac66", " #62c734", " #dbfa4c", " #3ea511", " #0361b8", " #484346", " #0121e5", " #660b0c", " #d6c861", " #64ae22", " #c4b645", " #56310c", " #dfce8e", " #b60762", " #56cd8e", " #482c95", " #6e352c", " #5c4d98", " #f0f870", " #b8d191", " #9ab838", " #6c7dea", " #5e109b", " #aebd16", " #c941c9", " #872b3b", " #2392c5"]
+               <% @color_array=[" #624d60", " #e7ee8f", " #878db5", " #b335a6", " #25a5da", " #919dc5", " #44fee3", " #384f14", " #39ced9", " #fd0fbb", " #b4d36b", " #0b84cc", " #072f47", " #9f600c", " #6246a7", " #d9b8ab", " #7a8d21", " #688fae", " #44dd7d", " #9c33f6", " #89038b", " #c85ce1", " #2b6e90", " #136888", " #52ebeb", " #99fc8c", " #29d441", " #98bed7", " #246c06", " #0e8996", " #e37d26", " #2d1521", " #587900", " #44d76b", " #3095b2", " #b58e54", " #4c144a", " #c5ac66", " #62c734", " #dbfa4c", " #3ea511", " #0361b8", " #484346", " #0121e5", " #660b0c", " #d6c861", " #64ae22", " #c4b645", " #56310c", " #dfce8e", " #b60762", " #56cd8e", " #482c95", " #6e352c", " #5c4d98", " #f0f870", " #b8d191", " #9ab838", " #6c7dea", " #5e109b", " #aebd16", " #c941c9", " #872b3b", " #2392c5"]
 %>
 
 
 <div style="width:50%; margin: auto; border: 2px solid black; background-color: <%=@color_array[rand(63)]%>;">
         <a href="/dictionary/<%=@dictionary.id%>">
-            <h1><b><%=@dictionary.title%></b></h1>
+            <h1 style="font-size: 300%"><b><%=@dictionary.title%></b></h1>
         </a>
 
-        <ul style="margin-left: 160px;">
+        <ul style="margin-left: 160px; color: silver">
             <li style="display: inline;"><span class="on-click" onclick="call('addEntry')">add</span> |</li>
-            <li style="display: inline;"><a href="/dictionary/edit/<%=@dictionary.id%>">edit</a> |</li>
+            <li style="display: inline;"><a style="color:silver;" href="/dictionary/edit/<%=@dictionary.id%>">edit</a> |</li>
             <li style="display: inline;"><span class="on-click" onclick="call('search-box')">search</span></li>
         </ul> 
 
@@ -21,7 +21,7 @@
                 <% @sorted_array = @tags.uniq.sort%>
                     <ul style="margin-left: 50px; margin-right: 50px;">
                         <% @sorted_array.each_with_index do |tag, index|%>
-                            <li style="display: inline;"><span class="on-click" style="color: black" onclick="call('<%=tag%>-entries')"><%=tag%></span>
+                            <li style="display: inline;"><span class="on-click" style="color: ivory" onclick="call('<%=tag%>-entries')"><%=tag%></span>
                             <% unless index == @sorted_array.length - 1 %>
                             |
                             <% end %>

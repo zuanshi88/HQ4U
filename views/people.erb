@@ -8,7 +8,7 @@
 
 
            <%@people = Account.all%>
-                <%@people.each do |person|%>
+                <%@people.sort_by{|person| person.name}.each do |person|%>
 
             <h4 style="border: 2px solid black; background-color: <%=@color_array[rand(63)]%>;"><a href="/people/<%=person.id%>"><%=person.name%></a></h4>  
           

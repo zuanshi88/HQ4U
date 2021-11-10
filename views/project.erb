@@ -60,7 +60,7 @@
                             </ul>
                         <% end %>
                     <div id="new-book" style="display:none;">
-                        <form action="/people/<%=@person.id%>/project/<%=@project.id%>/book/create" method="POST">
+                        <form action="/project/<%=@project.id%>/book/create" method="POST">
                             <input type="hidden" id="hidden">
                             <label for="title">title</label>
                             <input type="text" name="title">
@@ -78,7 +78,7 @@
 
         <h3 class="on-click" style="float: center; text-align: center; border: 2px solid black" onclick="call('create-weblink')"> Weblink 3000 </h3>
                 <div id="create-weblink" style="display:none">
-                    <form action="/people/<%=@person.id%>/project/<%=@project.id%>/main/<%=@project.id%>/weblink/create" method="POST">
+                    <form action="/project/<%=@project.id%>/main/<%=@project.id%>/weblink/create" method="POST">
                         <input type="hidden" id="hidden">
                         <label for="title">title</label>
                         <input type="text" name="title">
@@ -133,7 +133,7 @@
         </form> 
        
                 <div id="create-note-weblink-<%=note.id%>" style="display:none">
-                    <form action="/people/<%=@person.id%>/project/<%=@project.id%>/note/<%=note.id%>/weblink/create" method="POST">
+                    <form action="/project/<%=@project.id%>/note/<%=note.id%>/weblink/create" method="POST">
                         <input type="hidden" id="hidden">
                         <label for="title">title</label>
                         <input type="text" name="title">
@@ -190,10 +190,10 @@
                                 
                               <% end %>
                             
-                              <span><span onclick="call('options-buttons-<%=addendum.id%>')"><%=addendum.created_at.strftime('%m/%d/%y')%> <b style="font-size: 110%;">=></b>  </span><%=addendum.addition %></span>
+                              <span><span onclick="call('options-buttons-<%=addendum.id%>')"><%=addendum.created_at.strftime('%m/%d/%y')%> <b style="font-size: 110%;">=></b>  </span></span><span onclick="call('display-add-notes-<%=addendum.id%>')" class="<%= addendum.notes[0] ? 'on-click' : '' %>"><%=addendum.addition %></span>
                               <span id="options-buttons-<%=addendum.id%>" style="display: none; margins: 0px; float: left;">
                                      <div id="create-addendum-weblink-<%=addendum.id%>" style="display:none">
-                                        <form action="/people/<%=@person.id%>/project/<%=@project.id%>/addendum/<%=addendum.id%>/weblink/create" method="POST">
+                                        <form action="/project/<%=@project.id%>/addendum/<%=addendum.id%>/weblink/create" method="POST">
                                             <input type="hidden" id="hidden">
                                             <label for="title">title</label>
                                             <input type="text" name="title">
@@ -204,18 +204,46 @@
                                             <input type="submit" value="link">
                                         </form>
                                     </div>
-                                <span style="color: black; background: <%= @color_array[rand(63)]%>; border: 1px solid black; border-radius: 5px; width: 75px; height: 30px; text-align: center; margin-left: 5px; padding: 10px;" onclick="call('create-note-weblink-<%=addendum.id%>')">add</span>
+                                    <div id="create-add-add-note-<%=addendum.id%>" style="display: none;">
+                                        <form action="/project/<%=@project.id%>/addendum/<%=addendum.id%>/note/create" method="POST">
+                                            <input id="hidden" type="hidden" name="_method" value="post">
+                                            <textarea rows="3" cols="50" name="comment"></textarea>
+                                            <input type="submit" value="submit">
+                                        </form>
+                                    </div>
+                                <span style="color: black; background: <%= @color_array[rand(63)]%>; border: 1px solid black; border-radius: 5px; width: 75px; height: 30px; text-align: center; margin-left: 5px; padding: 10px;" onclick="call('create-add-add-note-<%=addendum.id%>')">add</span>
                                 <span class="on-click" style="font-size: 110%; color: black; background: <%= @color_array[rand(63)]%>; border: 1px solid black; border-radius: 5px; width: 75px; height: 30px; text-align: center; margin-left: 5px; padding: 10px;" onclick="call('create-addendum-weblink-<%=addendum.id%>')"> link </span>
                                     <form action="/project/<%=@project.id%>/note/<%=note.id%>/addendum/<%=addendum.id%>/delete" method="post">
                                         <input id="hidden" type="hidden" name="_method" value="delete">
                                         <input type="submit" value="del" onclick="clicked(event)">
                                     </form> 
-                        
+
                             </li>
+                                    <div id="display-add-notes-<%=addendum.id%>" style="display:none;">
+
+                                        <% unless addendum.notes[0] == nil %>
+                                            <ul>
+                                                <%addendum.notes.each do |note|%>
+                                                    <li style="background: <%=@color_array[rand(63)]%>; margin-top: 5px; padding: 20px; border: 2px solid <%=@color_array[rand(63)] %>"><%= note.addendums[0] ? note.addendums[-1].created_at.strftime('%m/%d/%y') : note.created_at.strftime('%m/%d/%y') %> => <%=note.comment%>>
+                                                    <span>
+                                                        <form action="/project/<%=@project.id%>/addendum/<%=addendum.id%>/note/<%=note.id%>/delete" method="post">
+                                                            <input id="hidden" type="hidden" name="_method" value="delete">
+                                                            <input type="submit" value="del" onclick="clicked(event)">
+                                                        </form> 
+                                                    </span>
+                                                    
+                                                    
+                                                    </li>
+                                                <% end %>
+                                            </ul>
+                                        <% end %>
+                                    
+                                    </div>
                             <% end %>
                         </ul>
                     <% end %>
                 </div>
+                        
 
        
     </li>

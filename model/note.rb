@@ -5,5 +5,4 @@ class Note < ActiveRecord::Base
     has_many :addendums
     has_many :examples
     has_many :weblinks
-    has_and_belongs_to_many :notes
 end 
