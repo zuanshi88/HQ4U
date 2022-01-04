@@ -522,14 +522,15 @@ delete "/people/:project_id/weblinks/delete/:link_id" do
 end 
 
 
-
+ 
 
 
 get '/activities' do 
     @account = Account.find(40)
     @activities = Activity.all
     @projects = @account.projects
-    @notes = Note.all 
+    @notes = Note.all.filter{|note| note.project_id } 
+    
 
     erb :activities
 

@@ -120,9 +120,9 @@
 <% end %>
 
 <ul margin-left: 20px;>
-    <% @project.notes.sort_by{|note| note.addendums[0] ? note.addendums[-1].created_at : note.created_at}.reverse.each do |note|%>
-    <li style="background: <%=@color_array[rand(63)]%>; margin-top: 5px; padding: 20px; border: 2px solid <%=@color_array[rand(63)] %>"><b><%= note.addendums[0] ? note.addendums[-1].created_at.strftime('%m/%d/%y') : note.created_at.strftime('%m/%d/%y') %></b>  
-            <span class="<%= note.addendums[0] ? 'on-click' : '' %>" onclick="call('show-addendum-<%=note.id%>')" style="font-size: 120%; font-weight: bold; font-family: Courier;"><%= note.comment %></span>
+    <% @project.notes.sort_by{|note| note.date.created_at}.reverse.each do |note|%>
+    <li style="background: <%=@color_array[rand(63)]%>; margin-top: 5px; padding: 20px; border: 2px solid <%=@color_array[rand(63)] %>"><b><%= note.date.created_at.strftime('%m/%d/%y') %></b>  
+            <span class="<%= note.addendums[0] ? 'on-click' : '' %>" onclick="call('show-addendum-<%=note.id%>')" style="font-size: 120%; font-weight: bold; font-family: Courier;"><%= note.comment %> | <span style="font-size: 75%"><%= note.created_at.strftime('%m/%d/%y')%></span></span> 
         <div id="show-addendum-<%=note.id%>" style="display:none;">
               <span onclick="call('add-add-<%=note.id%>')" style=" color: black; background: <%= @color_array[rand(63)]%>; border: 1px solid black; border-radius: 5px; width: 75px; height: 30px; text-align: center; margin-left: 5px; font-size: 75%; "><b> add </b></span>
              <span class="on-click" style=" color: black; background: <%= @color_array[rand(63)]%>; border: 1px solid black; border-radius: 5px; width: 50px; height: 75px; text-align: center; margin-left: 5px; font-size: 75%; padding 10px; " onclick="call('create-note-weblink-<%=note.id%>')"> link </span>
@@ -172,7 +172,7 @@
                 
                     <% unless note.addendums[0] == nil %>
                         <ul style="padding: 10px;">
-                    <% note.addendums.reverse.each do |addendum|%>
+                    <% note.addendums.sort_by{|add| add.date.created_at}.reverse.each do |addendum|%>
                             <li style="background: <%=@color_array[rand(63)]%>; border: 2px solid <%=@color_array[rand(63)]%>; margin-top: 5px; margin-left: 20px; padding: 20px;">
                               <% unless addendum.weblinks[0] == nil%>
                                 <span>
@@ -190,7 +190,7 @@
                                 
                               <% end %>
                             
-                              <span><span onclick="call('options-buttons-<%=addendum.id%>')"><%=addendum.created_at.strftime('%m/%d/%y')%> <b style="font-size: 110%;">=></b>  </span></span><span onclick="call('display-add-notes-<%=addendum.id%>')" class="<%= addendum.notes[0] ? 'on-click' : '' %>"><%=addendum.addition %></span>
+                              <span><span onclick="call('options-buttons-<%=addendum.id%>')"><%=addendum.date.created_at.strftime('%m/%d/%y')%> <b style="font-size: 110%;">=></b>  </span></span><span onclick="call('display-add-notes-<%=addendum.id%>')" class="<%= addendum.notes[0] ? 'on-click' : '' %>"><%=addendum.addition %></span> | <span style="font-size: 75%"><%=addendum.created_at.strftime('%m/%d/%y') %></span>
                               <span id="options-buttons-<%=addendum.id%>" style="display: none; margins: 0px; float: left;">
                                      <div id="create-addendum-weblink-<%=addendum.id%>" style="display:none">
                                         <form action="/project/<%=@project.id%>/addendum/<%=addendum.id%>/weblink/create" method="POST">
@@ -224,7 +224,7 @@
                                         <% unless addendum.notes[0] == nil %>
                                             <ul>
                                                 <%addendum.notes.each do |note|%>
-                                                    <li style="background: <%=@color_array[rand(63)]%>; margin-top: 5px; padding: 20px; border: 2px solid <%=@color_array[rand(63)] %>"><%= note.addendums[0] ? note.addendums[-1].created_at.strftime('%m/%d/%y') : note.created_at.strftime('%m/%d/%y') %> => <%=note.comment%>>
+                                                    <li style="background: <%=@color_array[rand(63)]%>; margin-top: 5px; padding: 20px; border: 2px solid <%=@color_array[rand(63)] %>"><%= note.addendums[0] ? note.addendums[-1].updated_at.strftime('%m/%d/%y') : note.updated_at.strftime('%m/%d/%y') %> => <%=note.comment%>
                                                     <span>
                                                         <form action="/project/<%=@project.id%>/addendum/<%=addendum.id%>/note/<%=note.id%>/delete" method="post">
                                                             <input id="hidden" type="hidden" name="_method" value="delete">

@@ -14,11 +14,10 @@
 
 <div id='same-date-check' style="display: none;">false</div>
 
-<div style="background-color: blue; border: 3px solid black; width: 50px; height: 50px" onclick='testCall(this.id)' id='test-box'></div>
-        
+    
     <div id="project-log" style="display: none; margin-top: 20px; background-color: <%=@color_array[rand(63)]%>; padding: 20px; border: 5px solid black; line-height:25px;">
           <%@notes.sort_by{|note| note.addendums[0] ? note.addendums.sort_by{|add| add.created_at}.last.created_at : note.created_at}.reverse.each do |note|%>
-        <a href="/people/<%=@account.id%>/project/<%=note.project_id%>"><span style="background-color: <%=@color_array[rand(63)]%>; border: 2px solid black; border-radius: 10px; padding-left: 2px; padding-right: 2px; margin-right: 10px;"><b><%= note.addendums[-1]? note.addendums[-1].created_at.strftime('%m/%d'): note.created_at.strftime('%m/%d')%></b>  </span><span style="background: white; padding: 5px; border: 2px solid black; margin-top: 10px;">  <%=note.comment%></span></a>
+        <a href="/people/<%=@account.id%>/project/<%=note.project_id || note.addendum_id%>"><span style="background-color: <%=@color_array[rand(63)]%>; border: 2px solid black; border-radius: 10px; padding-left: 2px; padding-right: 2px; margin-right: 10px;"><b><%= note.addendums[-1]? note.addendums[-1].created_at.strftime('%m/%d'): note.created_at.strftime('%m/%d')%></b>  </span><span style="background: white; padding: 5px; border: 2px solid black; margin-top: 10px;">  <%=note.comment%></span></a>
         <% end %>
     </div>
         <div id="activity-log" style="display: none; background-color: <%=@color_array[rand(63)]%>; padding: 20px; border: 5px solid black; line-height: 50px;">
