@@ -2,8 +2,8 @@
 
 
 <div>
-    <% @projects.sort_by{|project| project.notes[-1].created_at}.reverse.each do |project|%>
-        <h4 style="width: 300px;"><a href="/people/<%=project.account_id%>/project/<%=project.id%>"><%=project.title%> [<%=project.last_add %>] </a> <%=project.notes[-1].created_at.strftime('%m/%d')%>
+    <% @projects.sort_by{|project| project.last_touch}.reverse.each do |project|%>
+        <h4 style="width: 300px;"><a href="/people/<%=project.account_id%>/project/<%=project.id%>"><%=project.title%> [<%=project.last_touch %>] </a> <%=project.notes[-1].created_at.strftime('%m/%d')%>
          <form action="/people/<%=@person.id%>/project/delete/<%=project.id%>" method="post" style="display:inline">
                             <input id="hidden" type="hidden" name="_method" value="delete">
                             <input type="submit" value="delete" style="text-align: right; margin-left: 20px;" onclick="clicked(event)">

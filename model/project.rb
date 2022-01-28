@@ -22,10 +22,12 @@ class Project < ActiveRecord::Base
     end 
 
     def last_touch
-        if self.notes[-1]
-               self.notes[-1].created_at
+        if !self.addendums.empty?
+               self.addendums.last.created_at
+        elsif !self.notes.empty?
+            self.notes.last.created_at
         else
-               self.created_at
+            self.created_at
         end
     end 
 
