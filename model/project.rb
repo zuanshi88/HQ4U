@@ -21,7 +21,8 @@ class Project < ActiveRecord::Base
         self.notes[-1].created_at
     end 
 
-    def last_touch
+
+    def last_touched
         if !self.addendums.empty?
                self.addendums.last.created_at
         elsif !self.notes.empty?

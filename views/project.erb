@@ -52,6 +52,17 @@
     border: 2px solid black;
 }
 
+.note-display {
+    margin-top: 5px; 
+    padding: 20px; 
+}
+
+.addendum-display {
+    font-size: 120%; 
+    font-weight: bold; 
+    font-family: Courier;
+}
+
 
 </style>
 
@@ -62,7 +73,7 @@
 
 <div class="solid-color">
 
-        <h1><%=@curse%></h1>
+        <%# <h1><%=@curse%></h1> %>
         <h1><%=@project.title%></h1>
 
             <% if @project.photos[0] %>
@@ -188,8 +199,9 @@
 
 <ul margin-left: 20px;>
     <% @project.notes.sort_by{|note| note.last_touched}.reverse.each do |note|%>
-    <li style="background: <%=@color_array[rand(63)]%>; margin-top: 5px; padding: 20px; border: 2px solid <%=@color_array[rand(63)] %>"><b><%= note.last_touched.strftime('%m/%d/%y') %></b>  
-            <span class="<%= note.addendums[0] ? 'on-click' : '' %>" onclick="call('show-addendum-<%=note.id%>')" style="font-size: 120%; font-weight: bold; font-family: Courier;"><%= note.comment %> | <span style="font-size: 75%"><%= note.created_at.strftime('%m/%d/%y')%> | <%=note.addendums%></span></span> 
+    <li class="note-display" style="background: <%=@color_array[rand(63)]%>;  border: 2px solid <%=@color_array[rand(63)] %>">
+        <b><%= note.last_touched.strftime('%m/%d/%y') %></b>  
+            <span class="<%= note.addendums[0] ? 'on-click' : '' %>" onclick="call('show-addendum-<%=note.id%>')"><span class="addendum-display"><%= note.comment %> | <span style="font-size: 75%"><%= note.created_at.strftime('%m/%d/%y')%> | <%=note.addendums.size%></span></span></span> 
         <div id="show-addendum-<%=note.id%>" style="display:none;">
               <span onclick="call('add-add-<%=note.id%>')" style=" color: black; background: <%= @color_array[rand(63)]%>; border: 1px solid black; border-radius: 5px; width: 75px; height: 30px; text-align: center; margin-left: 5px; font-size: 75%; "><b> add </b></span>
              <span class="on-click" style=" color: black; background: <%= @color_array[rand(63)]%>; border: 1px solid black; border-radius: 5px; width: 50px; height: 75px; text-align: center; margin-left: 5px; font-size: 75%; padding 10px; " onclick="call('create-note-weblink-<%=note.id%>')"> link </span>

@@ -1,32 +1,103 @@
              
+     
+     
      <% @color_array=[" #624d60", " #624d60", " #878db5", " #b335a6", " #25a5da", " #919dc5", " #919dc5", " #384f14", " #39ced9", " #fd0fbb", " #b4d36b", " #0b84cc", " #072f47", " #9f600c", " #6246a7", " #6246a7", " #7a8d21", " #688fae", " #44dd7d", " #9c33f6", " #89038b", " #c85ce1", " #2b6e90", " #136888", " #136888", " #2b6e90", " #29d441", " #98bed7", " #246c06", " #0e8996", " #e37d26", " #2d1521", " #587900", " #44d76b", " #3095b2", " #b58e54", " #4c144a", " #c5ac66", " #62c734", "#62c734", " #3ea511", " #0361b8", " #484346", " #0121e5", " #660b0c", " #660b0c", " #64ae22", " #c4b645", " #56310c", " #6246a7", " #b60762", " #56cd8e", " #482c95", " #6e352c", " #5c4d98", " #5c4d98", " #b8d191", " #9ab838", " #6c7dea", " #5e109b", " #aebd16", " #c941c9", " #872b3b", " #2392c5"]
 %>
-    <a href="/annuals"><div style="border: 5px solid <%=@color_array[rand(63)]%>; float: left; margin-left: 100px; text-align: center;  width: 50px; height: 50px; background-color: <%=@color_array[rand(63)]%>">
 
-                <span style="font-size: 300%; color: <%=@color_array[rand(63)]%>;">A</span>
-                </div>
+<% @default_color = @color_array[rand(63)] %>
+
+
+<style>
+
+#project-log {
+    display: none; 
+    margin-top: 20px; 
+    background-color: <%=@color_array[rand(63)]%>; 
+    padding: 20px; 
+    border: 5px solid black; 
+    line-height:25px;
+
+}
+
+.note-display { 
+    border: 2px solid black; 
+    border-radius: 10px; 
+    padding-left: 2px; 
+    padding-right: 2px; 
+    margin-right: 10px;
+}
+
+#activity-log {
+    display: none; 
+    background-color: <%=@color_array[rand(63)]%>; 
+    padding: 20px; 
+    border: 5px solid black; 
+    line-height: 25px;">
+}
+
+.square-button {
+    border: 5px solid <%=@color_array[rand(63)]%>; 
+    float: left; 
+    margin-left: 100px; 
+    text-align: center;  
+    width: 50px; 
+    height: 50px; 
+    background-color: <%=@color_array[rand(63)]%>;
+}
+
+.special-letter {
+    font-size: 300%; 
+    color: <%=@color_array[rand(63)]%>;"
+}
+
+.log-title {
+    border: 3px solid black; 
+    border-radius: 5px; 
+    width: 250px; 
+    margin: auto;  
+    margin-bottom: 10px; 
+    text-align: center; 
+    font-weight: bold; 
+    background-color: <%=@color_array[rand(63)]%>;
+}
+
+</style>
+
+
+    <a href="/annuals">
+    <div class="square-button">
+        <span class="special-letter">A</span>
+    </div>
      </a>
 <div class="reading-list" style="width: 1200px;">    
 <div style="margin:0px;">
-   <h1 class="on-click" onclick="call('project-log')" style="border: 3px solid black; border-radius: 5px; width: 250px; margin: auto;  margin-bottom: 10px; text-align: center; font-weight: bold; background-color: <%=@color_array[rand(63)]%>">project log</h2>
+   <h1 class="log-title" class="on-click" onclick="call('project-log')">project log</h2>
+   <%# this styling could be pulled out-- but still need to figure out on-click %>
     <h1 class="on-click" onclick="call('activity-log')" style="border: 3px solid black; border-radius: 5px; width: 250px; margin: auto; margin-top: 0px; margin-bottom: 10px;text-align: center; font-weight: bold;background-color: <%=@color_array[rand(63)]%>">activitiy log</h2>
 </div>
 
 <div id='same-date-check' style="display: none;">false</div>
 
     
-    <div id="project-log" style="display: none; margin-top: 20px; background-color: <%=@color_array[rand(63)]%>; padding: 20px; border: 5px solid black; line-height:25px;">
-          <%@notes.sort_by{|note| note.addendums[0] ? note.addendums.sort_by{|add| add.created_at}.last.created_at : note.created_at}.reverse.each do |note|%>
-        <a href="/people/<%=@account.id%>/project/<%=note.project_id || note.addendum_id%>"><span style="background-color: <%=@color_array[rand(63)]%>; border: 2px solid black; border-radius: 10px; padding-left: 2px; padding-right: 2px; margin-right: 10px;"><b><%= note.addendums[-1]? note.addendums[-1].created_at.strftime('%m/%d'): note.created_at.strftime('%m/%d')%></b>  </span><span style="background: white; padding: 5px; border: 2px solid black; margin-top: 10px;">  <%=note.comment%></span></a>
+    <div id="project-log">
+          <%@notes.sort_by{|note| note.last_touched}.reverse.each_with_index do |note, index|%>
+                <a href="/people/<%=@account.id%>/project/<%=note.project_id || note.addendum_id%>">
+                    <span class="note-display" style="background-color: <%= note.last_touched.day == @notes[index - 1].last_touched.day ? @default_color : @default_color = @color_array[rand(63)]%>";>
+                        <b><%= note.last_touched.strftime('%m/%d')%> | <%= note.last_touched.day%></b>
+                    </span>
+                    <span style="background: white; padding: 5px; border: 2px solid black; margin-top: 10px;">
+                        <%=note.comment%>
+                    </span>
+                </a>
+            <% end %>
+    </div>
+    <div id="activity-log">
+        
+        <%@date = nil%>
+        <%@activities.sort_by{|activity| activity.created_at}.reverse.each do |activity|%>
+            <a href="/people/<%=activity.account_id%>"> <span style="border: 2px solid black; border-radius: 10px; padding-left: 2px; padding-right: 2px;"><b><%=activity.created_at.strftime('%m/%d')%></b></span><span style="background: white;"><%=activity.title%></span>  :  <span style="background: white;"><%=activity.description%></span></span></a>
         <% end %>
     </div>
-        <div id="activity-log" style="display: none; background-color: <%=@color_array[rand(63)]%>; padding: 20px; border: 5px solid black; line-height: 50px;">
-            
-            <%@date = nil%>
-            <%@activities.sort_by{|activity| activity.created_at}.reverse.each do |activity|%>
-               <a href="/people/<%=activity.account_id%>"> <span style="border: 2px solid black; border-radius: 10px; padding-left: 2px; padding-right: 2px;"><b><%=activity.created_at.strftime('%m/%d')%></b></span><span style="background: white;"><%=activity.title%></span>  :  <span style="background: white;"><%=activity.description%></span></span></a>
-            <% end %>
-        </div>
 
 
 <%# what happens when a project does not have any notes? %>
@@ -34,7 +105,7 @@
     <div style="margins: auto; width: 100%;">
     
 
-<%add_sorted_projects = @projects.sort_by{|project| project.notes[-1].addendums[-1] ? project.notes.sort_by{|note| note.addendums[0] ? note.addendums[-1].created_at : note.created_at}.last.addendums[-1].created_at : project.notes[-1].created_at}%>
+<%add_sorted_projects = @projects.sort_by{|project| project.last_touched}%>
             
             <%madd_sorted_projects = @projects.sort_by{|project| project.updated_at}%>
             <%add_sorted_projects.reverse.each do |project|%>
