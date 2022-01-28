@@ -4,4 +4,10 @@ class Project < ActiveRecord::Base
     has_many :weblinks
     has_many :photos
     has_many :books
+
+
+    def confidence 
+        
+    end 
+
 end 

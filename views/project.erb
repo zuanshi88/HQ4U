@@ -120,7 +120,7 @@
 <% end %>
 
 <ul margin-left: 20px;>
-    <% @project.notes.sort_by{|note| note.date.created_at}.reverse.each do |note|%>
+    <% @project.notes.sort_by{|note| note.date.updated_at}.reverse.each do |note|%>
     <li style="background: <%=@color_array[rand(63)]%>; margin-top: 5px; padding: 20px; border: 2px solid <%=@color_array[rand(63)] %>"><b><%= note.date.created_at.strftime('%m/%d/%y') %></b>  
             <span class="<%= note.addendums[0] ? 'on-click' : '' %>" onclick="call('show-addendum-<%=note.id%>')" style="font-size: 120%; font-weight: bold; font-family: Courier;"><%= note.comment %> | <span style="font-size: 75%"><%= note.created_at.strftime('%m/%d/%y')%></span></span> 
         <div id="show-addendum-<%=note.id%>" style="display:none;">
@@ -172,7 +172,7 @@
                 
                     <% unless note.addendums[0] == nil %>
                         <ul style="padding: 10px;">
-                    <% note.addendums.sort_by{|add| add.date.created_at}.reverse.each do |addendum|%>
+                    <% note.addendums.sort_by{|add| add.date.updated_at}.reverse.each do |addendum|%>
                             <li style="background: <%=@color_array[rand(63)]%>; border: 2px solid <%=@color_array[rand(63)]%>; margin-top: 5px; margin-left: 20px; padding: 20px;">
                               <% unless addendum.weblinks[0] == nil%>
                                 <span>
@@ -223,7 +223,7 @@
 
                                         <% unless addendum.notes[0] == nil %>
                                             <ul>
-                                                <%addendum.notes.each do |note|%>
+                                                <%addendum.notes.reverse.each do |note|%>
                                                     <li style="background: <%=@color_array[rand(63)]%>; margin-top: 5px; padding: 20px; border: 2px solid <%=@color_array[rand(63)] %>"><%= note.addendums[0] ? note.addendums[-1].updated_at.strftime('%m/%d/%y') : note.updated_at.strftime('%m/%d/%y') %> => <%=note.comment%>
                                                     <span>
                                                         <form action="/project/<%=@project.id%>/addendum/<%=addendum.id%>/note/<%=note.id%>/delete" method="post">
