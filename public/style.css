@@ -23,7 +23,7 @@ a:hover {
   transform: scale(1.2);
 }
 
-.on-click:hover {
+h3:hover {
   background-color: maroon;
   color: rgb(200,200,100);
   transform: scale(1.2);

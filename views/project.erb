@@ -1,7 +1,23 @@
 
 
+<% @color_array=[" #624d60", " #624d60", " #878db5", " #b335a6", " #25a5da", " #919dc5", " #919dc5", " #384f14", " #39ced9", " #fd0fbb", " #b4d36b", " #0b84cc", " #072f47", " #9f600c", " #6246a7", " #6246a7", " #7a8d21", " #688fae", " #44dd7d", " #9c33f6", " #89038b", " #c85ce1", " #2b6e90", " #136888", " #660b0c", " #52ebeb", " #29d441", " #98bed7", " #246c06", " #0e8996", " #e37d26", " #2d1521", " #587900", " #44d76b", " #3095b2", " #b58e54", " #4c144a", " #c5ac66", " #62c734", "#62c734", " #3ea511", " #0361b8", " #484346", " #0121e5", " #660b0c", " #660b0c", " #64ae22", " #c4b645", " #56310c", " #6246a7", " #b60762", " #56cd8e", " #482c95", " #6e352c", " #5c4d98", " #5c4d98", " #b8d191", " #9ab838", " #6c7dea", " #5e109b", " #aebd16", " #c941c9", " #872b3b", " #2392c5"]
+%>
+
+<% @curse = "FUCK" %>
 
 <style>
+
+.bottom-nav {
+    font-weight: bold;
+    border: 1px solid black;
+    background-color: salmon;
+    width: 70px;
+    text-align; center;
+    float: center;
+    margin: auto;
+    margin-bottom: 5px;
+
+}
 
 .options {
     float:left;
@@ -9,6 +25,13 @@
 
 .solid-color {
     color: #FFFFCC;
+}
+
+.multi-color-button {
+    border: 3px solid <%=@color_array[rand(63)]%>; 
+    padding: 3px; 
+    margin-left: 20px; 
+    background: <%=@color_array[rand(63)]%>;
 }
 
 .cover-image {
@@ -21,9 +44,12 @@
 
 }
 
+/* replaced the following in-line style for the .options class */
+/* style="float: center; text-align: center; border: 2px solid black;" */
 .options-menu {
-
-    
+    float: center; 
+    text-align: center; 
+    border: 2px solid black;
 }
 
 
@@ -31,10 +57,12 @@
 
 
 
-<% @color_array=[" #624d60", " #624d60", " #878db5", " #b335a6", " #25a5da", " #919dc5", " #919dc5", " #384f14", " #39ced9", " #fd0fbb", " #b4d36b", " #0b84cc", " #072f47", " #9f600c", " #6246a7", " #6246a7", " #7a8d21", " #688fae", " #44dd7d", " #9c33f6", " #89038b", " #c85ce1", " #2b6e90", " #136888", " #660b0c", " #52ebeb", " #29d441", " #98bed7", " #246c06", " #0e8996", " #e37d26", " #2d1521", " #587900", " #44d76b", " #3095b2", " #b58e54", " #4c144a", " #c5ac66", " #62c734", "#62c734", " #3ea511", " #0361b8", " #484346", " #0121e5", " #660b0c", " #660b0c", " #64ae22", " #c4b645", " #56310c", " #6246a7", " #b60762", " #56cd8e", " #482c95", " #6e352c", " #5c4d98", " #5c4d98", " #b8d191", " #9ab838", " #6c7dea", " #5e109b", " #aebd16", " #c941c9", " #872b3b", " #2392c5"]
-%>
+
+<% @style_string = "float: center; text-align: center; border: 2px solid black" %>
+
 <div class="solid-color">
 
+        <h1><%=@curse%></h1>
         <h1><%=@project.title%></h1>
 
             <% if @project.photos[0] %>
@@ -54,9 +82,11 @@
 
 
 <div id="options" style="display: none;">
-        <h3 style="float: center; text-align: center; border: 2px solid black;"><a href="/people/<%=@project.account_id%>/projects">all projects</a></h3>
+    <%# see all projects%>
+        <h3 class="options-menu"><a href="/people/<%=@project.account_id%>/projects">all projects</a></h3>
+     <%# create a new note %>
+        <h3 class="options-menu" class="on-click" onclick="call('note');">NOTE</h3>
 
-        <h3 class="on-click" style=" float: center; text-align: center; border: 2px solid black;" onclick="call('note');">NOTE</h3>
 
             <div id="note" style="display: none;">
 
@@ -66,8 +96,9 @@
                     <input type="submit" value="note">
                 </form>
             </div>
-            
-            <h3 class="on-click" style="float: center; text-align: center; border: 2px solid black;" onclick="call('add-photo');"> add photo </h3>
+    
+     <%# add a new photo         %>
+        <h3 class="options-menu" class="on-click" onclick="call('add-photo');"> add photo </h3>
                 <div id="add-photo" style="display:none">
                     <form action="/people/<%=@project.account_id%>/project/<%=@project.id%>/photo" method="POST">
                         <input type="hidden" id="hidden">
@@ -80,9 +111,12 @@
                         <input type="submit" value="photo">
                     </form>
                 </div>
-        <h3 class="on-click" style="float: center; text-align: center; border: 2px solid black;" onclick="call('books')">Books</a></h3>
+
+    <%# display books and add a new book %>
+        <h3 class="on-click" class="options-menu" onclick="call('books')">Books</a></h3>
                 <div id="books" style="display:none">
-                    <div style="background-color: white;" onclick="call('new-book')">new book</div>
+                     <%# create new book %>
+                    <div onclick="call('new-book')">new book</div>
                         <% unless @project.books == nil%>
                             <ul>
                             <% @project.books.each do |book|%>
@@ -105,9 +139,11 @@
                         </form>
                     </div>
                 </div>
-        <h3 style="float: center; text-align: center; border: 2px solid black">  <a href="/photoroom/<%=@project.id%>">Photoroom</a></h3>
-
-        <h3 class="on-click" style="float: center; text-align: center; border: 2px solid black" onclick="call('create-weblink')"> Weblink 3000 </h3>
+        
+    <%# link to photoroom%>
+        <h3 class="options-menu">  <a href="/photoroom/<%=@project.id%>">Photoroom</a></h3>
+    <%# create new weblink %>
+        <h3 class="on-click" onclick="call('create-weblink')"> Weblink 3000 </h3>
                 <div id="create-weblink" style="display:none">
                     <form action="/project/<%=@project.id%>/main/<%=@project.id%>/weblink/create" method="POST">
                         <input type="hidden" id="hidden">
@@ -122,38 +158,38 @@
                 </div>
 </div>
 
-<% if @project.photos[0] %>
-    <div style="float:left;" onclick="call('options')">
-        <img src="/<%= @project.photos[rand(@project.photos.length-1)].photo %>" alt="Where is the photo?" width="300" height= "200" style="border: 2px solid black; border-radius:15px; margin-left: 145px; margin-bottom: 10px;">
+        <% if @project.photos[0] %>
+            <div style="float:left;" onclick="call('options')">
+            <img class="cover-image" src="/<%= @project.photos[rand(@project.photos.length-1)].photo %>" alt="Where is the photo?">
+        <% end %>
     </div>
-<% end %>
 
 <br>
 <div style="margin-bottom: 200px;"></div>
 
 <% unless @project.weblinks[0] == nil %>
-
-<div style="margin-top: 50px;">
-
-    <span onclick="call('weblinks')" style="border: 3px solid <%=@color_array[rand(63)]%>; padding: 3px; margin-left: 20px; background: <%=@color_array[rand(63)]%>"><b>Weblink</b></span>
+        <%# display web links %>
+        <div style="margin-top: 50px;">
+            <span onclick="call('weblinks')" class="multi-color-button"><b>Weblink</b></span>
 
     <ul id="weblinks" style="display: none; margin-left: 20px;">
         <% @project.weblinks.each do |link| %>
             <li><a href="<%=link.url %>"><%=link.title%></a> | 
-            <form action="/people/<%=@project.id%>/weblinks/delete/<%=link.id%>" method="post" style="display:inline">
-                <input id="hidden" type="hidden" name="_method" value="delete">
-                <input type="submit" value="delete" style="width: 25px; height: 15px; font-size: 30%; text-align: center; padding: 0px;" onclick="clicked(event)">
-            </form>
-        </li>
- <% end %>
+            <%# delete link %>
+                <form action="/people/<%=@project.id%>/weblinks/delete/<%=link.id%>" method="post" style="display:inline">
+                    <input id="hidden" type="hidden" name="_method" value="delete">
+                    <input type="submit" value="delete" style="width: 25px; height: 15px; font-size: 30%; text-align: center; padding: 0px;" onclick="clicked(event)">
+                </form>
+            </li>
+        <% end %>
     </ul>
 <div>
 <% end %>
 
 <ul margin-left: 20px;>
-    <% @project.notes.sort_by{|note| note.date.updated_at}.reverse.each do |note|%>
-    <li style="background: <%=@color_array[rand(63)]%>; margin-top: 5px; padding: 20px; border: 2px solid <%=@color_array[rand(63)] %>"><b><%= note.date.created_at.strftime('%m/%d/%y') %></b>  
-            <span class="<%= note.addendums[0] ? 'on-click' : '' %>" onclick="call('show-addendum-<%=note.id%>')" style="font-size: 120%; font-weight: bold; font-family: Courier;"><%= note.comment %> | <span style="font-size: 75%"><%= note.created_at.strftime('%m/%d/%y')%></span></span> 
+    <% @project.notes.sort_by{|note| note.last_touched}.reverse.each do |note|%>
+    <li style="background: <%=@color_array[rand(63)]%>; margin-top: 5px; padding: 20px; border: 2px solid <%=@color_array[rand(63)] %>"><b><%= note.last_touched.strftime('%m/%d/%y') %></b>  
+            <span class="<%= note.addendums[0] ? 'on-click' : '' %>" onclick="call('show-addendum-<%=note.id%>')" style="font-size: 120%; font-weight: bold; font-family: Courier;"><%= note.comment %> | <span style="font-size: 75%"><%= note.created_at.strftime('%m/%d/%y')%> | <%=note.addendums%></span></span> 
         <div id="show-addendum-<%=note.id%>" style="display:none;">
               <span onclick="call('add-add-<%=note.id%>')" style=" color: black; background: <%= @color_array[rand(63)]%>; border: 1px solid black; border-radius: 5px; width: 75px; height: 30px; text-align: center; margin-left: 5px; font-size: 75%; "><b> add </b></span>
              <span class="on-click" style=" color: black; background: <%= @color_array[rand(63)]%>; border: 1px solid black; border-radius: 5px; width: 50px; height: 75px; text-align: center; margin-left: 5px; font-size: 75%; padding 10px; " onclick="call('create-note-weblink-<%=note.id%>')"> link </span>
@@ -203,7 +239,7 @@
                 
                     <% unless note.addendums[0] == nil %>
                         <ul style="padding: 10px;">
-                    <% note.addendums.sort_by{|add| add.date.updated_at}.reverse.each do |addendum|%>
+                    <% note.addendums.sort_by{|add| add.last_touched}.reverse.each do |addendum|%>
                             <li style="background: <%=@color_array[rand(63)]%>; border: 2px solid <%=@color_array[rand(63)]%>; margin-top: 5px; margin-left: 20px; padding: 20px;">
                               <% unless addendum.weblinks[0] == nil%>
                                 <span>
@@ -221,7 +257,7 @@
                                 
                               <% end %>
                             
-                              <span><span onclick="call('options-buttons-<%=addendum.id%>')"><%=addendum.date.created_at.strftime('%m/%d/%y')%> <b style="font-size: 110%;">=></b>  </span></span><span onclick="call('display-add-notes-<%=addendum.id%>')" class="<%= addendum.notes[0] ? 'on-click' : '' %>"><%=addendum.addition %></span> | <span style="font-size: 75%"><%=addendum.created_at.strftime('%m/%d/%y') %></span>
+                              <span><span onclick="call('options-buttons-<%=addendum.id%>')"><%=addendum.last_touched.strftime('%m/%d/%y')%> <b style="font-size: 110%;">=></b>  </span></span><span onclick="call('display-add-notes-<%=addendum.id%>')" class="<%= addendum.notes[0] ? 'on-click' : '' %>"><%=addendum.addition %></span> | <span style="font-size: 75%"><%=addendum.created_at.strftime('%m/%d/%y') %></span>
                               <span id="options-buttons-<%=addendum.id%>" style="display: none; margins: 0px; float: left;">
                                      <div id="create-addendum-weblink-<%=addendum.id%>" style="display:none">
                                         <form action="/project/<%=@project.id%>/addendum/<%=addendum.id%>/weblink/create" method="POST">
@@ -275,37 +311,22 @@
                     <% end %>
                 </div>
                         
-
-       
-    </li>
+            </li>
     <% end %>
 </ul>
 
 
 <style>
 
-.bottom-nav {
-    font-weight: bold;
-    border: 1px solid black;
-    background-color: salmon;
-    width: 70px;;
-    text-align; center;
-    float: center;
-    margin: auto;
-    margin-bottom: 5px;
-   
-
-
-};
 
 
 </style>
 
-<div style="margin-top: 50px;">
-    <p class="bottom-nav"><a href="/people/<%=@project.account_id%>">back</a></p>
-    <p class="bottom-nav"><a href="/people">people</a></p>
-    <p class="bottom-nav"><a href="/activities" title="">action</a></p>
-</div>
+            <div style="margin-top: 50px;">
+                <p class="bottom-nav"><a href="/people/<%=@project.account_id%>">back</a></p>
+                <p class="bottom-nav"><a href="/people">people</a></p>
+                <p class="bottom-nav"><a href="/activities" title="">action</a></p>
+            </div>
 
 
 
