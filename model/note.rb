@@ -24,7 +24,8 @@ class Note < ActiveRecord::Base
     end
 
     def last_touched 
-        touch_date = self.created_at 
+        touch_date = self.created_at
+
         if  !self.has_addendums
             return touch_date 
         else 
