@@ -60,6 +60,31 @@
     font-family: Courier;
 }
 
+.add-button {
+    color: black; 
+    background: <%= @color_array[rand(63)]%>; 
+    border: 1px solid black; 
+    border-radius: 5px; 
+    width: 75px; 
+    height: 30px; 
+    text-align: center; 
+    margin-left: 5px; 
+    font-size: 75%; ">
+}
+
+.link-button {
+    color: black; 
+    background: <%= @color_array[rand(63)]%>; 
+    border: 1px solid black; 
+    border-radius: 5px; 
+    width: 50px; 
+    height: 75px; 
+    text-align: center; 
+    margin-left: 5px; 
+    font-size: 75%; 
+    padding 10px;
+}
+
 
 </style>
 
@@ -200,8 +225,8 @@
         <b><%= note.last_touched.strftime('%m/%d/%y') %></b>  
             <span class="<%= note.has_addendums ? 'on-click' : '' %>" onclick="call('show-addendum-<%=note.id%>')"><span class="addendum-display"><%= note.comment %> | <span style="font-size: 75%"><%= note.created_at.strftime('%m/%d/%y')%> | <%=note.addendums.size%></span></span></span> 
         <div id="show-addendum-<%=note.id%>" style="display:none;">
-              <span onclick="call('add-add-<%=note.id%>')" style=" color: black; background: <%= @color_array[rand(63)]%>; border: 1px solid black; border-radius: 5px; width: 75px; height: 30px; text-align: center; margin-left: 5px; font-size: 75%; "><b> add </b></span>
-             <span class="on-click" style=" color: black; background: <%= @color_array[rand(63)]%>; border: 1px solid black; border-radius: 5px; width: 50px; height: 75px; text-align: center; margin-left: 5px; font-size: 75%; padding 10px; " onclick="call('create-note-weblink-<%=note.id%>')"> link </span>
+              <span onclick="call('add-add-<%=note.id%>')" class="add-button"><b> add </b></span>
+             <span class="link-button" onclick="call('create-note-weblink-<%=note.id%>')"> link </span>
        
         <form action="/people/<%=@project.account_id%>/project/<%=@project.id%>/delete/<%=note.id%>" method="post" style="display:inline">
             <input id="hidden" type="hidden" name="_method" value="delete">
