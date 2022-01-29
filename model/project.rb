@@ -13,24 +13,59 @@ class Project < ActiveRecord::Base
 
     attr_accessor :last_touch
 
-    def initialize
-        @last_touch = self.created_at 
-    end 
+# project (last_touched)
+# note-1 (last_touched)
+# addendum (last_touched?)
+# note- 2 (created_at)
 
-    def last_note 
-        self.notes[-1].created_at
-    end 
+# which way does comparison work?
 
+    
+    
+    # def last_touched
+        
+    #     if self.notes.empty?
+    #         return self.created_at
+    #     end 
 
-    def last_touched
-        if !self.addendums.empty?
-               self.addendums.last.created_at
-        elsif !self.notes.empty?
-            self.notes.last.created_at
-        else
-            self.created_at
-        end
-    end 
+    #     base_line = self.created_at
+
+    #     self.notes.sort_by{|note| note.last_touched }[0].created_at
+
+    #         # if  self.notes.empty?
+    #         #     return touch_date 
+    #         # else 
+    #         #     last_event = self.notes[-1]
+    #         # end     
+
+    #         # if last_event.addendums[-1] == nil 
+    #         #      touch_date = last_event.created_at 
+    #         # else
+    #         #     touch_date = last_event.notes[-1].last_touched
+    #         # end 
+
+    #         # touch_date
+    # end     
+    
+    # def last_note 
+    #     if self.notes[-1] 
+    #         self.notes.sort_by{|note|note.last_touched}[-1]
+    #     else  
+    #         self
+    #     end 
+    # end 
+
+    # def last_touched
+    #     l_touch = Time.now    
+    #         notes_with_addendums.select do |note|
+    #             note.addendums do |add|   
+    #                 if l_touch < add.last_touched
+    #                     l_touch = add.last_touch 
+    #                 end  
+    #             end 
+    #         end 
+    #     l_touch
+    # end 
 
     def notes_with_addendums
        self.notes.select{|note| !note.addendums.empty?}

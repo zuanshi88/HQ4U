@@ -10,9 +10,13 @@ class Addendum < ActiveRecord::Base
             if self.notes[-1] == nil 
                 return self.created_at
             else  
-                return self.notes[-1].created_at
+                return self.notes.sort_by{|note| note.created_at}[-1].created_at
             end 
-            
+
+        end 
+
+        def addendums_with_notes
+             self.notes.select{|note| !note.addendums.empty?}
         end 
 
 end 
