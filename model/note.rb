@@ -25,7 +25,7 @@ class Note < ActiveRecord::Base
 
     def last_touched 
         touch_date = self.created_at 
-        if  self.has_addendums
+        if  !self.has_addendums
             return touch_date 
         else 
             #this is where we begin to call to addendum and therefore
@@ -36,7 +36,8 @@ class Note < ActiveRecord::Base
             last_event = self.last_addendum
         end     
 
-        if last_event.notes[-1] == nil 
+        #how are we getting a nil class here?
+        if last_event == nil || last_event.notes.empty?
             return last_event.created_at 
         else
             return last_event.notes.sort_by{|note| note.last_touched}[-1].last_touched

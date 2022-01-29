@@ -141,7 +141,7 @@
         <a href="/people/<%=project.account_id%>/project/<%=project.id%>">
             <div class="color-boxes" style="background-color: <%=@color_array[rand(63)]%>;">
                     <h5 class="project-title"><%=project.title%></h5>
-                    <span style="display: block; text-align: center;"><b><%=project.created_at.strftime('%m/%d/%y')%></b></span>
+                    <span style="display: block; text-align: center;"><b><%=project.last_touched.strftime('%m/%d/%y')%></b></span>
                     <%# project.notes.sort_by{|note| note.last_touched}[-1].last_touched.strftime('%m/%d/%y') %>
             </div>
         </a>
