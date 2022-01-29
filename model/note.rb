@@ -7,7 +7,7 @@ class Note < ActiveRecord::Base
     has_many :weblinks
 
 
-        # coupling alert. cllaing last_touched of addendum from within note!!!
+        # coupling alert. calling last_touched of addendum from within note!!!
     #this is quick and dirty, but I need to think around it.
     #do it easier...
 
@@ -23,21 +23,24 @@ class Note < ActiveRecord::Base
         self.addendums.size >= 1 ? true : false
     end
 
-
     def last_touched 
         touch_date = self.created_at 
-        if  self.addendums[-1] == nil
+        if  self.has_addendums
             return touch_date 
         else 
+            #this is where we begin to call to addendum and therefore
+            #to note via the descending last_touched calls.  
+            #this coupling doesn't seem like a huge issue,
+            #but should look into getting around it via a has_many through 
+            #relationship
             last_event = self.last_addendum
         end     
 
         if last_event.notes[-1] == nil 
             return last_event.created_at 
         else
-            return last_event.notes[-1].last_touched
+            return last_event.notes.sort_by{|note| note.last_touched}[-1].last_touched
         end 
-
     end 
 
 end 
