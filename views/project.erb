@@ -94,6 +94,12 @@
     font-size: 75%; 
     color: black; 
     background: <%= @color_array[rand(63)]%>;
+    /* margin: 0px; 
+    width: 25px; 
+    height: 15px; 
+    font-size: 30%; 
+    text-align: center; 
+    padding: 0px; */
 }
 
 .web-link-display {
@@ -107,13 +113,16 @@
     border: 2px solid black;
 }
 
+.addendum-display {
+    margin-top: 5px; 
+    margin-left: 20px; 
+    padding: 20px;
+}
+
 
 </style>
 
 
-
-
-<% @style_string = "float: center; text-align: center; border: 2px solid black" %>
 
 <div class="solid-color">
 
@@ -283,7 +292,7 @@
                                                 <li class="web-link-display"><span class="web-link-decoration"><a href="<%=link.url %>"><%=link.title%></a></span>
                                                         <form action="/people/<%=@project.id%>/weblinks/delete/<%=link.id%>" method="post" style="display:inline">
                                                             <input id="hidden" type="hidden" name="_method" value="delete">
-                                                            <input type="submit" value="delete" style="margin: 0px; width: 25px; height: 15px; font-size: 30%; text-align: center; padding: 0px;" onclick="clicked(event)">
+                                                            <input type="submit" value="delete" class="del-button" onclick="clicked(event)">
                                                         </form>
                                                     </li>
                                                 <% end %>
@@ -296,7 +305,7 @@
                     <% unless note.addendums[0] == nil %>
                         <ul style="padding: 10px;">
                     <% note.addendums.sort_by{|add| add.last_touched}.reverse.each do |addendum|%>
-                            <li style="background: <%=@color_array[rand(63)]%>; border: 2px solid <%=@color_array[rand(63)]%>; margin-top: 5px; margin-left: 20px; padding: 20px;">
+                            <li class="addendum-display" style="background: <%=@color_array[rand(63)]%>; border: 2px solid <%=@color_array[rand(63)]%>">
                               <% unless addendum.weblinks[0] == nil%>
                                 <span>
                                     <ul>
