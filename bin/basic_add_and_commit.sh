@@ -5,11 +5,11 @@ echo "checking status"
 
 git status
 
-echo "Proceed?"
+read -p "Proceed?" RESPONSE
 
-read=response
 
-if response = "n"   
+
+if RESPONSE = "n"   
     then 
     echo "Aborting"
     exit
@@ -17,8 +17,6 @@ else
      git add .
 fi 
 
-echo "Message, por favor..."
-
-read=RESPONSE
+read -p "Message, por favor..." RESPONSE
 
 git commit -m '$RESPONSE'
