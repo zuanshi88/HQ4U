@@ -3,18 +3,22 @@
 
 echo "checking status"
 
-`git status`
+git status
 
 echo "Proceed?"
 
 read=response
 
 if response = "n"   
+    then 
     echo "Aborting"
     exit
-else 
-
-    `git add .`
+else
+     git add .
 fi 
 
-echo "Ready to commit"
+echo "Message, por favor..."
+
+read=RESPONSE
+
+git commit -m '$RESPONSE'

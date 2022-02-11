@@ -310,11 +310,13 @@
                                 <span>
                                     <ul>
                                       <% addendum.weblinks.each do |link| %>
-                                        <li style="margin: 0px; float: left; margin-left: 5px; background-color: <%=@color_array[rand(63)]%>; border: 2px solid black;"><a href="<%=link.url %>"><%=link.title%></a> | 
-                                                <form action="/people/<%=@project.id%>/weblinks/delete/<%=link.id%>" method="post" style="display:inline">
-                                                    <input id="hidden" type="hidden" name="_method" value="delete">
-                                                    <input type="submit" value="delete" style="width: 25px; height: 15px; font-size: 30%; text-align: center; padding: 0px;" onclick="clicked(event)">
-                                                </form>
+                                            <li class="web-link-display">
+                                                <span class="web-link-decoration"><span class="web-link-decoration"><a href="<%=link.url %>"><%=link.title%></a> | 
+                                                    <form action="/people/<%=@project.id%>/weblinks/delete/<%=link.id%>" method="post" style="display:inline">
+                                                        <input id="hidden" type="hidden" name="_method" value="delete">
+                                                        <input type="submit" value="delete" style="width: 25px; height: 15px; font-size: 30%; text-align: center; padding: 0px;" onclick="clicked(event)">
+                                                    </form>
+                                                </span>
                                             </li>
                                         <% end %>
                                     </ul>    
@@ -343,8 +345,8 @@
                                             <input type="submit" value="submit">
                                         </form>
                                     </div>
-                                <span style="color: black; background: <%= @color_array[rand(63)]%>; border: 1px solid black; border-radius: 5px; width: 75px; height: 30px; text-align: center; margin-left: 5px; padding: 10px;" onclick="call('create-add-add-note-<%=addendum.id%>')">add</span>
-                                <span class="on-click" style="font-size: 110%; color: black; background: <%= @color_array[rand(63)]%>; border: 1px solid black; border-radius: 5px; width: 75px; height: 30px; text-align: center; margin-left: 5px; padding: 10px;" onclick="call('create-addendum-weblink-<%=addendum.id%>')"> link </span>
+                                <span class="add-button" onclick="call('create-add-add-note-<%=addendum.id%>')">add</span>
+                                <span class="link-button" onclick="call('create-addendum-weblink-<%=addendum.id%>')"> link </span>
                                     <form action="/project/<%=@project.id%>/note/<%=note.id%>/addendum/<%=addendum.id%>/delete" method="post">
                                         <input id="hidden" type="hidden" name="_method" value="delete">
                                         <input type="submit" value="del" onclick="clicked(event)">
@@ -353,6 +355,9 @@
                             </li>
                                     <div id="display-add-notes-<%=addendum.id%>" style="display:none;">
 
+
+                                        <%# we can in theory add addendums to these notes... but should we... 
+                                        also could do links here... %>
                                         <% unless addendum.notes[0] == nil %>
                                             <ul>
                                                 <%addendum.notes.reverse.each do |note|%>
