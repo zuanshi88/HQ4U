@@ -57,7 +57,7 @@
    
 
     <% if @tags%>
-<div style="margin-left: 100px; margin-top: 50px; color: #FDF5E6;">
+<div style="margin-left: 100px; margin-top: 50px; color: <%=@color_array[rand(63)]%>;">
         <% @tags.uniq.each do |topic| %>
             <% @collection = @dictionary.entries.select{|entry| entry.topic_tag == topic} %>
                 <% if @collection %>
