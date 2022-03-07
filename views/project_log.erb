@@ -1,0 +1,10 @@
+     <%@notes.sort_by{|note| note.last_touched}.reverse.each_with_index do |note, index|%>
+                <a href="/people/<%=@account.id%>/project/<%=note.project_id || note.addendum_id%>">
+                    <span class="note-display" style="background-color: <%= note.last_touched.day == @notes[index - 1].last_touched.day ? @default_color : @default_color = @color_array[rand(63)]%>";>
+                        <b><%= note.last_touched.strftime('%m/%d')%> | <%= note.last_touched.day%></b>
+                    </span>
+                    <span class="comment-display">
+                        <%=note.comment%>
+                    </span>
+                </a>
+            <% end %>

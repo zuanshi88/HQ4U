@@ -115,31 +115,17 @@
 
     
     <div id="project-log">
-          <%@notes.sort_by{|note| note.last_touched}.reverse.each_with_index do |note, index|%>
-                <a href="/people/<%=@account.id%>/project/<%=note.project_id || note.addendum_id%>">
-                    <span class="note-display" style="background-color: <%= note.last_touched.day == @notes[index - 1].last_touched.day ? @default_color : @default_color = @color_array[rand(63)]%>";>
-                        <b><%= note.last_touched.strftime('%m/%d')%> | <%= note.last_touched.day%></b>
-                    </span>
-                    <span class="comment-display">
-                        <%=note.comment%>
-                    </span>
-                </a>
-            <% end %>
+      <%= erb :project_log%>
     </div>
     <div id="activity-log">
+        <%= erb :activity_log%>
         
-        <%@date = nil%>
-        <%@activities.sort_by{|activity| activity.created_at}.reverse.each do |activity|%>
-            <a href="/people/<%=activity.account_id%>"> <span style="border: 2px solid black; border-radius: 10px; padding-left: 2px; padding-right: 2px;"><b><%=activity.created_at.strftime('%m/%d')%></b></span><span style="background: white;"><%=activity.title%></span>  :  <span style="background: white;"><%=activity.description%></span></span></a>
-        <% end %>
     </div>
 
 
 <%# what happens when a project does not have any notes? %>
 
     <div style="margins: auto; width: 100%;">
-    
-
             <%add_sorted_projects = @projects.sort_by{|project| project.notes.sort_by{|note| note.last_touched}[-1].last_touched}%> 
             <%add_sorted_projects.reverse.each do |project|%>
         <a href="/people/<%=project.account_id%>/project/<%=project.id%>">
