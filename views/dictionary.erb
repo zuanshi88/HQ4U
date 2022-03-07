@@ -2,12 +2,12 @@
 %>
 
 
-<div style="width:50%; margin: auto; border: 2px solid black; background-color: <%=@color_array[rand(63)]%>;">
+<div style="width:75%; margin: auto; border: 2px solid black; background-color: <%=@color_array[rand(63)]%>;">
         <a href="/dictionary/<%=@dictionary.id%>">
             <h1 style="font-size: 300%"><b><%=@dictionary.title%></b></h1>
         </a>
 
-        <ul style="margin-left: 160px; color: silver">
+        <ul style="text-align: center; color: silver">
             <li style="display: inline;"><span class="on-click" onclick="call('addEntry')">add</span> |</li>
             <li style="display: inline;"><a style="color:silver;" href="/dictionary/edit/<%=@dictionary.id%>">edit</a> |</li>
             <li style="display: inline;"><span class="on-click" onclick="call('search-box')">search</span></li>
@@ -15,6 +15,24 @@
 
         <hr style="color: silver; height: 2px; width: 75%; font-weight: bold;">
 
+        <div id='addEntry' style="display:none">
+            <form action="/dictionary/<%=@dictionary.id%>/entry/create" method= "POST" style="margin-top: 5px;">
+                <input type="text" name="term" placeholder="term">
+                <input type="text" name="entry_info" placeholder="entry info">
+                <input type="text" name="more_info" placeholder="more info">
+                <input type="text" name="topic_tag" placeholder="topic tag">
+               <input type="file" name="photo" placeholder="photo">
+                <input type="submit" value= "submit">
+                <hr style="color: silver; height: 2px; width: 75%; font-weight: bold;">
+           </form>
+    </div>rib
+        <div id="search-box" style="display:none;">
+            <form action="/dictionary/search/<%=@dictionary.id%>" method="get" style="width:50%; margin:auto;">
+                <input type="text" name="search">
+                <input type="submit" value="submit">
+                <hr style="color: silver; height: 2px; width: 75%; font-weight: bold;">
+            </form>
+        </div>
         <% @tags = @dictionary.entries.map{|entry| entry.topic_tag}%>
             <% if @tags %>
                 <% @sorted_array = @tags.uniq.sort%>
@@ -30,23 +48,7 @@
             <% end %>    
     </div>
 
-        <div id='addEntry' style="display:none">
-            <form action="/dictionary/<%=@dictionary.id%>/entry/create" method= "POST" style="margin-top: 5px;">
-                <input type="text" name="term" placeholder="term">
-                <input type="text" name="entry_info" placeholder="entry info">
-                <input type="text" name="more_info" placeholder="more info">
-                <input type="text" name="topic_tag" placeholder="topic tag">
-               <input type="file" name="photo" placeholder="photo">
-                <input type="submit" value= "submit">
-           </form>
-    </div>
 
-<div id="search-box" style="display:none;">
-    <form action="/dictionary/search/<%=@dictionary.id%>" method="get" style="width:50%; margin:auto;">
-        <input type="text" name="search">
-        <input type="submit" value="submit">
-    </form>
-</div>
 
 
 
