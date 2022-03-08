@@ -1,12 +1,12 @@
-require_relative '../model/person.rb'
+require_relative '../model/account.rb'
 
 RSpec.describe Person do 
 
-        subject { Person.new("Aaron Whitmer", "1943 W. Cuyler Ave", "Chicago", "IL", 60613)}
+        subject { Account.new("Aaron Whitmer", "1943 W. Cuyler Ave", "Chicago", "IL", 60613)}
 
 
         it "can create a new instance" do 
-            expect(subject.class).to eq(Person)
+            expect(subject.class).to eq(Account)
             expect(subject.name).to eq("Aaron Whitmer")
             expect(subject.street_address).to eq("1943 W. Cuyler Ave")
             expect(subject.city).to eq("Chicago")
