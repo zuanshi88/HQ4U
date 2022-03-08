@@ -15,6 +15,16 @@
  border: 2px solid black;
 }
 
+.annual-title{
+
+margin: 0px; 
+float: left;
+}
+
+.annual-date{
+margin: auto;
+}
+
 </style>
 
 <h1>Annuals</h1>
@@ -24,8 +34,8 @@
             <%@annual_activities.each do |activity|%>
                     <a href="/people/<%=activity.account_id%>">
                     <div class="annual_activity" style="background-color: <%=@color_array[rand(63)]%>">
-                        <h5 style="margin: auto;"><%=activity.created_at.strftime('%m/%d')%></h5>
-                        <h3 style="margin: 0px; float: left;"><%=activity.title%></h3>
+                        <h5 class="annual-date"><%=activity.created_at.strftime('%m/%d')%></h5>
+                        <h3 class="annual-title"><%=activity.title%></h3>
                      </div>
                      </a>
 
