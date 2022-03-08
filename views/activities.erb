@@ -3,11 +3,9 @@
      
 <% @color_array=[" #624d60", " #624d60", " #878db5", " #b335a6", " #25a5da", " #919dc5", " #919dc5", " #384f14", " #39ced9", " #fd0fbb", " #b4d36b", " #0b84cc", " #072f47", " #9f600c", " #6246a7", " #6246a7", " #7a8d21", " #688fae", " #44dd7d", " #9c33f6", " #89038b", " #c85ce1", " #2b6e90", " #136888", " #136888", " #2b6e90", " #29d441", " #98bed7", " #246c06", " #0e8996", " #e37d26", " #2d1521", " #587900", " #44d76b", " #3095b2", " #b58e54", " #4c144a", " #c5ac66", " #62c734", "#62c734", " #3ea511", " #0361b8", " #484346", " #0121e5", " #660b0c", " #660b0c", " #64ae22", " #c4b645", " #56310c", " #6246a7", " #b60762", " #56cd8e", " #482c95", " #6e352c", " #5c4d98", " #5c4d98", " #b8d191", " #9ab838", " #6c7dea", " #5e109b", " #aebd16", " #c941c9", " #872b3b", " #2392c5"]%>
 
-<% @default_color = @color_array[rand(63)] %>
 
 
 <style>
-
 #project-log {
     display: none; 
     margin-top: 20px; 
@@ -57,8 +55,6 @@
     margin-bottom: 10px; 
     text-align: center; 
     font-weight: bold; 
-    background-color: <%=@color_array[rand(63)]%>;
-
 }
 
 .color-boxes {
@@ -104,28 +100,24 @@
         <span class="special-letter">A</span>
     </div>
      </a>
-<div class="reading-list" style="width: 1200px;">    
-<div style="margin:0px;">
-   <h1 class="log-title" class="on-click" onclick="call('project-log')">project log</h2>
+<div style="width: 1200px;">    
+<div>
+   <h1 class="log-title" class="on-click" onclick="call('project-log')" style="background-color: <%=@color_array[rand(63)]%>">project log</h2>
    <%# this styling could be pulled out-- but still need to figure out on-click %>
-    <h1 class="on-click" onclick="call('activity-log')" style="border: 3px solid black; border-radius: 5px; width: 250px; margin: auto; margin-top: 0px; margin-bottom: 10px;text-align: center; font-weight: bold;background-color: <%=@color_array[rand(63)]%>">activitiy log</h2>
+    <h1 class="log-title" class="on-click" onclick="call('activity-log')" style="background-color: <%=@color_array[rand(63)]%>">activitiy log</h2>
 </div>
-
-<div id='same-date-check' style="display: none;">false</div>
-
-    
+ 
     <div id="project-log">
       <%= erb :project_log%>
     </div>
     <div id="activity-log">
-        <%= erb :activity_log%>
-        
+      <%= erb :activity_log%>
     </div>
 
 
 <%# what happens when a project does not have any notes? %>
 
-    <div style="margins: auto; width: 100%;">
+    <div>
             <%add_sorted_projects = @projects.sort_by{|project| project.notes.sort_by{|note| note.last_touched}[-1].last_touched}%> 
             <%add_sorted_projects.reverse.each do |project|%>
         <a href="/people/<%=project.account_id%>/project/<%=project.id%>">

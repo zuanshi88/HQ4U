@@ -4,17 +4,7 @@
 
 <style>
 
-.bottom-nav {
-    font-weight: bold;
-    border: 1px solid black;
-    background-color: salmon;
-    width: 70px;
-    text-align; center;
-    float: center;
-    margin: auto;
-    margin-bottom: 5px;
 
-}
 
 .options {
     float:left;
@@ -392,11 +382,7 @@
 
 </style>
 
-            <div style="margin-top: 50px;">
-                <p class="bottom-nav"><a href="/people/<%=@project.account_id%>">back</a></p>
-                <p class="bottom-nav"><a href="/people">people</a></p>
-                <p class="bottom-nav"><a href="/activities" title="">action</a></p>
-            </div>
+         <%= erb :menu_links %>
 
 
 

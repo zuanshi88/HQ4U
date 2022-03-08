@@ -1,7 +1,21 @@
         
-        <%@date = nil%>
+        <style>
+        .info-box{
+            background: white;
+        }
+
+        .info-emphasis{
+            border: 2px solid black; 
+            border-radius: 10px; 
+            padding-left: 2px; 
+            padding-right: 2px;
+        }
+
+        </style>
+        
+        
         <%@activities.sort_by{|activity| activity.created_at}.reverse.each do |activity|%>
-            <a href="/people/<%=activity.account_id%>"> <span style="border: 2px solid black; border-radius: 10px; padding-left: 2px; padding-right: 2px;"><b><%=activity.created_at.strftime('%m/%d')%></b></span><span style="background: white;"><%=activity.title%></span>  :  <span style="background: white;"><%=activity.description%></span></span></a>
+            <a href="/people/<%=activity.account_id%>"> <span class="info-emphasis"><b><%=activity.created_at.strftime('%m/%d')%></b></span><span class="info-box"><%=activity.title%></span>  :  <span class="info-box"><%=activity.description%></span></span></a>
         <% end %>
 
   

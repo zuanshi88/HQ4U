@@ -36,20 +36,18 @@
     <% @activities.sort_by{|activity| activity.created_at}.reverse.each do |activity|%>
     <div class="activity-box"; style="background-color: <%=@color_array[rand(63)]%>">
         <li><%= activity.created_at.strftime('%m/%d/%y') %> <span style="font-size: 75%; color: red;"><%= activity.created_at.strftime('%H:%M') %></span></li>
-        <li><%= activity.title %> -- <%= activity.description %> 
-        <form action="/people/<%=@person.id%>/delete/<%=activity.id %>" method="post" style="display:inline">
-                        <input id="hidden" type="hidden" name="_method" value="delete">
-                        <input type="submit" value="delete" style="float:right;" onclick="clicked(event)">
-        </form> 
-    </li>
+        <li><%= activity.title %> -- <%= activity.description %>
+            <form action="/people/<%=@person.id%>/delete/<%=activity.id %>" method="post" style="display:inline">
+                            <input id="hidden" type="hidden" name="_method" value="delete">
+                            <input type="submit" value="delete" style="float:right;" onclick="clicked(event)">
+            </form> 
+        </li>
     </div>
     <% end %>
 </ul>   
 
 
 
-<div>
-    <h5 class="link-button"><a href="/people/<%=@person.id%>">back</a></h5>
-    <h5 class="link-button"><a href="/people">people</a></p></h5>
-    <h5 class="link-button"><a href="/activities" title="">activities & projects</a></h5>
-</div>
+<p>
+    <%= erb :menu_links %>
+</p>
