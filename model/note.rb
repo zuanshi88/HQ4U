@@ -7,6 +7,7 @@ class Note < ActiveRecord::Base
     has_many :weblinks
 
 
+
         # coupling alert. calling last_touched of addendum from within note!!!
     #this is quick and dirty, but I need to think around it.
     #do it easier...
@@ -44,5 +45,23 @@ class Note < ActiveRecord::Base
             return last_event.notes.sort_by{|note| note.last_touched}[-1].last_touched
         end 
     end 
+
+
+    def determine_close_matches(search, resource)
+        resource.filter{ |term| self.distance(search.downcase, term.downcase) < 3 || self.distance(search.downcase, entry.topic_tag.downcase) < 3 }
+    end 
+
+    def self.note_index 
+        @note_index||= Note.set_note_index 
+    end 
+
+    def self.set_note_index
+        @note_index = { :man => "boy"}
+    end 
+
+    #write a test to test the fuller functionality here.
+
+
+
 
 end 

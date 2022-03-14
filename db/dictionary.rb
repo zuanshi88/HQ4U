@@ -6,15 +6,23 @@ class Dictionary < ActiveRecord::Base
     has_many :entries
 
 
-     def distance(word1, word2)
-      DidYouMean::Levenshtein.distance(word1, word2)
+    
+    
+    def distance(word1, word2)
+        DidYouMean::Levenshtein.distance(word1, word2)
     end 
-
+    
     def create_index(array)
 
     end 
 
-    def determine_close_matches(search)
+    #this 
+
+    def determine_close_entry_matches(search)
+        self.entries.filter{ |entry| self.distance(search.downcase, entry.term.downcase) < 3 || self.distance(search.downcase, entry.topic_tag.downcase) < 3 }
+    end 
+
+   def determine_close_entry_matches(search)
         self.entries.filter{ |entry| self.distance(search.downcase, entry.term.downcase) < 3 || self.distance(search.downcase, entry.topic_tag.downcase) < 3 }
     end 
 

@@ -23,25 +23,12 @@ class Project < ActiveRecord::Base
     end 
 
 
-    def index_content
-            # information = ["name", "last_name", "first_name"]
-            content_hash = {}
-            Project.all.each do |project|
-              unless project.notes.empty?
-                    project.notes.each do |note|
-                        note.comment do |comment| 
-                            comment.split(' ').each do |word|
-                                unless word == nil 
-                                    content_hash[word.downcase] = [] if content_hash[word.downcase].nil? 
-                                    content_hash[word.downcase].push(note)
-                                end 
-                            end 
-                        end
-                    end 
-                end 
-            end 
-        content_hash
-    end
+    #thids will likely come out of here.
+
+    def determine_close_matches(search, resource)
+        resource.filter{ |term| self.distance(search.downcase, term.downcase) < 3 || self.distance(search.downcase, entry.topic_tag.downcase) < 3 }
+    end 
+
 
     def boo 
         "BOO!!!"

@@ -627,7 +627,7 @@ end
 
 get '/dictionary/search/:id' do
     @dictionary = Dictionary.find(params[:id])
-    @result = @dictionary.determine_close_matches(params[:search])
+    @result = @dictionary.determine_close_entry_matches(params[:search])
     if @result.empty? 
         @message = "Sorry no results for #{params[:search]}"
     end 

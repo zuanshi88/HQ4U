@@ -14,7 +14,7 @@ class Dictionary < ActiveRecord::Base
 
     end 
 
-    def determine_close_matches(search)
+    def determine_close_entry_matches(search)
         self.entries.filter{ |entry| self.distance(search.downcase, entry.term.downcase) < 3 || self.distance(search.downcase, entry.topic_tag.downcase) < 3 }
     end 
 
