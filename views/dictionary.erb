@@ -4,6 +4,8 @@
             <h1 style="font-size: 300%"><b><%=@dictionary.title%></b></h1>
         </a>
 
+          <p><%=@message%></p>
+
         <ul style="text-align: center; color: silver">
             <li style="display: inline;"><span class="on-click" onclick="call('addEntry')">add</span> |</li>
             <li style="display: inline;"><a style="color:silver;" href="/dictionary/edit/<%=@dictionary.id%>">edit</a> |</li>

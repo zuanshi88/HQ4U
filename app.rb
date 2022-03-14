@@ -626,10 +626,12 @@ end
 
 
 get '/dictionary/search/:id' do
-    @search = params[:search] 
     @dictionary = Dictionary.find(params[:id])
-    @result = @dictionary.entries.filter{|entry| entry.term.downcase == @search.downcase || entry.topic_tag.downcase ==   @search.downcase }
-  
+    @result = @dictionary.determine_close_matches(params[:search])
+    if @result.empty? 
+        @message = "Sorry no results for #{params[:search]}"
+    end 
+
     erb :dictionary
         
 end 
