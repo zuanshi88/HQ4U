@@ -4,13 +4,14 @@
 
 
 
+
 .options {
     float:left;
 }
 
-.solid-color {
-    color: #FFFFCC;
-}
+/* .solid-color {
+    color: purple;
+} */
 
 .multi-color-button {
     border: 3px solid <%=@color_array[rand(63)]%>; 
@@ -115,12 +116,12 @@
 <div class="solid-color">
 
     
-        <h1><%=@project.title%></h1>
+        <h1 class="silly-test"><%=@project.title%></h1>
 
             <% if @project.photos[0] %>
     
                 <div class="options" onclick="call('options')">
-                    <img class="cover-image" src="/<%= @project.photos[rand(@project.photos.length)].photo %>" alt="Where is the photo?">
+                    <img class="cover-image" src="/images/<%= @project.photos[rand(@project.photos.length)].photo %>" alt="Where is the photo?">
                 </div>
 
             <%  else %>
@@ -212,7 +213,7 @@
 
         <% if @project.photos[0] %>
             <div style="float:left;" onclick="call('options')">
-            <img class="cover-image" src="/<%= @project.photos[rand(@project.photos.length-1)].photo %>" alt="Where is the photo?">
+            <img class="cover-image" src="/images/<%= @project.photos[rand(@project.photos.length-1)].photo %>" alt="Where is the photo?">
         <% end %>
     </div>
 

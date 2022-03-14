@@ -4,4 +4,8 @@ class Account < ActiveRecord::Base
 
     # could have many notes and addendum trhough things.
     #also has many books-- lets experiment with that...
+
+
+
+    
 end 

@@ -12,6 +12,9 @@ GEM
       minitest (>= 5.1)
       tzinfo (~> 2.0)
       zeitwerk (~> 2.3)
+    annotate (3.2.0)
+      activerecord (>= 3.2, < 8.0)
+      rake (>= 10.4, < 14.0)
     concurrent-ruby (1.1.9)
     i18n (1.8.10)
       concurrent-ruby (~> 1.0)
@@ -48,6 +51,7 @@ PLATFORMS
   x64-mingw32
 
 DEPENDENCIES
+  annotate
   rake
   sinatra
   sinatra-activerecord
@@ -55,4 +59,4 @@ DEPENDENCIES
   sqlite3
 
 BUNDLED WITH
-   2.2.26
+   2.3.8

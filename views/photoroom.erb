@@ -15,7 +15,7 @@
     <%if @project.photos[0]%>
         <%@project.photos.each do |photo|%>
         <div style="border: float: left; display: inline;  margin-top: 5px; margin-bottom: 5px; margin-right: 0px; margin-left: 0px;">
-    <img src="/<%=photo.photo%>" alt="where's the photo?" style="width:300px; height: 200px; margin: 0;">
+    <img src="/images/<%=photo.photo%>" alt="where's the photo?" style="width:300px; height: 200px; margin: 0;">
         </div>
         <%end%>
     <%end%>
