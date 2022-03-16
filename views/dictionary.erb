@@ -138,11 +138,14 @@
 
   </div> 
 
+
+  <%# this now links the topic tag to the gopic tag drawer... %>
+
    <% if @result%>
    <% @result.each do |result|%>
     <div style="margin-left: 20px;">
             <a href="/dictionary/<%=@dictionary.id%>/<%=result.id%>"><h2 style="font-weight: bold"><%=result.term%> </a>  
-            <span style="color: silver; background-color: black;  font-size: 75%">[<%=result.topic_tag%>]</span>
+            <span class="on-click" style="color: silver; background-color: black;  font-size: 75%" onclick="call('<%=result.topic_tag%>-entries')">[<%=result.topic_tag%>]</span>
             <span class="on-click" onclick="call('add_example');" style="color: silver; background-color: black;  font-size: 75%">info+ </span>
                 <div id="add_example" style="display: none;">
                     <form action="/example/<%=result.id%>/create" method="POST">
