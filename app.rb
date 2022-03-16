@@ -623,7 +623,7 @@ delete '/dictionary/:id/delete/:entry_id' do
 end 
 
 
-
+# this controller searchs from main dictionary serach bar
 
 get '/dictionary/search/:id' do
     @dictionary = Dictionary.find(params[:id])
@@ -635,6 +635,29 @@ get '/dictionary/search/:id' do
     erb :dictionary
         
 end 
+
+#this controller links to an individual display of the entry.
+
+get '/dictionary/:id/:search' do
+    @dictionary = Dictionary.find(params[:id])
+
+    # assigning @result to an array to make it pass when passed to the dictionary view
+    @result = [Entry.find(params[:search])]
+ 
+    erb :dictionary
+        
+end 
+
+# get '/dictionary/:search/:id' do
+#     @dictionary = Dictionary.find(params[:id])
+#     @result = @dictionary.determine_close_entry_matches(params[:search])
+#     if @result.empty? 
+#         @message = "Sorry no results for #{params[:search]}"
+#     end 
+
+#     erb :dictionary
+        
+# end 
 
 
 post '/example/:entry_id/create' do 
