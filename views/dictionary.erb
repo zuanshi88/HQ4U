@@ -58,7 +58,7 @@
    
 
     <% if @tags%>
-<div style="margin-left: 100px; margin-top: 50px; color: <%=@color_array[rand(63)]%>;">
+<div style="margin-left: 100px; margin-top: 50px; color: black;">
         <% @tags.uniq.each do |topic| %>
             <% @collection = @dictionary.entries.select{|entry| entry.topic_tag == topic} %>
                 <% if @collection %>
@@ -92,10 +92,11 @@
                                     .entry-info {
 
                                         background-color: <%=@color_array[rand(63)]%>;
-                                        padding: 10px;
+                                        padding: 20px;
+                                        padding-left: 30px;
                                         margin-bottom: 3px;
                                         border: 2px solid silver;
-                                        margin-left: 30px;
+                                        margin-left: 20px;
                                         margin-right: 50px;
                                     }
                                 
@@ -105,7 +106,9 @@
                                         
                                        
                                             <li class="entry-info"><%=entry.entry_info%></li>
+                                            <% unless entry.more_info.empty? %>
                                             <li class="entry-info"><%=entry.more_info%></li>
+                                            <% end %>
                                      
                                      
                                         <% entry.examples.each do |example| %>
@@ -148,9 +151,9 @@
                         <input type="submit" value="info">
                     </form>
                 </div>     
-        <dl style="padding: 5px; background-color: #C86464; border: 2px solid black;"> 
+        <dl style="padding: 5px; background-color: <%=@color_array[rand(63)]%>; border: 2px solid black;"> 
             <dd style="padding: 5px;">- <%=result.entry_info%></dd>
-            <% if result.more_info %>
+            <% unless result.more_info.empty? %>
             <dd style="padding: 5px;">- <%=result.more_info%></dd>
             <% end %>
         <dl>
