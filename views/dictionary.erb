@@ -112,7 +112,13 @@
                                      
                                      
                                         <% entry.examples.each do |example| %>
-                                            <li class="entry-info"><%=example.info%></li>
+                                                <li class="entry-info">
+                                                    <%=example.info%>
+                                                    <form action="/example/<%=entry.id%>/<%=example.id%>/delete" method="post" style="display:inline;">
+                                                        <input id="hidden" type="hidden" name="_method" value="delete">
+                                                        <input type="submit" value="del" style="width: 25px; height: 15px; font-size: 50%;">
+                                                    </form> 
+                                                </li>
                                         <% end %>
                               
                                          
