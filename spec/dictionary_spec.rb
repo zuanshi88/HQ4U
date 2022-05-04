@@ -60,7 +60,7 @@ end
         end
 
         it 'can return the correct entry' do 
-            expect(real_dictionary.determine_close_entry_matches("vadilate").size).to eq(10)
+            expect(real_dictionary.determine_close_entry_matches("vadilate").size).to be > 50
         end 
 
     end 

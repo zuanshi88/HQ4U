@@ -1,14 +1,12 @@
 require_relative "../app.rb"
 require './model/project.rb'
+require './model/note.rb'
 require 'rack/test'
 
 RSpec.describe Account do 
      include Rack::Test::Methods
         subject { Project.new({:title => "Go time", :description => "Log book 3000"})}
 
-        def index 
-           subject.index_content
-        end 
        
         it "has a Project class" do 
             expect(subject.class).to eq(Project)
@@ -28,7 +26,9 @@ RSpec.describe Account do
 
 
         it "can return an index" do 
-            expect(index['the'].class).to eq(Array)
+            subject.notes << Note.new(comment: "This is only a test.")
+            index = subject.index_content 
+            expect(index['only']).to eq(subject)
         end 
 
 

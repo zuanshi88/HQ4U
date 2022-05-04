@@ -29,6 +29,26 @@ class Project < ActiveRecord::Base
         resource.filter{ |term| self.distance(search.downcase, term.downcase) < 3 || self.distance(search.downcase, entry.topic_tag.downcase) < 3 }
     end 
 
+    def index_content 
+        index = {}
+        self.notes.each do |note|
+            note.comment.downcase.split(" ").each do |word|
+                index[word] ? index[word] << note : index[word] = []
+            end 
+            note.examples do |example|
+                example.info.downcase.split(" ").each do |word|
+                    index[word] ? index[word] << note : index[word] = []
+                end 
+                    index[word] ? index[word] << note : index[word] = []
+            end 
+            note.addendums.each do |add|
+                add.addition.downcase.split(" ").each do |word| 
+                     index[word] ? index[word] << note : index[word] = []
+                end 
+            end 
+        end 
+        index
+    end 
 
     def boo 
         "BOO!!!"

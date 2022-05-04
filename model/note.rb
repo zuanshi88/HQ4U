@@ -56,7 +56,7 @@ class Note < ActiveRecord::Base
     end 
 
     def self.set_note_index
-        @note_index = { :man => "boy"}
+        @note_index = { :man => "boy", :woman => "girl"}
     end 
 
     #write a test to test the fuller functionality here.

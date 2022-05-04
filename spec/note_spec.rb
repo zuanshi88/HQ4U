@@ -14,8 +14,11 @@ RSpec.describe Account do
         expect(Note.note_index.class).to eql(Hash)
     end 
 
-    it 'the has has content' do 
+    it 'has specfic content' do 
         expect(Note.note_index[:man]).to eq("boy")
     end 
 
+    it 'also has this specific content' do 
+        expect(Note.note_index[:woman]).to eq("girl")
+    end 
 end 

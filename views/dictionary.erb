@@ -160,21 +160,19 @@
                         <input type="submit" value="info">
                     </form>
                 </div>     
-        <dl style="padding: 5px; background-color: <%=@color_array[rand(63)]%>; border: 2px solid black;"> 
-            <dd style="padding: 5px;">- <%=result.entry_info%></dd>
+        <ul style="padding: 5px; background-color: <%=@color_array[rand(63)]%>; border: 2px solid black;"> 
+            <li class="entry-info"> <%=result.entry_info%></li>
             <% unless result.more_info.empty? %>
-            <dd style="padding: 5px;">- <%=result.more_info%></dd>
+            <li class="entry-info"> <%=result.more_info%></li>
             <% end %>
-        <dl>
         <% if result.examples[0] %>
-                <ul style="margin-left: 20px; font-size: 75%; list-style-type: disc;">
-                    <%result.examples.each do |example|%>
-                <li><%=example.info%>
-                    <form action="/example/<%=result.id%>/<%=example.id%>/delete" method="post" style="display:inline;">
-                        <input id="hidden" type="hidden" name="_method" value="delete">
-                        <input type="submit" value="del" style="width: 25px; height: 15px; font-size: 50%;">
-                    </form> 
-                </li>
+                <%result.examples.each do |example|%>
+                        <li class="entry-info"><%=example.info%>
+                            <form action="/example/<%=result.id%>/<%=example.id%>/delete" method="post" style="display:inline;">
+                                <input id="hidden" type="hidden" name="_method" value="delete">
+                                <input type="submit" value="del" style="width: 25px; height: 15px; font-size: 50%;">
+                            </form> 
+                        </li>
                     <% end %>
                 </ul>
         <% end %>
