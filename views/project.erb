@@ -226,7 +226,7 @@
             <span onclick="call('weblinks')" class="multi-color-button"><b>Weblink</b></span>
 
     <ul id="weblinks" style="display: none; margin-left: 20px;">
-        <% @project.weblinks.each do |link| %>
+        <% @project.weblinks.reverse.each do |link| %>
             <li><a href="<%=link.url %>"><%=link.title%></a> | 
             <%# delete link %>
                 <form action="/people/<%=@project.id%>/weblinks/delete/<%=link.id%>" method="post" style="display:inline">
