@@ -1,0 +1,5 @@
+ <li style="margin-bottom: 25px; border: 2px solid white; padding-top: 20px; display: inline-block; line-height: 2; vertical-align: middle; height: 35px; width: 350px; text-align: center; margin-left: 80px; float: left; padding: 5px; background-color: <%=@color_array[rand(63)]%>"><a href="/dictionary/<%=dictionary.id%>"> <b style="font-size: 120%; color: ivory;"><%=dictionary.title%></b></a> <br>
+                <span class= "on-click" onclick="call('add-<%=dictionary.title%>-entry')"> add</span><span style="color:gold;"> | </span>
+                <span><a href="/dictionary/edit/<%=dictionary.id%>">edit</a></span><span style="color:gold;"> | </span>
+                 <span><a href="/topic/<%=dictionary.id%>">cards</a></span> 
+            </li>

@@ -14,11 +14,17 @@
 <div style="text-align: center;">
     <ul>
         <% @dictionaries = @dictionaries.sort_by{|dictionary| dictionary.entries[0] ? dictionary.entries[-1].created_at : dictionary.created_at}.reverse.each do |dictionary| %>
-            <li style="margin-bottom: 25px; border: 2px solid white; padding-top: 20px; display: inline-block; line-height: 2; vertical-align: middle; height: 35px; width: 350px; text-align: center; margin-left: 80px; float: left; padding: 5px; background-color: <%=@color_array[rand(63)]%>"><a href="/dictionary/<%=dictionary.id%>"> <b style="font-size: 120%; color: ivory;"><%=dictionary.title%></b></a> <br>
-                <span class= "on-click" onclick="call('add-<%=dictionary.title%>-entry')"> add</span><span style="color:gold;"> | </span>
-                <span><a href="/dictionary/edit/<%=dictionary.id%>">edit</a></span><span style="color:gold;"> | </span>
-                 <span><a href="/topic/<%=dictionary.id%>">cards</a></span> 
-            </li>
+           
+           <div class="card col-sm-3" style="margin-bottom: 25px; border: 2px solid white; padding-top: 20px; display: inline-block; line-height: 2; vertical-align: middle; height: 95px; width: 250px; text-align: center; margin-left: 80px; float: left; padding: 5px; background-color: <%=@color_array[rand(63)]%>">
+                <div class="card-body">
+                    <span style="font-size: 120%; color: black;"><b><a href="/dictionary/<%=dictionary.id%>"><%=dictionary.title%></b></a></span>
+                     <br>
+                    <span class= "on-click" onclick="call('add-<%=dictionary.title%>-entry')"> add</span><span style="color:gold;"> | </span>
+                    <span><a href="/dictionary/edit/<%=dictionary.id%>">edit</a></span><span style="color:gold;"> | </span>
+                    <span><a href="/topic/<%=dictionary.id%>">cards</a></span> 
+                </div>
+            </div>
+
             <div id='add-<%=dictionary.title%>-entry' style="display:none">
                     <form action="/dictionary/<%=dictionary.id%>/entry/create" method= "POST" style="margin-top: 5px;">
                         <input type="text" name="term" placeholder="term">
@@ -32,6 +38,7 @@
         <% end %>
     </ul>
 </div>
+<br>
 
 
 
