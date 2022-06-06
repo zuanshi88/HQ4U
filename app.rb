@@ -540,7 +540,7 @@ end
  
 
 
-get '/activities' do 
+get '/action' do 
     @account = Account.find(40)
     @activities = Activity.all
     @projects = @account.projects
@@ -576,7 +576,7 @@ get '/flashbox' do
 end
 
 
-get '/dictionaries' do 
+get '/decks' do 
      @dictionaries = Dictionary.all
     erb :dictionaries
 end 
