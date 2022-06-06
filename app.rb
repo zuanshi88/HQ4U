@@ -42,6 +42,19 @@ get "/annuals" do
     erb :annuals
 end 
 
+
+get "/project_log" do 
+    @notes = Note.all 
+
+    erb :project_log
+end 
+
+get "/activity_log" do 
+    @activities = Activity.all 
+
+    erb :activity_log
+end 
+
 get "/topic/:id" do 
 
     @dictionary = Dictionary.find_by_id(params[:id])
@@ -534,7 +547,7 @@ get '/activities' do
     @notes = Note.all.filter{|note| note.project_id } 
     
 
-    erb :activities
+    erb :action
 
 end
 

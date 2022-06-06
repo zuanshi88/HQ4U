@@ -296,7 +296,6 @@ input[type=submit] {
 /* //activities  */
 
 #project-log {
-    display: none; 
     margin-top: 20px; 
     background-color: <%=@color_array[rand(63)]%>; 
     padding: 20px; 
@@ -314,7 +313,6 @@ input[type=submit] {
 }
 
 #activity-log {
-    display: none; 
     background-color: <%=@color_array[rand(63)]%>; 
     padding: 20px; 
     border: 5px solid black; 

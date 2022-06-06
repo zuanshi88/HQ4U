@@ -18,20 +18,11 @@
      </a>
 <div style="width: 1200px;">    
 <div>
-   <h1 class="log-title" class="on-click" onclick="call('project-log')" style="background-color: <%=@color_array[rand(63)]%>">project log</h2>
-   <%# this styling could be pulled out-- but still need to figure out on-click %>
-    <h1 class="log-title" class="on-click" onclick="call('activity-log')" style="background-color: <%=@color_array[rand(63)]%>">activitiy log</h2>
+   <h1 class="log-title" style="background-color: <%=@color_array[rand(63)]%>"><a href="/project_log">Project Log</a></h2>
+    <h1 class="log-title" style="background-color: <%=@color_array[rand(63)]%>"><a href="/activity_log">Activitiy log</a></h2>
 </div>
  
-    <div id="project-log">
-      <%= erb :project_log%>
-    </div>
-    <div id="activity-log">
-      <%= erb :activity_log%>
-    </div>
 
-
-<%# what happens when a project does not have any notes? %>
 
     <div>
             <%add_sorted_projects = @projects.sort_by{|project| project.notes.sort_by{|note| note.last_touched}[-1].last_touched}%> 
