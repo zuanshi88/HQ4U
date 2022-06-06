@@ -8,6 +8,8 @@
     height: 50px; 
     background-color: <%=@color_array[rand(63)]%>;
 }
+
+
     </style>        
     
     
@@ -18,8 +20,8 @@
      </a>
 <div style="width: 1200px;">    
 <div>
-   <h1 class="log-title" style="background-color: <%=@color_array[rand(63)]%>"><a href="/project_log">Project Log</a></h2>
-    <h1 class="log-title" style="background-color: <%=@color_array[rand(63)]%>"><a href="/activity_log">Activitiy log</a></h2>
+   <h1 class="log-title" style="background-color: <%=@color_array[rand(63)]%>"><a style="text-decoration: none" href="/project_log">Project Log</a></h2>
+    <h1 class="log-title" style="background-color: <%=@color_array[rand(63)]%>"><a class="undecorated-link" href="/activity_log">Activitiy log</a></h2>
 </div>
  
 
@@ -27,12 +29,12 @@
     <div>
             <%add_sorted_projects = @projects.sort_by{|project| project.notes.sort_by{|note| note.last_touched}[-1].last_touched}%> 
             <%add_sorted_projects.reverse.each do |project|%>
-        <a href="/people/<%=project.account_id%>/project/<%=project.id%>">
-            <div class="project-boxes" style="background-color: <%=@color_array[rand(63)]%>; height: 100px">
-                    <h5 class="project-title"><%=project.title%></h5>
-                    <span class="date-display"><b><%=project.last_touched.strftime('%m/%d/%y')%></b></span>
-            </div>
-        </a>
+                <a class="undecorated-link" href="/people/<%=project.account_id%>/project/<%=project.id%>">
+                    <div class="project-boxes" style="background-color: <%=@color_array[rand(63)]%>;">
+                            <h5 class="project-title"><%=project.title%></h5>
+                            <span class="date-display"><b><%=project.last_touched.strftime('%m/%d/%y')%></b></span>
+                    </div>
+                </a>
             <% end %>
     </div>
              

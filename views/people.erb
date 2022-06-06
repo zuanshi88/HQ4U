@@ -7,7 +7,6 @@
 <table class="table table-dark table-hover">
   <thead>
     <tr>
-      <th scope="col">Link</th>
       <th scope="col">Name</th>
       <th scope="col">Adress</th>
       <th scope="col">City</th>
@@ -19,14 +18,15 @@
    <%@people = Account.all%>
     <%@people.sort_by{|person| person.name}.each do |person|%>
         
+           
           <tr>
-            <td><a href="/people/<%=person.id%>" class="people-link">*</td>
-            <td><%= person.name %></td>
-            <td><%= person.street_address %></td>
-            <td><%= person.city %></td>
-            <td><%= person.state %></td>
-            <td><%= person.zipcode %></td>
+              <td> <a href="/people/<%=person.id%>" style="color: silver"><%= person.name %></a></td>
+              <td><%= person.street_address %></td>
+              <td><%= person.city %></td>
+              <td><%= person.state %></td>
+              <td><%= person.zipcode %></td>
           </tr>
+           
     <% end %>
   </tbody>
 </table>

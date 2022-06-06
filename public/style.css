@@ -13,7 +13,7 @@ ul {
   padding: 5px;
 }
 
-a {
+body a {
   text-decoration: none;
   color:black;
 }
@@ -339,18 +339,6 @@ input[type=submit] {
     font-weight: bold; 
 }
 
-.project-boxes {
-
-    float: left;  
-    max-width: 300px; 
-    height: 65px; 
-    padding: 10px; 
-    border-radius: 8px; 
-    border: 5px solid black; 
-    margin-top:5px; 
-    margin-right: 10px;"
-
-}
 
 .comment-display {
     background: white; 
@@ -367,6 +355,18 @@ input[type=submit] {
     margin-bottom: 5px; 
     margin-top: 5px; 
     color: white;
+}
+
+.project-boxes {
+  float: left;
+  max-width: 300px;
+  height: 100 px;
+  padding: 10px;
+  border-radius: 8px;
+  border: 5px solid black;
+  margin-top: 5px;
+  margin-right: 10px;
+
 }
 
 .date-display {
