@@ -5,136 +5,113 @@
         <h1><%=@project.title%></h1>
 
         <nav class="navbar navbar-expand-lg bg-light">
-        <div class="container-fluid">
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
+                    <div class="container-fluid">
+                        <div class="collapse navbar-collapse" id="navbarNav">
+                            <ul class="navbar-nav">
 
-                    <li class="nav-item">
-                            <a class="dropdown-item" aria-current="page" href="/people/<%=@project.account_id %>/projects">View All Projects</a>
-                    </li>
-                    <li onclick="call('create-weblink')" class="on-click">
-                        <a class="dropdown-item" href="#">Weblink 3000</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Pricing</a>
-                    </li>
-                    <li class="nav-item on-click" onclick="call('note')">
-                        <a class="nav-link" href="#">Features</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled">Disabled</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
+                                <li class="nav-item">
+                                        <a class="dropdown-item" aria-current="page" href="/people/<%=@project.account_id %>/projects">View All Projects</a>
+                                </li>
+                                <li class="nav-item on-click" onclick="call('note')">
+                                    <a class="dropdown-item" href="#">Create Note</a>
+                                </li>
+                                <li onclick="call('create-weblink');" class="on-click">
+                                    <a class="dropdown-item" href="#">Weblink 3000</a>
+                                </li>
+                                <li class="nav-item">
+                                <div class="dropdown">
+                                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                            Project Weblinks
+                                        </button>
+                                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                                <li onclick="call('create-weblink');">
+                                                    <a class="dropdown-item" href="#">
+                                                        <button class="btn btn-secondary">
+                                                            Add Weblink
+                                                        </button> 
+                                                    </a>
+                                                </li>
+                                                    <% unless @project.weblinks[0] == nil %>
+                                                    <% @project.weblinks.reverse.each do |link| %>
+                                                                <%# making link an instance variable to send to partial %>
+                                                                <% @link = link %>
+                                                                <li><a href="<%=@link.url %>"><%=@link.title%></a>
+                                                                    <%= erb :"weblinks/delete_project_weblink"%>  
+                                                                </li>
+                                                        <% end %>
+                                                    <% end %>
+                                            </ul>
+                                    </div>
+                                </li>
+                                <li class="nav-item">
+                                <div class="dropdown">
+                                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                            Photo Actions
+                                        </button>
+                                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                                <li onclick="call('add-photo');"><a class="dropdown-item" href="#">add photo</a></li>
+                                                <li><a class="dropdown-item" href="/photoroom/<%=@project.id%>">photoroom</a></li>
+                                                <li><a class="dropdown-item" href="#">photo carousel</a></li>
+                                            </ul>
+                                    </div>
+                                </li>
+                                 <li class="nav-item">
+                                    <div class="dropdown">
+                                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                            Books
+                                        </button>
+                                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                                <li onclick="call('create-new-book');">
+                                                    <a class="dropdown-item" href="#">
+                                                        <button class="btn btn-secondary">
+                                                            Add Book
+                                                        </button> 
+                                                    </a>
+                                                </li>
+                                                    <% unless @project.books[0] == nil %>
+                                                    <% @project.books.reverse.each do |book| %>
+                                                                <%# making link an instance variable to send to partial %>
+                                                                <li><a href="/project/<%=@project.id%>/book/<%=book.id%>"><%=book.title%></a>
+                                                                   <%# could put delete book in here  %>
+                                                                </li>
+                                                        <% end %>
+                                                    <% end %>
+                                            </ul>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
         </nav>
 
-            <% if @project.photos[0] %>
-    
-                <div>
-                    <img class="cover-image" src="/images/<%= @project.photos[rand(@project.photos.length)].photo %>" alt="Where is the photo?">
-                </div>
-
-            <% end %>
-
-
             <div id="note" style="display: none;">
-                <form action="/people/<%=@project.account_id%>/project/<%=@project.id%>/note/create" method="POST">
-                    <input type="hidden" id="hidden">
-                    <input type="text" name="comment">
-                    <input type="submit" value="note">
-                </form>
+                <%= erb :'notes/create_note' %>
             </div>
-    
-     <%# add a new photo         %>
-        <h3 class="options-menu" class="on-click" onclick="call('add-photo');"> add photo </h3>
-                <div id="add-photo" style="display:none">
-                    <form action="/people/<%=@project.account_id%>/project/<%=@project.id%>/photo" method="POST">
-                        <input type="hidden" id="hidden">
-                        <label for="title">title</label>
-                        <input type="text" name="title">
-                        <label for="description">description</label>
-                        <input type="text" name="description">
-                        <label for="photo">photo</label>
-                        <input type="file" name="photo">
-                        <input type="submit" value="photo">
-                    </form>
-                </div>
 
-    <%# display books and add a new book %>
-        <h3 class="on-click" class="options-menu" onclick="call('books')">Books</a></h3>
-                <div id="books" style="display:none">
-                     <%# create new book %>
-                    <div onclick="call('new-book')">new book</div>
-                        <% unless @project.books == nil%>
-                            <ul>
-                            <% @project.books.each do |book|%>
-                                <li><a href="/project/<%=@project.id%>/book/<%=book.id%>"><%=book.title%></a></li>
-                                <% end %>
-                            </ul>
-                        <% end %>
-                    <div id="new-book" style="display:none;">
-                        <form action="/project/<%=@project.id%>/book/create" method="POST">
-                            <input type="hidden" id="hidden">
-                            <label for="title">title</label>
-                            <input type="text" name="title">
-                            <label for="url">author</label>
-                            <input type="text" name="author">
-                            <label for="synopsis">synopsis</label>
-                            <input type="textarea" name="synopsis">
-                            <label for="pages">pages</label>
-                            <input type="integer" name="pages">
-                            <input type="submit" value="link">
-                        </form>
-                    </div>
-                </div>
-        
-    <%# link to photoroom%>
-        <h3 class="options-menu">  <a href="/photoroom/<%=@project.id%>">Photoroom</a></h3>
-    <%# create new weblink %>
-        <h3 class="on-click" onclick="call('create-weblink')">  </h3>
+            <div id="add-photo" style="display:none">
+                <%= erb :'photos/create_project_photo' %>
+            </div>
 
-                <div id="create-weblink" style="display:none">
-                    <form action="/project/<%=@project.id%>/main/<%=@project.id%>/weblink/create" method="POST">
-                        <input type="hidden" id="hidden">
-                        <label for="title">title</label>
-                        <input type="text" name="title">
-                        <label for="url">url</label>
-                        <input type="text" name="url">
-                        <label for="description">description</label>
-                        <input type="text" name="description">
-                        <input type="submit" value="link">
-                    </form>
-                </div>
+            <div id="create-weblink" style="display:none">
+                <%= erb :'weblinks/create_project_weblink' %>
+            </div>
+
+            <div id="create-new-book" style="display:none;">
+                <%= erb :"books/create_project_book" %>
+            </div> 
+
 </div>
 
         <% if @project.photos[0] %>
-            <div style="float:left;" onclick="call('options')">
             <img class="cover-image" src="/images/<%= @project.photos[rand(@project.photos.length-1)].photo %>" alt="Where is the photo?">
         <% end %>
-    </div>
+
+        <% if @project.photos[1] %>
+            <img class="cover-image" src="/images/<%= @project.photos[rand(@project.photos.length-1)].photo %>" alt="Where is the photo?">
+        <% end %>
 
 <br>
-<div style="margin-bottom: 200px;"></div>
 
-<% unless @project.weblinks[0] == nil %>
-        <%# display web links %>
-        <div style="margin-top: 50px;">
-            <span onclick="call('weblinks')" class="multi-color-button"><b>Weblink</b></span>
-
-    <ul id="weblinks" style="display: none; margin-left: 20px;">
-        <% @project.weblinks.reverse.each do |link| %>
-            <li><a href="<%=link.url %>"><%=link.title%></a> | 
-            <%# delete link %>
-                <form action="/people/<%=@project.id%>/weblinks/delete/<%=link.id%>" method="post" style="display:inline">
-                    <input id="hidden" type="hidden" name="_method" value="delete">
-                    <input type="submit" value="delete" style="width: 25px; height: 15px; font-size: 30%; text-align: center; padding: 0px;" onclick="clicked(event)">
-                </form>
-            </li>
-        <% end %>
-    </ul>
-<div>
-<% end %>
 
 <ul margin-left: 20px;>
     <% @project.notes.sort_by{|note| note.last_touched}.reverse.each do |note|%>
@@ -272,14 +249,7 @@
 </ul>
 
 
-<style>
-
-
-
-</style>
-
          <%= erb :menu_links %>
-
 
 
 </div>

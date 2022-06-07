@@ -1,22 +1,17 @@
-<
-    
-    <style>
-    
-    body{
 
-        background-color:black;
-    }
-    
-    </style>
-    <a href="/people/<%=@person.id%>/project/<%=@project.id%>"><h1 style="margin-top: 0px; color: silver;">回</h1></a>
 
+    <div class="bg-black pb-100">
     
-<div style="padding: 10px;">
-    <%if @project.photos[0]%>
-        <%@project.photos.each do |photo|%>
-        <div style="border: float: left; display: inline;  margin-top: 5px; margin-bottom: 5px; margin-right: 0px; margin-left: 0px;">
-    <img src="/images/<%=photo.photo%>" alt="where's the photo?" style="width:300px; height: 200px; margin: 0;">
-        </div>
+        <a href="/people/<%=@person.id%>/project/<%=@project.id%>"><h1 style="margin-top: 0px; color: silver;">回</h1></a>
+    
+    <div style="padding: 10px;">
+        <%if @project.photos[0]%>
+            <%@project.photos.each do |photo|%>
+            <div style="border: float: left; display: inline;  margin-top: 5px; margin-bottom: 5px; margin-right: 0px; margin-left: 0px;">
+        <img src="/images/<%=photo.photo%>" alt="where's the photo?" style="width:300px; height: 200px; margin: 0;">
+            </div>
+            <%end%>
         <%end%>
-    <%end%>
+    </div>
+
 </div>

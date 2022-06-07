@@ -287,7 +287,7 @@ post '/project/:project_id/note/:note_id/addendum/create' do
     @person = Account.find(@project.account_id)
     @note.addendums << @addendum 
 
-    erb :project
+    erb :"projects/project"
 
 end 
 
@@ -299,7 +299,7 @@ delete '/project/:project_id/note/:note_id/addendum/:addendum_id/delete' do
     @person = Account.find(@project.account_id)
     @addendum.destroy
 
-    erb :project
+    erb :"projects/project"
 end 
 
 post '/project/:project_id/addendum/:addendum_id/note/create' do 
@@ -309,7 +309,7 @@ post '/project/:project_id/addendum/:addendum_id/note/create' do
 
     @project = Project.find(params[:project_id])
 
-    erb :project 
+    erb :"projects/project" 
 end 
 
 
@@ -319,7 +319,7 @@ delete '/project/:project_id/addendum/:addendum_id/note/:note_id/delete' do
     @project = Project.find(params[:project_id])
 
 
-    erb :project
+    erb :"projects/project"
     
 
 end 
@@ -421,7 +421,7 @@ get "/people/:id/project/:p_id" do
     @project = Project.find_by_id(params[:p_id])
     @person = Account.find(params[:id])
 
-    erb :"project/project"
+    erb :"projects/project"
 end 
 
 post "/people/:id/project/:project_id/photo" do

@@ -1,0 +1,10 @@
+                    <form action="/people/<%=@project.account_id%>/project/<%=@project.id%>/photo" method="POST">
+                        <input type="hidden" id="hidden">
+                        <label for="title">title</label>
+                        <input type="text" name="title">
+                        <label for="description">description</label>
+                        <input type="text" name="description">
+                        <label for="photo">photo</label>
+                        <input type="file" name="photo">
+                        <input type="submit" value="photo">
+                    </form>
