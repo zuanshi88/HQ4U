@@ -421,8 +421,7 @@ get "/people/:id/project/:p_id" do
     @project = Project.find_by_id(params[:p_id])
     @person = Account.find(params[:id])
 
-    erb :project
-
+    erb :"project/project"
 end 
 
 post "/people/:id/project/:project_id/photo" do
