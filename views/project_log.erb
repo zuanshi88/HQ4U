@@ -1,14 +1,17 @@
      
      <h1>Project Log</h1>
     <div id=project-log>
-     <%@notes.select{ |note| note.project_id}.sort_by{|note| note.last_touched}.reverse.first(25).each_with_index do |note, index|%>
+     <%@notes.select{ |note| note.project_id}.sort_by{|note| note.last_touched}.reverse.first(35).each_with_index do |note, index|%>
                 <a href="/people/40/project/<%=note.project_id%>">
-                    <span class="note-display" style="background-color: <%= note.last_touched.day == @notes[index - 1].last_touched.day ? @default_color : @default_color = @color_array[rand(63)]%>";>
-                        <b><%= note.last_touched.strftime('%m/%d')%> | <%= note.last_touched.day%></b>
-                    </span>
-                    <span class="comment-display">
-                        <%=note.comment%>
-                    </span>
+                       <div class="float-md-start">
+                            <span class="note-display" style="background-color: <%= note.last_touched.day == @notes[index - 1].last_touched.day ? @default_color : @default_color = @color_array[rand(63)]%>";>
+                                <b><%= note.last_touched.strftime('%m/%d')%> | <%= note.last_touched.day%></b>
+                            </span>
+                            <span class="comment-display">
+                                <%=note.comment%>
+                            </span>
+                        </div>
+                       
                 </a>
             <% end %>
     </div>
