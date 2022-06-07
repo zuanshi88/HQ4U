@@ -9,14 +9,14 @@ read -p "Proceed?" RESPONSE
 
 
 
-if RESPONSE = "n"   
+if RESPONSE == "n"   
     then 
     echo "Aborting"
     exit
 else
-     $(git add .)
+     git add .
 fi 
 
 read -p "Message, por favor..." RESPONSE
 
-$(git commit -m '$RESPONSE')
+git commit -m "$RESPONSE"
