@@ -122,7 +122,7 @@
               <span onclick="call('add-add-<%=note.id%>')" class="add-button">add</span>
              <span class="link-button" onclick="call('create-note-weblink-<%=note.id%>')"> link </span>
        
-        <form action="/people/<%=@project.account_id%>/project/<%=@project.id%>/delete/<%=note.id%>" method="post" style="display:inline">
+        <form action="/note/<%=@project.account_id%>/<%=@project.id%>/<%=note.id%>" method="post" style="display:inline">
             <input id="hidden" type="hidden" name="_method" value="delete">
             <input type="submit" value="delete" onclick="clicked(event)">
         </form> 

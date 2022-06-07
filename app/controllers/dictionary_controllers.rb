@@ -1,4 +1,4 @@
-class NoteController < Sinatra::Base
+class DictionaryController < Sinatra::Base
     
        set :views, "app/views"
        set :public_folder, "public"
@@ -9,33 +9,4 @@ class NoteController < Sinatra::Base
 
          end 
 
-
-    get '/test' do 
-        "You passed the test the note test!!!!!!"
-    end 
-
-    post "/note/:id/:project_id" do 
-
-        @note = Note.create(comment: params[:comment])
-        @project = Project.find_by_id(params[:project_id].to_i)
-        @project.notes << @note 
-        @note.save 
-        @project.save 
-
-        @person = Account.find_by_id(params[:id])
-
-        erb :"projects/project"
-
-    end 
-
-    delete "/note/:id/:project_id/:note_id" do
-        @note = Note.find_by_id(params[:note_id].to_i)
-        @note.destroy
-    
-        @project = Project.find_by_id(params[:project_id])
-        @person = Account.find(params[:id])
-        erb :"projects/project"
-
-    end 
-
-end 
+end

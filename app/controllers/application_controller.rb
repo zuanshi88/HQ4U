@@ -35,6 +35,7 @@ before do
  end 
 
 
+
 get "/video" do 
 
     erb :video
@@ -223,6 +224,7 @@ end
 
 
 
+
 post '/project/:project_id/book/create' do
 
     @book = Book.create(title: params[:title], author: params[:author], synopsis: params[:synopsis], pages: params[:pages])
@@ -401,7 +403,7 @@ get "/people/:id/projects" do
     @person = Account.find_by_id(params[:id].to_i)
     @projects = @person.projects
 
-    erb :projects   
+    erb :"projects/projects"  
 end 
 
 post "/people/:id/project/create" do 
@@ -461,39 +463,9 @@ get "/photoroom/book/edit/:id" do
 end 
 
 
-delete "/people/:account_id/project/delete/:project_id" do 
-      @project = Project.find_by_id(params[:project_id].to_i)
-      @project.destroy
-
-      @person = Account.find_by_id(params[:account_id].to_i)
-
-      erb :person 
-end 
-
-post "/people/:id/project/:project_id/note/create" do 
-
-    @note = Note.create(comment: params[:comment])
-    @project = Project.find_by_id(params[:project_id].to_i)
-    @project.notes << @note 
-    @note.save 
-    @project.save 
-
-    @person = Account.find_by_id(params[:id])
-
-    erb :project
 
 
-end 
 
-delete "/people/:id/project/:project_id/delete/:note_id" do
-    @note = Note.find_by_id(params[:note_id].to_i)
-    @note.delete 
- 
-    @project = Project.find_by_id(params[:project_id])
-    @person = Account.find(params[:id])
-    erb :project
-
-end 
 
 post "/project/:project_id/*/*/weblink/create" do
     @hash = {title: params[:title], url: params[:url], description: params[:description]} 
@@ -523,7 +495,7 @@ post "/project/:project_id/*/*/weblink/create" do
     @project = @project || Project.find_by_id(params[:project_id])
     @person = Account.find_by_id(@project.account_id)
 
-    erb :project
+    erb :"projects/project"
 
 
 end 
@@ -534,7 +506,7 @@ delete "/people/:project_id/weblinks/delete/:link_id" do
     @person = Account.find_by_id(@project.account_id)
     @weblink.destroy
 
-    erb :project  
+    erb :"projects/project"  
 
 
 end 
