@@ -14,9 +14,9 @@ if RESPONSE = "n"
     echo "Aborting"
     exit
 else
-     git add .
+     $(git add .)
 fi 
 
 read -p "Message, por favor..." RESPONSE
 
-git commit -m '$RESPONSE'
+$(git commit -m '$RESPONSE')
