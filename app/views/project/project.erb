@@ -2,7 +2,32 @@
 <div class="solid-color">
 
     
-        <h1 class="silly-test"><%=@project.title%></h1>
+        <h1><%=@project.title%></h1>
+
+        <nav class="navbar navbar-expand-lg bg-light">
+        <div class="container-fluid">
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+
+                    <li class="nav-item">
+                            <a class="dropdown-item" aria-current="page" href="/people/<%=@project.account_id %>/projects">View All Projects</a>
+                    </li>
+                    <li onclick="call('create-weblink')" class="on-click">
+                        <a class="dropdown-item" href="#">Weblink 3000</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Pricing</a>
+                    </li>
+                    <li class="nav-item on-click" onclick="call('note')">
+                        <a class="nav-link" href="#">Features</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled">Disabled</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        </nav>
 
             <% if @project.photos[0] %>
     
@@ -11,24 +36,9 @@
                 </div>
 
             <% end %>
-        
-
-                <div class="options" onclick="call('options')">
-                    <h2 class="on-click">options</h2>
-                </div>
-
-
-
-
-    <%# see all projects%>
-<div id="options" style="display: none;">
-        <h3 class="options-menu"><a href="/people/<%=@project.account_id%>/projects">all projects</a></h3>
-     <%# create a new note %>
-        <h3 class="options-menu" class="on-click" onclick="call('note');">NOTE</h3>
 
 
             <div id="note" style="display: none;">
-
                 <form action="/people/<%=@project.account_id%>/project/<%=@project.id%>/note/create" method="POST">
                     <input type="hidden" id="hidden">
                     <input type="text" name="comment">
@@ -82,7 +92,8 @@
     <%# link to photoroom%>
         <h3 class="options-menu">  <a href="/photoroom/<%=@project.id%>">Photoroom</a></h3>
     <%# create new weblink %>
-        <h3 class="on-click" onclick="call('create-weblink')"> Weblink 3000 </h3>
+        <h3 class="on-click" onclick="call('create-weblink')">  </h3>
+
                 <div id="create-weblink" style="display:none">
                     <form action="/project/<%=@project.id%>/main/<%=@project.id%>/weblink/create" method="POST">
                         <input type="hidden" id="hidden">
