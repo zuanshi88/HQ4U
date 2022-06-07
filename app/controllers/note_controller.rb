@@ -10,10 +10,6 @@ class NoteController < Sinatra::Base
          end 
 
 
-    get '/test' do 
-        "You passed the test the note test!!!!!!"
-    end 
-
     post "/note/:id/:project_id" do 
 
         @note = Note.create(comment: params[:comment])
