@@ -1,10 +1,12 @@
 class ProjectController < Sinatra::Base
 
-    get '/test' do 
-        "You passed the test!"
-    end 
 
-    post "/people/:id/project/create" do 
+    configure :development do
+        set :views, "app/views"
+        set :public_folder, "public"
+    end
+
+    post "/project/:id" do 
         @project = Project.create(title: params[:title], description: params[:description])
         @note = Note.create(comment: "another auspicious beginning!")
         @project.notes << @note 
