@@ -18,12 +18,12 @@ require_relative "../models/book.rb"
 require_relative "../models/quote.rb"
 require_relative "../models/addendum.rb"
 
-set :database, {adapter: "sqlite3", database: "crm.sqlite3"}
 
 class ApplicationController < Sinatra::Base
-        configure :development do
-            register Sinatra::Reloader
-            
+    configure :development do
+        register Sinatra::Reloader
+        
+            set :database, {adapter: "sqlite3", database: "crm.sqlite3"}
             set :views, "app/views"
             set :public_folder, "public"
         end

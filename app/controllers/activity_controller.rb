@@ -1,14 +1,14 @@
 class ActivityController < ApplicationController
     
          
-         get "/annuals" do
-            @activities = Activity.all 
-            
-            erb :"app/annuals"
-        end 
+get "/annuals" do
+    @activities = Activity.all 
+
+    erb :"app/annuals"
+end 
         
         
-post "/people/:id/activity/create" do
+post "/activity/:id" do
     @person = Account.find_by_id(params[:id].to_i)
     @activity = Activity.create(title: params[:title], description: params[:description], annual: params[:annual])
     @activity.created_at = params[:date]

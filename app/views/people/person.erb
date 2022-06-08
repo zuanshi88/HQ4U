@@ -120,7 +120,7 @@
    
       <div class="info-drawer" style="display:none; margin-top: 10px; margin-left: 5px;" id='create-activity'>
             <br>
-                <form method="POST" action="/people/<%=@person.id%>/activity/create" style="margin-top: 10px;">
+                <form method="POST" action="activity/<%=@person.id%>" style="margin-top: 10px;">
                     <input type="text" name="title" placeholder="title">
                     <input type="text" name="description" placeholder="description">
                     <input type="date" name="date" value="<%=Time.now%>">
