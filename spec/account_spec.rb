@@ -1,6 +1,5 @@
-
-require_relative "../app.rb"
-require './model/account.rb'
+require './app/controllers/application_controller.rb'
+require './app/models/account.rb'
 require 'rack/test'
 
 RSpec.describe Account do 
