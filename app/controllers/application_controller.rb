@@ -37,7 +37,7 @@ class ApplicationController < Sinatra::Base
         
         get "/" do
             
-            erb :"app/home"
+            erb :home
         end
 
         get "/about" do

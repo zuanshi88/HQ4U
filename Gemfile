@@ -5,6 +5,8 @@ gem 'sinatra-contrib'
 gem 'sinatra-activerecord'
 gem 'rake'
 gem 'sqlite3'
-gem 'rspec'
-gem 'rack-test'
-gem 'annotate'
+
+group 'test' do 
+    gem 'rspec'
+    gem 'rack-test'
+end 

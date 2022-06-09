@@ -1,10 +1,8 @@
-ENV['APP_ENV'] = 'test'
+require 'spec_helper'
 
 require './app/controllers/application_controller.rb'
 # require './app/models/account.rb'
 # require './app/models/activity.rb'
-require 'rack/test'
-require 'rspec'
 
 
 RSpec.describe ApplicationController do 

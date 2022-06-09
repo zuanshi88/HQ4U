@@ -1,12 +1,10 @@
-ENV['APP_ENV'] = 'test'
-
+require 'spec_helper'
 require './app/controllers/application_controller.rb'
 require './app/models/account.rb'
 require './app/models/activity.rb'
-require 'rack/test'
 
 RSpec.describe Account do 
-     include Rack::Test::Methods
+    #  include Rack::Test::Methods
 
         subject { Account.create({:name => "Aaron Whitmer", :street_address => "1888 W. North Ave.",
                 :city => "Chicago", :state => "IL", :zipcode => 60613, :photo => "DSCF1081.JPG"})}

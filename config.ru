@@ -20,3 +20,5 @@ use PhotoController
 use AccountController
 use ActivityController
 use WeblinkController
+
+set :root, File.dirname(__FILE__)
