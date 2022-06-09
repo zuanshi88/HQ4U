@@ -11,6 +11,7 @@ class Project < ActiveRecord::Base
     has_many :photos
     has_many :books
     has_many :addendums, through: :notes 
+   
 
     #this is coupled here via the call of the last_touched method.
 

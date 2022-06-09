@@ -104,11 +104,11 @@ delete '/project/:project_id/note/:note_id/addendum/:addendum_id/delete' do
 end 
 
 post '/project/:project_id/addendum/:addendum_id/note/create' do 
-    @note = Note.create(comment: params[:comment])
+    @project = Project.find(params[:project_id])
+    @note = Note.create(comment: params[:comment], project_id: params[:project_id])
     @addendum = Addendum.find(params[:addendum_id])
     @addendum.notes << @note 
 
-    @project = Project.find(params[:project_id])
 
     erb :"projects/project" 
 end 

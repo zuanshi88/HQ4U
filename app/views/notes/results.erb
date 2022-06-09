@@ -1,9 +1,37 @@
 
-<% if @results %>
+<h2>Results for <%=@search_word%></h2>
 
-<ol>
-        <% @results.each do |result| %>
-            <li><a href="/people/40/project/<%=result.project_id%>"><%=result.comment%> -- <%=result.created_at%></a></li>
+<% if @note_results %>
+
+<ol class="list-group list-group-numbered">
+        <% @note_results.reverse.each do |result| %>
+            <li class="list-group-item"><a href="/redirect_search/note/<%= @search_word %>/<%=result.id%>/<%=result.project_id || 0 %>"><%=result.comment%> -- <%=result.created_at.strftime('%m/%d/%y')%></a>
+                <ul>
+                    <li><%=result.class%> with <%= result.project_id == nil ? "add_id : #{result.addendum_id}" : "project_id: #{result.project_id}" %> and id: <%=result.id %></li>
+                     <li><%= result.attributes %></li>
+                </ul>
+            </li>
+        <% end %>
+</ol>
+
+<% else %>
+
+    "Sorry Charlie, no results"
+
+<% end %>
+
+<h2>Addendum results</h2>
+
+<% if @addendum_results %>
+
+<ol class="list-group list-group-numbered">
+        <% @addendum_results.reverse.each do |result| %>
+            <li class="list-group-item"><a href="/redirect_search/addendum/<%=@search_word %>/<%=result.note_id%>"><%=result.addition%> -- <%=result.created_at.strftime('%m/%d/%y')%></a>
+                 <ul>
+                    <li><%=result.class%>  <%= result.note_id %> and id: of <%= result.id %></li>
+                     <li><%= result.attributes %></li>
+                </ul>
+            </li>
         <% end %>
 </ol>
 
