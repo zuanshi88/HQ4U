@@ -38,10 +38,9 @@
 
 </style>
  
-    <div style="margin-top: 0px;">
+<div style="margin-top: 0px;">
           
-          <div class="options-box" class="on-click" style="float: left">
-                
+          <div class="options-box" class="on-click" style="float: left">   
                 <div class="info-drawer" style="display:none; margin-top: 10xpx; margin-left: 5px;" id='address'>
                     <ul>
                         <li style="margin-top: 5px;"> <%=@person.name%></li>
@@ -49,32 +48,26 @@
                         <li style="margin-top: 5px;"><%=@person.city%>, <%=@person.state%> <%=@person.zipcode%></li>
                     </ul>
                       
-            <div style="display: inline; border: 2px black solid; border-radius: 5px; background-color: white; text-align: center; padding-left: 5px; padding-right: 5px; margin-left: 110px; margin-top: 20px;">
-                <a href="/people/<%=@person.id%>/edit_contact">edit</a> </a>
-                    |<a href="/people" title=""> people</a> | <a href="/" title="">home</a>  
-            </div>
-                        
+                    <div style="display: inline; border: 2px black solid; border-radius: 5px; background-color: white; text-align: center; padding-left: 5px; padding-right: 5px; margin-left: 110px; margin-top: 20px;">
+                        <a href="/people/<%=@person.id%>/edit_contact">edit</a> </a>
+                            |<a href="/people" title=""> people</a> | <a href="/" title="">home</a>  
+                    </div>
+                            
                 </div>
             </div>
-                <% @collected_photos = [] %>
-                  
-                <% @person.projects.each do |project| %>
-                <% project.photos.each do |photo| %>
-                <% @collected_photos << photo %>
-                <% @collected_photos.shuffle%>
-                <%end%>
-            <%end%>
+
               
             <div style="margin:0px; float: left;">
                 <img src="/images/<%=@person.photo%>" onclick="call('address')" alt="Where's the photo?" width="150" height= "100" style="border: 2px solid black; border-radius:15px; margin-left: 45px; margin-bottom: 10px; display: inline;">
             </div>
-            <% unless @collected_photos[0]  == nil %>
-            <% @selection = @collected_photos.slice(0,3)%>
-                <%  @selection.each do |photo|%>
-              <div style="margin:0px; float: left;">
-                <img src="/images/<%=photo.photo%>" alt="Where's the photo?" width="150" height= "100" style="border: 2px solid black; border-radius:15px; margin-left: 45px; margin-bottom: 10px; display: inline;">
-            </div>
-                <% end %>
+
+            <% unless @person.collected_photos.empty? %>
+                <% @selection = @person.collected_photos.slice(0,3)%>
+                    <%  @selection.each do |photo|%>
+                        <div style="margin:0px; float: left;">
+                            <img src="/images/<%=photo.photo%>" alt="Where's the photo?" width="150" height= "100" style="border: 2px solid black; border-radius:15px; margin-left: 45px; margin-bottom: 10px; display: inline;">
+                        </div>
+                    <% end %>
             <% end %>
 
 
@@ -85,10 +78,9 @@
     
 
     <div id="projects-panel" class="projects" style="width: 45%; float: left; margin-top:10px; margin-right: 10px;">
-       <h2><a href="/people/<%=@person.id%>/projects">PROJECTS</a>
-       
-        <span onclick="call('create-project')" style="font-size: 75%; width: 50px; border: 2px solid black; border-radius: 10px; background-color: red;">create</span>
-       
+       <h2>
+            <a href="/projects/<%=@person.id%>">PROJECTS</a>
+            <span onclick="call('create-project')" style="font-size: 75%; width: 50px; border: 2px solid black; border-radius: 10px; background-color: red;">create</span>
        </h2>
 
         <div class="option-box" class="on-click" style="float: left; display:inline;"> 
@@ -105,37 +97,34 @@
                     <li><%=project.last_touched.strftime('%m/%d')%> -- <span style="font-size:120%"><a href="/people/<%=@person.id%>/project/<%=project.id%>"> <%= project.title %> </a></span>: <span class="description"><%= project.description %> </span></li>
                 <% end %>
             </ul>
-        </div>  
+    </div>  
 
      
     <div id="activities-panel" class="activities" style="width: 45%; float: left; margin: 0;">
 
- <h2><a href="/activities/<%=@person.id%>">ACTIVITIES</a>
- 
-    <span onclick="call('create-activity')" style="font-size: 75%; border: 2px solid black; border-radius: 10px; background-color: red;">new</span>
- 
- </h2>
+        <h2>
+            <a href="/activities/<%=@person.id%>">ACTIVITIES</a>
+            <span onclick="call('create-activity')" style="font-size: 75%; border: 2px solid black; border-radius: 10px; background-color: red;">new</span>
+        </h2>
 
     
    
-      <div class="info-drawer" style="display:none; margin-top: 10px; margin-left: 5px;" id='create-activity'>
-            <br>
-                <form method="POST" action="activity/<%=@person.id%>" style="margin-top: 10px;">
+            <div class="info-drawer" style="display:none; margin-top: 10px; margin-left: 5px;" id='create-activity'>
+                <form method="POST" action="/activity/<%=@person.id%>" style="margin-top: 10px;">
                     <input type="text" name="title" placeholder="title">
                     <input type="text" name="description" placeholder="description">
                     <input type="date" name="date" value="<%=Time.now%>">
                     <span style="color:black;">annual? <input type="checkbox" name="annual" value="true"></span>
-                    <input class="on-click" type="submit" onclick="call('create-project')">
+                    <input class="on-click" type="submit" onclick="call('create-activity')">
                 </form>
             </div>
         <ul>
             <% @person.activities.reverse.slice(0,3).each do |activity| %>
-            <li><%=activity.created_at.strftime('%m/%d')%> -- <span style="color:black; font-size:120%;"><%= activity.title %></span> : <span style="color:lightgrey"><%= activity.description %></span></li>   
-            
+                <li><%=activity.created_at.strftime('%m/%d')%> -- <span style="color:black; font-size:120%;"><%= activity.title %></span> : <span style="color:lightgrey"><%= activity.description %></span></li>   
             <% end %>
         </ul>
     </div>
- </div>
+</div>
 
 
             

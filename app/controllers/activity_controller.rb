@@ -19,7 +19,7 @@ post "/activity/:id" do
 
 end 
 
-delete "/people/:account_id/delete/:activity_id" do 
+delete "/activity/:account_id/:activity_id" do 
     @activity = Activity.find_by_id(params[:activity_id].to_i)
     @activity.destroy 
 

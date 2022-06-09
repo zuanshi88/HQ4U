@@ -9,7 +9,7 @@ class ProjectController < ApplicationController
         @person.projects << @project 
         @person.save
 
-        erb :person
+        erb :"people/person"
     end 
 
 # cut from line 226 in application controller
@@ -20,7 +20,7 @@ class ProjectController < ApplicationController
 
         @person = Account.find_by_id(params[:account_id].to_i)
 
-        erb :person 
+        erb :"people/person" 
     end 
 
 
@@ -36,7 +36,7 @@ post '/project/:project_id/book/create' do
 
 end 
 
-get '/project/:project_id/book/:book_id' do 
+get '/book/:project_id/:book_id' do 
     @project = Project.find(params[:project_id])
     @book = Book.find(params[:book_id])
     @person = Account.find(@project.account_id)
@@ -126,7 +126,7 @@ delete '/project/:project_id/addendum/:addendum_id/note/:note_id/delete' do
 end 
 
 
-get "/people/:id/projects" do 
+get "/projects/:id" do 
     @person = Account.find_by_id(params[:id].to_i)
     @projects = @person.projects
 

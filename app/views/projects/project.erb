@@ -10,7 +10,7 @@
                             <ul class="navbar-nav">
 
                                 <li class="nav-item">
-                                        <a class="dropdown-item" aria-current="page" href="/people/<%=@project.account_id %>/projects">View All Projects</a>
+                                        <a class="dropdown-item" aria-current="page" href="/projects/<%=@project.account_id %>">View All Projects</a>
                                 </li>
                                 <li class="nav-item on-click" onclick="call('note')">
                                     <a class="dropdown-item" href="#">Create Note</a>
@@ -71,7 +71,7 @@
                                                     <% unless @project.books[0] == nil %>
                                                     <% @project.books.reverse.each do |book| %>
                                                                 <%# making link an instance variable to send to partial %>
-                                                                <li><a href="/project/<%=@project.id%>/book/<%=book.id%>"><%=book.title%></a>
+                                                                <li><a href="/book/<%=@project.id%>/<%=book.id%>"><%=book.title%></a>
                                                                    <%# could put delete book in here  %>
                                                                 </li>
                                                         <% end %>

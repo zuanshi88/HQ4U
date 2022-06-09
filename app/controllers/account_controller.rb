@@ -26,6 +26,7 @@ class AccountController < ApplicationController
                 
                 @person = Account.find_by_id(params[:id])
                 
+                
                 erb :"people/person"
                 
             end 

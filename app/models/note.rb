@@ -62,6 +62,25 @@ class Note < ActiveRecord::Base
     #write a test to test the fuller functionality here.
 
 
+     def self.index_content
+            # information = ["name", "last_name", "first_name"]
+            content_hash = {}
+            self.all.each do |note|
+                unless note.comment == nil 
+                    note.comment.split(' ').each do |word|
+                            content_hash[word.downcase] = [] if content_hash[word.downcase].nil? 
+                            content_hash[word.downcase].push(note)
+                    end 
+                end 
 
+                    # note.description.split(' ').each do |word|
+                    #        unless word == nil 
+                    #             content_hash[word.downcase] = [] if content_hash[word.downcase].nil? 
+                    #             content_hash[word.downcase].push(note)
+                    #         end 
+                    # end 
+            end 
+        content_hash
+    end
 
 end 

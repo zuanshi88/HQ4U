@@ -1,4 +1,4 @@
-class PhotoController < Sinatra::Base
+class PhotoController < ApplicationController
     
 delete '/project/:project_id/book/:book_id/photo/:photo_id/delete' do
     @photo = Photo.find(params[:photo_id])

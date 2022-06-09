@@ -9,7 +9,7 @@ RSpec.describe Account do
      include Rack::Test::Methods
 
         subject { Account.create({:name => "Aaron Whitmer", :street_address => "1888 W. North Ave.",
-                :city => "Chicago", :state => "IL", :zipcode => 60613})}
+                :city => "Chicago", :state => "IL", :zipcode => 60613, :photo => "DSCF1081.JPG"})}
 
         let(:new_activity){ Activity.create({:title => "Beach Day", :description => "Surf and Sun"})}
         let(:new_project){ Project.create({:title => "Coin Collecting", :description => "Coins from around the world"})}
@@ -22,6 +22,12 @@ RSpec.describe Account do
             expect(subject.city).to eq("Chicago")
             expect(subject.state).to eq("IL")
             expect(subject.zipcode).to eq(60613)
+            expect(subject.photo).to eq("DSCF1081.JPG")
+        end 
+
+        it "can update photo" do 
+            subject.photo = "new photo"
+            expect(subject.photo).to eq("new photo")
         end 
        
 
@@ -47,7 +53,7 @@ RSpec.describe Account do
         end 
 
         it "can collect people" do 
-            expect(Account.all.length).to eq(5)
+            expect(Account.all.length).to eq(6)
         end 
 
         Account.delete_all

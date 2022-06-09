@@ -25,4 +25,15 @@ class NoteController < ApplicationController
 
     end 
 
+    get '/search' do 
+        index_hash = Note.index_content
+        @search_word = params[:search_word].downcase
+        
+        @results = index_hash[@search_word]
+        @results.uniq!
+
+        erb :"notes/results"
+    end 
+
+
 end 

@@ -1,0 +1,14 @@
+
+<% if @results %>
+
+<ol>
+        <% @results.each do |result| %>
+            <li><a href="/people/40/project/<%=result.project_id%>"><%=result.comment%> -- <%=result.created_at%></a></li>
+        <% end %>
+</ol>
+
+<% else %>
+
+    "Sorry Charlie, no results"
+
+<% end %>

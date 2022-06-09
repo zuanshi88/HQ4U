@@ -1,5 +1,6 @@
-require_relative "../app.rb"
+require './app/controllers/application_controller.rb'
 require 'rack/test'
+require 'rspec'
 
 #not sure what is going on here... should read something about testing Sinatra Apps
 # with RSpec and just go really deep with it.
@@ -9,7 +10,7 @@ RSpec.describe 'App' do
     include Rack::Test::Methods
 
     def app 
-        App.new
+        Sinatra::Application
     end 
 
     it "gets 200 response from /" do

@@ -19,6 +19,7 @@ require_relative "../models/quote.rb"
 require_relative "../models/addendum.rb"
 
 
+
 class ApplicationController < Sinatra::Base
     configure :development do
         register Sinatra::Reloader
