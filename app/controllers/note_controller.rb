@@ -70,7 +70,7 @@ class NoteController < ApplicationController
                 @project = Project.find(params[:project_id])
             end 
 
-        erb :"projects/project"
+        erb :"projects/project_search_result"
         
 
     end 
@@ -81,9 +81,16 @@ class NoteController < ApplicationController
              @search_word.upcase!
             @project = Project.find(@note.project_id)
 
-        erb :"projects/project"
+        erb :"projects/project_search_result"
         
 
+    end 
+
+    get '/open_file/:note_id' do 
+        @note = Note.find_by_id(params[:note_id])
+        @note.open_file
+        @project = Project.find_by_id(@note.project_id)
+        erb:"projects/project"
     end 
 
 

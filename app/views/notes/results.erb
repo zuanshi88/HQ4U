@@ -6,8 +6,8 @@
 <% if @note_results %>
 
 <ol class="list-group list-group-numbered" style="border: black solid 2px;">
-        <% @note_results.reverse.each do |result| %>
-            <li class="list-group-item"><a href="/redirect_search/note/<%= @search_word %>/<%=result.id%>/<%=result.project_id || 0 %>"><%=result.comment%> -- <%=result.created_at.strftime('%m/%d/%y')%></a>
+        <% @note_results.sort_by{|note| note.last_touched }.reverse.each do |result| %>
+            <li class="list-group-item"><a href="/redirect_search/note/<%= @search_word %>/<%=result.id%>/<%=result.project_id || 0 %>"><%=result.comment%> -- <%=result.last_touched.strftime('%m/%d/%y')%> -- <%=result.created_at.strftime('%m/%d/%y')%></a>
                 <ul>
                     <li><%=result.class%> with <%= result.project_id == nil ? "add_id : #{result.addendum_id}" : "project_id: #{result.project_id}" %> and id: <%=result.id %></li>
                      <li><%= result.attributes %></li>

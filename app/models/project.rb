@@ -16,7 +16,9 @@ class Project < ActiveRecord::Base
     #this is coupled here via the call of the last_touched method.
 
     def last_touched 
-        self.notes.sort_by{|note| note.last_touched}[-1].last_touched
+        if notes[0] != nil
+            self.notes.sort_by{|note| note.last_touched}[-1].last_touched
+        end 
     end 
 
     def alternative_last_touch 

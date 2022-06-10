@@ -146,11 +146,19 @@ post "/people/:id/project/create" do
 end 
 
 
-get "/people/:id/project/:p_id" do 
-    @project = Project.find_by_id(params[:p_id])
-    @person = Account.find(params[:id])
+get "/project/:account_id/:project_id" do 
+    @project = Project.find_by_id(params[:project_id])
+    @person = Account.find(params[:account_id])
 
     erb :"projects/project"
+end 
+
+get "/project/search_result" do
+    @person = Account.find(40)
+    @project = Project.find_by_id(30)
+
+    erb :"projects/project_search_result"
+
 end 
 
 
