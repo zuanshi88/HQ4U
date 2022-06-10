@@ -57,8 +57,8 @@ class NoteController < ApplicationController
             @note = Note.find(params[:id])
             unless @note.addendum_id == nil 
                 @addendum = Addendum.find(@note.addendum_id)
+                @other_note = Note.find(@addendum.note_id)
             end 
-            @other_note = Note.find(@addendum.note_id)
             @search_word = params[:search_word]
             @search_word.upcase!
             if params[:project_id] == '0'

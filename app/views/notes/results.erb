@@ -1,9 +1,11 @@
 
-<h2>Results for <%=@search_word%></h2>
+<h1><%=@search_word%></h1>
+
+<h2>Notes:</h2>
 
 <% if @note_results %>
 
-<ol class="list-group list-group-numbered">
+<ol class="list-group list-group-numbered" style="border: black solid 2px;">
         <% @note_results.reverse.each do |result| %>
             <li class="list-group-item"><a href="/redirect_search/note/<%= @search_word %>/<%=result.id%>/<%=result.project_id || 0 %>"><%=result.comment%> -- <%=result.created_at.strftime('%m/%d/%y')%></a>
                 <ul>
@@ -16,15 +18,19 @@
 
 <% else %>
 
-    "Sorry Charlie, no results"
+    <ul class="list-group list-group" style="border: black solid 2px;">
+            <li class="list-group-item">"Sorry, Charlie, no results"</li>
+    </ul>
+
+
 
 <% end %>
 
-<h2>Addendum results</h2>
+<h2 class="mt-2">Addendum:</h2>
 
 <% if @addendum_results %>
 
-<ol class="list-group list-group-numbered">
+<ol class="list-group list-group-numbered" style="border: black solid 2px;">
         <% @addendum_results.reverse.each do |result| %>
             <li class="list-group-item"><a href="/redirect_search/addendum/<%=@search_word %>/<%=result.note_id%>"><%=result.addition%> -- <%=result.created_at.strftime('%m/%d/%y')%></a>
                  <ul>
@@ -37,6 +43,9 @@
 
 <% else %>
 
-    "Sorry Charlie, no results"
+    
+    <ul class="list-group list-group" style="border: black solid 2px;">
+            <li class="list-group-item">"Sorry, Charlie, no results"</li>
+    </ul>
 
 <% end %>
