@@ -1,0 +1,10 @@
+            <form action="/photo/book/<%=@book.project_id%>/<%=@book.id%>" method="POST">
+                <input type="hidden" id="hidden">
+                <label for="title">title</label>
+                <input type="text" name="title">
+                <label for="description">description</label>
+                <input type="text" name="description">
+                <label for="photo">photo</label>
+                <input type="file" name="photo">
+                <input type="submit" value="photo">
+            </form>

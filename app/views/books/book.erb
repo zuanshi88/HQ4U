@@ -1,93 +1,120 @@
-<style>
-
-
-</style>
-
-
-<h1 class="book-title"><%=@book.title%></h1>
-
-
-    
-<div onclick="call('options')" style="float: left; margin-right:20px;">
-    <% if @book.photos[0] %>
-        <img src="/<%= @book.photos[rand(@book.photos.length)].photo %>" alt="Where is the photo?" width="300" height= "200" style="border: 2px solid black; border-radius:15px; margin-left: 145px; margin-bottom: 10px;">
-    <% else %>
-    <h2>OPTIONS</h2>
-    <% end %>
-</div>
-    
-
-
-<div id="options" style="display:none;">
-<h3 style="float: center; width:80; text-align: center; border: 2px solid black;"><a href="/people/<%=@project.account_id%>/project/<%=@book.project_id%>">project</a></h3>
-
-<h3 class="on-click" style=" float: center; width:80; text-align: center; border: 2px solid black;" onclick="call('note');">NOTE</h3>
-
-    <div id="note" style="display: none;">
-        <form action="/project/<%=@book.project_id%>/book/<%=@book.id%>/note/create" method="POST">
-            <input type="hidden" id="hidden">
-            <input type="text" name="comment" placeholder="comment">
-            <input type="submit" value="note">
-        </form>
+<div class="accordion" id="accordionExample">
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="headingOne">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                <h1 class="book-title"><%=@book.title%></h1>
+                <div>
+                    <% if @book.photos[0] %>
+                        <% @book.photos.each do |photo| %>
+                            <img src="/images/<%= @book.photos[rand(@book.photos.length)].photo %>" alt="Where is the photo?" width="75" height= "50" style="border: 2px solid black; border-radius:15px; margin-left: 10px; margin-bottom: 10px;">
+                        <% end %>  
+                    <% end %>
+                </div>
+            </button>
+        </h2>
+        <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+                <div style=margin-left: 20px;>
+                    <ul>
+                        <li><%=@book.author%></li>
+                        <li><%=@book.synopsis%></li>
+                        <li># of pages: <%=@book.pages%></li>
+                        <li><%=@book.created_at.strftime('%m/%d/%y')%></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </div>
+  </div>
 
-    <h3 class="on-click" style=" float: center; width:80; text-align: center; border: 2px solid black;" onclick="call('quote');">QUOTE</h3>
-         <div id="quote" style="display: none;">
-            <form action="/project/<%=@book.project_id%>/book/<%=@book.id%>/quote/create" method="POST">
-                <input type="hidden" id="hidden">
-                <input type="text" name="text" placeholder="quote">
-                <input type="text" name="author" placeholder="author">
-                <input type="text" name="source" placeholder="source">
-                <input type="submit" value="quote">
-            </form>
-         </div>
-    
-    <h3 class="on-click" style="float: center; width:80; text-align: center; border: 2px solid black;" onclick="call('add-photo');"> add photo </h3>
-        <div id="add-photo" style="display:none">
-            <form action="/project/<%=@book.project_id%>/book/<%=@book.id%>/photo/create" method="POST">
-                <input type="hidden" id="hidden">
-                <label for="title">title</label>
-                <input type="text" name="title">
-                <label for="description">description</label>
-                <input type="text" name="description">
-                <label for="photo">photo</label>
-                <input type="file" name="photo">
-                <input type="submit" value="photo">
-            </form>
-        </div>
+<nav class="navbar navbar-expand-lg bg-light">
+                    <div class="container-fluid">
+                        <div class="collapse navbar-collapse" id="navbarNav">
+                            <ul class="navbar-nav">
 
-<h3 style="float: center; width:80; text-align: center; border: 2px solid black">  <a href="/photoroom/book/<%=@book.id%>">Photoroom</a></h3>
+                                <li class="nav-item">
+                                        <a class="dropdown-item" aria-current="page" href="/projects/<%=@project.id %>">Project</a>
+                                </li>
+                                <li class="nav-item on-click" onclick="call('note')">
+                                    <a class="dropdown-item" href="#">Note</a>
+                                </li>
+                                <li class="nav-item on-click" onclick="call('quote')">
+                                    <a class="dropdown-item" href="#">Quote</a>
+                                </li>
+                                <li onclick="call('create-weblink');" class="on-click">
+                                    <a class="dropdown-item" href="#">Weblink 3000</a>
+                                </li>
+                                <li class="nav-item">
+                                <div class="dropdown">
+                                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                            Book Weblinks
+                                        </button>
+                                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                                <li onclick="call('create-weblink');">
+                                                    <a class="dropdown-item" href="#">
+                                                        <button class="btn btn-secondary">
+                                                            Add Weblink
+                                                        </button> 
+                                                    </a>
+                                                </li>
+                                                    <% unless @book.weblinks[0] == nil %>
+                                                    <% @book.weblinks.reverse.each do |link| %>
+                                                                <%# making link an instance variable to send to partial %>
+                                                                <% @link = link %>
+                                                                <li><a href="<%=@link.url %>"><%=@link.title%></a>
+                                                                    <%= erb :"weblinks/delete_project_weblink"%>  
+                                                                </li>
+                                                        <% end %>
+                                                    <% end %>
+                                            </ul>
+                                    </div>
+                                </li>
+                                <li class="nav-item">
+                                <div class="dropdown">
+                                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                            Photo Actions
+                                        </button>
+                                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                                <li onclick="call('add-photo');"><a class="dropdown-item" href="#">add photo</a></li>
+                                                <li><a class="dropdown-item" href="/photoroom/book/<%=@book.id%>">photoroom</a></li>
+                                                <li><a class="dropdown-item" href="#">photo carousel</a></li>
+                                            </ul>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+        </nav>
 
-<h3 class="on-click" style="float: center; width:80; text-align: center; border: 2px solid black" onclick="call('create-weblink')"> Weblink 3000 </h3>
-        <div id="create-weblink" style="display:none">
-            <form action="/project/<%=@book.project_id%>/book/<%=@book.id%>/weblink/create" method="POST">
-                <input type="hidden" id="hidden">
-                <label for="title">title</label>
-                <input type="text" name="title">
-                <label for="url">url</label>
-                <input type="text" name="url">
-                <label for="description">description</label>
-                <input type="text" name="description">
-                <input type="submit" value="link">
-            </form>
-        </div>
+            <div id="note" style="display: none;">
+                <%= erb :'notes/create_book_note' %>
+            </div>
 
-</div>
+            <div id="quote" style="display: none;">
+              <%= erb :'books/create_book_quote' %>
+            </div>
 
-<div style=margin-left: 20px;>
+            <div id="add-photo" style="display:none">
+                <%= erb :'photos/create_book_photo' %>
+            </div>
+
+            <div id="create-weblink" style="display:none">
+                <%= erb :'weblinks/create_book_weblink' %>
+            </div>
+
+
+
+
+<h3 style="margin-left: 20px;">Notes and quotes <a href="/project/<%=@book.project_id%>/book/<%=@book.id%>/edit_notes_and_quotes"><span style="font-size: 75%">edit</span></a></h3>
+
+<% if @book.quotes[0]%>
     <ul>
-        <li><%=@book.author%></li>
-        <li><%=@book.synopsis%></li>
-        <li># of pages: <%=@book.pages%></li>
-        <li><%=@book.created_at.strftime('%m/%d/%y')%></li>
-    </ul>
-</div>
+        <% @book.quotes.each do |quote|%>
+        <li><%=quote.text%> --<%=quote.author%></li>
+        <% end %>
+    <ul>
+<% end %>
 
-<br>
-<br>
-<br>
-
-<h2 style="margin-left: 20px;">Notes and quotes <a href="/project/<%=@book.project_id%>/book/<%=@book.id%>/edit_notes_and_quotes"><span style="font-size: 75%">edit</span></a></h2>
 
 <ul>
    
@@ -120,35 +147,7 @@
 
 
 
-
-
-<br>
-
-
-
-
-<style>
-
-.bottom-nav {
-    font-weight: bold;
-    border: 1px solid black;
-    background-color: salmon;
-    width: 70px;;
-    text-align; center;
-    float: center;
-    margin: auto;
-    margin-bottom: 5px;
-   
-
-
-};
-
-
-</style>
-
-<div style="margin-top: 50px;">
-    <p class="bottom-nav"><a href="/people/<%=@project.account_id%>/project/<%=@book.project_id%>">back to project</a></p>
-    <p class="bottom-nav"><a href="/people">people</a></p>
-    <p class="bottom-nav"><a href="/activities" title="">action</a></p>
-</div>
+<p>
+    <%= erb :"app/menu_links" %>
+</p>
 

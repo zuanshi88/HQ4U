@@ -2,18 +2,7 @@ class BookController < ApplicationController
     
 
 
-post '/project/:project_id/book/:book_id/photo/create' do
-    @photo = Photo.create(title: params[:title], photo: params[:photo], description: params[:description])
-    @book = Book.find(params[:book_id])
-    @book.photos << @photo 
-    @project = Project.find(params[:project_id])
-
-    erb :"books/book"
-
-end 
-
-
-post '/project/:project_id/book/:book_id/quote/create' do
+post '/quote/:project_id/:book_id' do
     @quote = Quote.create(text: params[:text], author: params[:author], source: params[:source])
     @book = Book.find(params[:book_id])
     @book.quotes << @quote
@@ -24,7 +13,7 @@ post '/project/:project_id/book/:book_id/quote/create' do
 end 
 
 
-post '/project/:project_id/book/:book_id/quote/:quote_id/delete' do
+delete '/quote/:project_id/:book_id/:quote_id' do
     @quote = Quote.find(params[:quote_id])
     @quote.destroy 
 

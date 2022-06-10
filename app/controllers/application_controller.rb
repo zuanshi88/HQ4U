@@ -23,7 +23,6 @@ require_relative "../models/addendum.rb"
 class ApplicationController < Sinatra::Base
     configure :development, :test do
         register Sinatra::Reloader
-        
             # set :database, {adapter: "sqlite3", database: "db/crm.sqlite3"}
             set :database_file, 'config/database.yml'
             set :views, "app/views"

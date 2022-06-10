@@ -3,7 +3,7 @@ class NoteController < ApplicationController
 
     post "/note/:id/:project_id" do 
 
-        @project = Project.find_by_id(params[:project_id].to_i)
+        @project = Project.find_by_id(params[:project_id])
         @note = Note.create(comment: params[:comment], project_id: params[:project_id])
         @project.notes << @note 
         @note.save 
@@ -13,6 +13,17 @@ class NoteController < ApplicationController
 
         erb :"projects/project"
 
+    end 
+
+    post "note/book/:project_id/:book_id" do 
+        @project = Project.find_by_id(params[:project_id])
+        @book = Book.find_by_id(params[:book_id])
+        @note = Note.create(comment: params[:comment], project_id: params[:project_id], book_id: params[:book_id])
+        @book.notes << @note
+        @book.save
+        @person = Account.find_by_id(@project.account_id)
+
+        erb :"books/book"
     end 
 
     delete "/note/:id/:project_id/:note_id" do

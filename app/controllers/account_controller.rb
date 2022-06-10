@@ -31,7 +31,7 @@ class AccountController < ApplicationController
                 
             end 
 
-            get "/people/:id/edit_contact" do 
+            get "/people/:id/edit" do 
                 @person = Account.find(params[:id])
                 erb :"people/edit_person"
             end 
@@ -50,6 +50,7 @@ class AccountController < ApplicationController
                 @person.city = params[:city]
                 @person.state = params[:state]
                 @person.zipcode = params[:zipcode]
+                @person.photo = params[:photo]
                 @person.save
 
                 erb :"people/person"
