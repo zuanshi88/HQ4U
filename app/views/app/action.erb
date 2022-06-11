@@ -1,12 +1,12 @@
     <style>
     .square-button {
-    border: 5px solid <%=@color_array[rand(63)]%>; 
+    border: 5px solid <%=rand_color%>; 
     float: left; 
     margin-left: 100px; 
     text-align: center;  
     width: 50px; 
     height: 50px; 
-    background-color: <%=@color_array[rand(63)]%>;
+    background-color: <%=rand_color%>;
 }
 
 
@@ -15,7 +15,7 @@
                     <%add_sorted_projects = @projects.sort_by{|project| project.notes.sort_by{|note| note.last_touched}[-1].last_touched}%> 
                     <%add_sorted_projects.reverse.each do |project|%>
                         <a class="undecorated-link" href="/project/<%=project.account_id%>/<%=project.id%>">
-                            <div class="project-boxes" style="background-color: <%=@color_array[rand(63)]%>;">
+                            <div class="project-boxes" style="background-color: <%=rand_color%>;">
                                     <h5 class="project-title"><%=project.title%></h5>
                                     <span class="date-display"><b><%=project.last_touched.strftime('%m/%d/%y')%></b></span>
                             </div>

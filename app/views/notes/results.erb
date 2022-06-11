@@ -1,9 +1,24 @@
 
-<h1><%=@search_word%></h1>
+
+<h1 style="text-align: center; border: solid black 2px; padding: 3px; margin-bottom: 3px; background: <%=rand_color%>"> <%=@search_word.upcase%></h1>
+<br>
+<% if @weblink_results %>
+<div style="margin: auto; width: 80%">
+        <span class="mr-3">
+                <ul>
+                    <% @weblink_results.each do |link| %>
+                        <li class="web-link-display"><span class="web-link-decoration" style="background: <%=rand_color%>">
+                            <a href="<%=link.url %>"><%=link.title%></a></span>
+                        </li>
+                    <% end %>
+                </ul>    
+        </span>
+</div>
+<% end %>
 
 
 <% if @note_results %>
-        <div class="accordion" id="accordionExample">
+        <div class="accordion mt-5" id="accordionExample">
             <div class="accordion-item">
                 <h2 class="accordion-header" id="headingOne">
                     <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
@@ -15,7 +30,7 @@
                         <div style=margin-left: 20px;>
                             <ol class="list-group list-group-numbered" style="border: black solid 2px;">
                                 <% @note_results.sort_by{|note| note.last_touched }.reverse.each do |result| %>
-                                    <li class="list-group-item"><a href="/redirect_search/note/<%= @search_word %>/<%=result.id%>/<%=result.project_id || 0 %>"><%=result.comment%> -- <%=result.last_touched.strftime('%m/%d/%y')%> -- <%=result.created_at.strftime('%m/%d/%y')%></a>
+                                    <li class="list-group-item" style="background: <%=rand_color%>"><a href="/redirect_search/note/<%= @search_word %>/<%=result.id%>"><b><%=result.comment%></b> -- <%=result.last_touched.strftime('%m/%d/%y')%> -- <%=result.created_at.strftime('%m/%d/%y')%></a>
                                         <% comment do%>
                                             <ul>
                                                 <li><%=result.class%> with <%= result.project_id == nil ? "add_id : #{result.addendum_id}" : "project_id: #{result.project_id}" %> and id: <%=result.id %></li>
@@ -48,7 +63,7 @@
                 <div style=margin-left: 20px;>
                     <ol class="list-group list-group-numbered" style="border: black solid 2px;">
                         <% @addendum_results.reverse.each do |result| %>
-                            <li class="list-group-item"><a href="/redirect_search/addendum/<%=@search_word %>/<%=result.note_id%>"><%=result.addition%> -- <%=result.created_at.strftime('%m/%d/%y')%></a>
+                            <li class="list-group-item" style="background: <%=rand_color%>"><a href="/redirect_search/addendum/<%=@search_word %>/<%=result.note_id%>"><b><%=result.addition%></b> -- <%=result.created_at.strftime('%m/%d/%y')%></a>
                                 <% comment do%>
                                 <ul>
                                     <li><%=result.class%>  <%= result.note_id %> and id: of <%= result.id %></li>
@@ -84,10 +99,43 @@
                 <div style=margin-left: 20px;>
                     <ol class="list-group list-group-numbered" style="border: black solid 2px;">
                         <% @entry_results.sort_by{|entry| entry.created_at }.reverse.each do |result| %>
-                            <li class="list-group-item"><a href= "/dictionary/<%=result.dictionary_id%>/<%=result.id%>"><%=result.term%> -- <%=result.created_at.strftime('%m/%d/%y')%> -- <%=result.created_at.strftime('%m/%d/%y')%></a>
+                            <li class="list-group-item" style="background: <%=rand_color%>"><a href= "/dictionary/<%=result.dictionary_id%>/<%=result.id%>"><b><%=result.term%></b> -- <%=result.created_at.strftime('%m/%d/%y')%> -- <%=result.created_at.strftime('%m/%d/%y')%></a>
                                 <ul>
                                     <li><%=result.topic_tag%></li>
                                     <li><%=result.entry_info%></li>
+                                        <% comment do%>
+                                            <li><%=result.class%></li>
+                                            <li><%= result.attributes %></li>
+                                        <% end %>
+                                </ul>
+                            </li>
+                        <% end %>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+
+<% end %>
+
+<% if @project_results %>
+
+<div class="accordion" id="accordionExample">
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="headingOne">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
+               <h2>Projects: <span style="font-size: 75%;"><%=@project_results.size%></span> </h2>
+            </button>
+        </h2>
+        <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+                <div style=margin-left: 20px;>
+                    <ol class="list-group list-group-numbered" style="border: black solid 2px;">
+                        <% @project_results.sort_by{|proj| proj.last_touched }.reverse.each do |result| %>
+                            <li class="list-group-item" style="background: <%=rand_color%>"><a href= "/project/<%=result.account_id%>/<%=result.id%>"><b><%=result.title%></b> -- <%=result.last_touched.strftime('%m/%d/%y')%> -- <%=result.created_at.strftime('%m/%d/%y')%></a>
+                                <ul>
+                                    <li><%=result.description%></li>
                                         <% comment do%>
                                             <li><%=result.class%></li>
                                             <li><%= result.attributes %></li>

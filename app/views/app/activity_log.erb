@@ -4,7 +4,7 @@
 
         </style>
         
-          <h1>Activity Log | <span style="font-size: 50%;"><a href="/project_log"> Project Log</a></span></h1>
+          <h1><span style="font-size: 50%;"><a href="/annuals"></a> Annuals</a>   |   <a href="/project_log"> Project Log</a>   |   </span><a href="/activity_log">Activity Log</a></h1>
 
     <% @default_color = 'red' %>
     <div id= project_id>
@@ -12,7 +12,7 @@
                 <%@activities.sort_by{|activity| activity.created_at}.reverse.each_with_index do |activity, index|%>
                     <li style="float: left; margin-bottom: 10px; margin-left: 5px;">
                         <a href="/people/<%=activity.account_id%>">
-                            <span class="info-emphasis" style="background-color: <%= @activities[index].created_at.day == @activities[index - 1].created_at.day ? @default_color : @default_color = @color_array[rand(63)]%>">
+                            <span class="info-emphasis" style="background-color: <%= @activities[index].created_at.day == @activities[index - 1].created_at.day ? @default_color : @default_color = rand_color%>">
                                 <b><%=activity.created_at.strftime('%m/%d')%></b>
                             </span>   
                             <span class="comment-display" style="padding: 3px; border: solid <%=@default_color%> 2px;">

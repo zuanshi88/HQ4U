@@ -15,7 +15,7 @@
     <ul>
         <% @dictionaries = @dictionaries.sort_by{|dictionary| dictionary.entries[0] ? dictionary.entries[-1].created_at : dictionary.created_at}.reverse.each do |dictionary| %>
            
-           <div class="card col-sm-3" style="margin-bottom: 25px; border: 2px solid white; display: inline-block; line-height: 1; height: 100px; width: 200px; text-align: center; margin-left: 10px; float: left; background-color: <%=@color_array[rand(63)]%>">
+           <div class="card col-sm-3" style="margin-bottom: 25px; border: 2px solid white; display: inline-block; line-height: 1; height: 100px; width: 200px; text-align: center; margin-left: 10px; float: left; background-color: <%=rand_color%>">
                 <div class="card-body">
                     <span style="font-size: 120%; color: black; margin-bottom: 2px;"><b><a href="/dictionary/<%=dictionary.id%>"><%=dictionary.title%></b></a></span>
                     <br>

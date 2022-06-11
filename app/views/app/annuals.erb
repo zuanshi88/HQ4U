@@ -26,21 +26,18 @@ margin: auto;
 
 </style>
 
-<h1>Annuals</h1>
-<div >    
+    <h1>Annuals<span style="font-size: 50%;">  |  <a href="/project_log">Project Log</a></span><span style="font-size: 50%;">  |  <a href="/activity_log">Activity Log</a></span></h1>
 
-<% @annual_activities = @activities.select{|activity| activity.annual == true}.sort_by{|activity| activity.created_at.strftime('%m/%d')}%>
-            <%@annual_activities.each do |activity|%>
-                    <a href="/people/<%=activity.account_id%>">
-                    <div class="annual_activity" style="background-color: <%=@color_array[rand(63)]%>">
-                        <h5 class="annual-date"><%=activity.created_at.strftime('%m/%d')%></h5>
-                        <h3 class="annual-title"><%=activity.title%></h3>
-                     </div>
-                     </a>
-
-            <% end %>
-     
-      
-</div>
+                <div style="margin-top:20px;" > 
+                    <%@annual_activities = @activities.select{|activity| activity.annual == true}.sort_by{|activity| activity.created_at.strftime('%m/%d')}%>
+                    <%@annual_activities.each do |activity|%>
+                        <a class="undecorated-link" href="/people/<%=activity.account_id%>">
+                            <div class="project-boxes" style="background-color: <%=rand_color%>">
+                                <h5 class="annual-title"><%=activity.title%></h5>
+                                <span class="date-display"><%=activity.created_at.strftime('%m/%d')%></span>
+                            </div>
+                        </a>
+                    <% end %>
+                </div>
 
 

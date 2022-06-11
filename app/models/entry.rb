@@ -18,25 +18,25 @@ class Entry < ActiveRecord::Base
             content_hash = {}
             self.all.each do |entry|
                     unless entry.term == nil 
-                        entry.term.split(' ').each do |word|
+                        entry.term.split(/[\s,'-]/).each do |word|
                                 content_hash[word.downcase] = [] if content_hash[word.downcase].nil? 
                                 content_hash[word.downcase].push(entry)
                         end 
                     end 
                     unless entry.entry_info == nil || entry.entry_info == ""
-                        entry.term.split(' ').each do |word|
+                        entry.term.split(/[\s,'-]/).each do |word|
                                 content_hash[word.downcase] = [] if content_hash[word.downcase].nil? 
                                 content_hash[word.downcase].push(entry)
                         end 
                     end 
                     unless entry.more_info == nil || entry.more_info == ""
-                        entry.more_info.split(' ').each do |word|
+                        entry.more_info.split(/[\s,'-]/).each do |word|
                                 content_hash[word.downcase] = [] if content_hash[word.downcase].nil? 
                                 content_hash[word.downcase].push(entry)
                         end 
                     end 
                     unless entry.topic_tag == nil || entry.topic_tag == ""
-                        entry.topic_tag.split(' ').each do |word|
+                        entry.topic_tag.split(/[\s,'-]/).each do |word|
                                 content_hash[word.downcase] = [] if content_hash[word.downcase].nil? 
                                 content_hash[word.downcase].push(entry)
                         end 
@@ -44,7 +44,7 @@ class Entry < ActiveRecord::Base
                     if entry.examples[0] 
                         entry.examples.each do |example|
                             unless example.info == nil || example.info == ""
-                                example.info.split(' ').each do |word|
+                                example.info.split(/[\s,'-]/).each do |word|
                                     content_hash[word.downcase] = [] if content_hash[word.downcase].nil? 
                                     content_hash[word.downcase].push(entry)
                                 end 

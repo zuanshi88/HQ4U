@@ -7,7 +7,7 @@
 <ul margin-left: 20px;>
     <% @project_notes = @project.notes.filter{|note| note.addendum_id.nil?}%>
     <% @project_notes.sort_by{|note| note.last_touched}.reverse.each do |note|%>
-    <li class="note-display" style="background: <%=@color_array[rand(63)]%>;  border: 2px solid <%=@color_array[rand(63)] %>">
+    <li class="note-display" style="background: <%=rand_color%>;  border: 2px solid <%=rand_color %>">
         <b><%= note.last_touched.strftime('%m/%d/%y') %></b>  
             <span class="<%= note.has_addendums ? 'on-click' : '' %>" onclick="call('show-addendum-<%=note.id%>')"><span class="addendum-display"><%= note.comment %> | <span style="font-size: 75%"><%= note.created_at.strftime('%m/%d/%y')%> | <%=note.addendums.size%></span></span></span> 
         <div id="show-addendum-<%=note.id%>" style="display:none;">
@@ -61,7 +61,7 @@
                     <% unless note.addendums[0] == nil %>
                         <ul style="padding: 10px;">
                     <% note.addendums.sort_by{|add| add.last_touched}.reverse.each do |addendum|%>
-                            <li class="addendum-display" style="background: <%=@color_array[rand(63)]%>; border: 2px solid <%=@color_array[rand(63)]%>">
+                            <li class="addendum-display" style="background: <%=rand_color%>; border: 2px solid <%=rand_color%>">
                               <% unless addendum.weblinks[0] == nil%>
                                 <span>
                                     <ul>
@@ -117,7 +117,7 @@
                                         <% unless addendum.notes[0] == nil %>
                                             <ul>
                                                 <%addendum.notes.reverse.each do |note|%>
-                                                    <li style="background: <%=@color_array[rand(63)]%>; margin-top: 5px; padding: 20px; border: 2px solid <%=@color_array[rand(63)] %>"><%= note.addendums[0] ? note.addendums[-1].updated_at.strftime('%m/%d/%y') : note.updated_at.strftime('%m/%d/%y') %> => <%=note.comment%>
+                                                    <li style="background: <%=rand_color%>; margin-top: 5px; padding: 20px; border: 2px solid <%=rand_color %>"><%= note.addendums[0] ? note.addendums[-1].updated_at.strftime('%m/%d/%y') : note.updated_at.strftime('%m/%d/%y') %> => <%=note.comment%>
                                                     <span>
                                                         <form action="/project/<%=@project.id%>/addendum/<%=addendum.id%>/note/<%=note.id%>/delete" method="post">
                                                             <input id="hidden" type="hidden" name="_method" value="delete">

@@ -1,0 +1,36 @@
+<%= erb:"books/book_nav"%>
+
+
+<ul>
+   
+    <div style="background-color: <%=rand_color%>; padding: 5px; border: 2px solid black; width: 700px; margin-left: 100px;">
+    <li style="padding-left: 10px"><%= @note.created_at.strftime('%m/%d/%y') %> <span style="font-size: 75%; border: 2px solid black; background-color: red;" onclick="call('add-addendum')">add info</span></li> 
+        <div id="add-addendum" style="display:none;">
+            <form action="/project/<%=@book.project_id%>/book/<%=@book.id%>/note/<%=note.id%>/addendum/create" method="POST">
+                <input type="hidden" id="hidden">
+                <input type="text" name="addition">
+                <input type="submit" value="add">
+            </form>
+
+        </div>
+
+    <li style="padding-left: 10px"> <%= @note.comment %>
+        <% if @note.addendums%>
+        <ul>
+            <% @note.addendums.each do |addendum|%>
+            <li><%= addendum.addition%></li>
+            <% end %>
+        </ul>
+        <% end %>
+
+    </li>
+
+    </div>
+</ul>   
+
+
+
+<p>
+    <%= erb :"app/menu_links" %>
+</p>
+

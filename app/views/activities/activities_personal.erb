@@ -25,9 +25,11 @@
 
 
 
+
+
 <ul>
     <% @activities.sort_by{|activity| activity.created_at}.reverse.each do |activity|%>
-    <div class="activity-box"; style="background-color: <%=@color_array[rand(63)]%>">
+    <div class="activity-box"; style="background-color: <%=rand_color%>">
         <li><%= activity.created_at.strftime('%m/%d/%y') %> <span style="font-size: 75%; color: red;"><%= activity.created_at.strftime('%H:%M') %></span></li>
         <li><%= activity.title %> -- <%= activity.description %>
             <form action="/activity/<%=@person.id%>/<%=activity.id %>" method="post" style="display:inline">

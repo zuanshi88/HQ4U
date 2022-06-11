@@ -32,25 +32,28 @@ class Project < ActiveRecord::Base
         resource.filter{ |term| self.distance(search.downcase, term.downcase) < 3 || self.distance(search.downcase, entry.topic_tag.downcase) < 3 }
     end 
 
-    def index_content 
-        index = {}
-        self.notes.each do |note|
-            note.comment.downcase.split(" ").each do |word|
-                index[word] ? index[word] << note : index[word] = []
+    def self.index_content 
+
+    # t.string "title"
+    # t.string "description"
+        content_hash = {}
+        self.all.each do |proj|
+                unless proj.title == nil || proj.title == ""
+                    proj.title.split(/[\s,'-]/).each do |word|
+                            content_hash[word.downcase] = [] if content_hash[word.downcase].nil? 
+                            content_hash[word.downcase].push(proj)
+                    end 
+                            content_hash[proj.title.downcase] = [] if content_hash[proj.title.downcase].nil? 
+                            content_hash[proj.title.downcase].push(proj)
+                end  
+                   unless proj.description == nil || proj.description == ""
+                    proj.description.split(/[\s,'-]/).each do |word|
+                            content_hash[word.downcase] = [] if content_hash[word.downcase].nil? 
+                            content_hash[word.downcase].push(proj)
+                    end 
+                end  
             end 
-            note.examples do |example|
-                example.info.downcase.split(" ").each do |word|
-                    index[word] ? index[word] << note : index[word] = []
-                end 
-                    index[word] ? index[word] << note : index[word] = []
-            end 
-            note.addendums.each do |add|
-                add.addition.downcase.split(" ").each do |word| 
-                     index[word] ? index[word] << note : index[word] = []
-                end 
-            end 
-        end 
-        index
+        content_hash
     end 
 
     def boo 

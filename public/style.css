@@ -265,10 +265,10 @@ margin: auto;
 } */
 
 .multi-color-button {
-  border: 3px solid <%=@color_array[rand(63)]%>;
+  border: 3px solid <%=rand_color%>;
   padding: 3px;
   margin-left: 20px;
-  background: <%=@color_array[rand(63)]%>;
+  background: <%=rand_color%>;
 }
 
 .cover-image {
@@ -303,7 +303,7 @@ margin: auto;
 .add-button {
   color: black;
   font-weight: bold;
-  background: <%=@color_array[rand(63)]%>;
+  background: <%=rand_color%>;
   border: 1px solid black;
   border-radius: 5px;
   width: 50px;
@@ -317,7 +317,7 @@ margin: auto;
 .link-button {
   color: black;
   font-weight: bold;
-  background: <%=@color_array[rand(63)]%>;
+  background: <%=rand_color%>;
   border: 1px solid black;
   border-radius: 5px;
   width: 50px;
@@ -333,7 +333,7 @@ margin: auto;
   height: 25px;
   font-size: 75%;
   color: black;
-  background: <%=@color_array[rand(63)]%>;
+  background: <%=rand_color%>;
   /* margin: 0px; 
     width: 25px; 
     height: 15px; 
@@ -349,8 +349,9 @@ margin: auto;
 }
 
 .web-link-decoration {
-  background-color: <%=@color_array[rand(63)]%>;
+  background-color: <%=rand_color%>;
   border: 2px solid black;
+  padding: 2px;
 }
 
 .addendum-display {
@@ -419,7 +420,7 @@ input[type=submit] {
 
 #project-log {
     margin-top: 40px; 
-    background-color: <%=@color_array[rand(63)]%>; 
+    background-color: <%=rand_color%>; 
     padding: 15px; 
     border: 5px solid black; 
     height: 200px;
@@ -435,7 +436,7 @@ input[type=submit] {
 }
 
 #activity-log {
-    background-color: <%=@color_array[rand(63)]%>; 
+    background-color: <%=rand_color%>; 
     padding: 20px; 
     border: 5px solid black; 
     line-height: 25px;">
@@ -444,7 +445,7 @@ input[type=submit] {
 
 .special-letter {
     font-size: 300%; 
-    color: <%=@color_array[rand(63)]%>;
+    color: <%=rand_color%>;
 }
 
 .log-title {

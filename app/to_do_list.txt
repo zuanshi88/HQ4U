@@ -7,6 +7,7 @@
 
 06/10/2022
 
+-- editing notes and addendum
 -- get information about book from isbn #???
 -- implement photo caraosel 
 -- clean up options bar 
