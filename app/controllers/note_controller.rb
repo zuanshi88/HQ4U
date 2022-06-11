@@ -39,15 +39,20 @@ class NoteController < ApplicationController
     get '/search' do 
         note_hash = Note.index_content
         addendum_hash = Addendum.index_content
+        entry_hash = Entry.index_content
         @search_word = params[:search_word].downcase
         
         @note_results = note_hash[@search_word]
         @addendum_results = addendum_hash[@search_word]
+        @entry_results = entry_hash[@search_word]
         unless @note_results.nil?
             @note_results.uniq!
         end 
         unless @addendum_results.nil?
             @addendum_results.uniq!
+        end 
+        unless @entry_results.nil?
+            @entry_results.uniq!
         end 
 
         erb :"notes/results"
@@ -78,7 +83,7 @@ class NoteController < ApplicationController
       get '/redirect_search/addendum/:search_word/:id' do 
             @note = Note.find(params[:id])
             @search_word = params[:search_word]
-             @search_word.upcase!
+            @search_word.upcase!
             @project = Project.find(@note.project_id)
 
         erb :"projects/project_search_result"

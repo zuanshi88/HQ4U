@@ -1,17 +1,20 @@
      
-     <h1>Project Log</h1>
-    <div id=project-log>
-     <%@notes.select{ |note| note.project_id}.sort_by{|note| note.last_touched}.reverse.first(35).each_with_index do |note, index|%>
-                <a href="/people/40/project/<%=note.project_id%>">
-                       <div class="float-md-start">
-                            <span class="note-display" style="background-color: <%= note.last_touched.day == @notes[index - 1].last_touched.day ? @default_color : @default_color = @color_array[rand(63)]%>";>
-                                <b><%= note.last_touched.strftime('%m/%d')%> | <%= note.last_touched.day%></b>
-                            </span>
-                            <span class="comment-display">
-                                <%=note.comment%>
-                            </span>
-                        </div>
-                       
-                </a>
-            <% end %>
+     <h1>Project Log | <span style="font-size: 50%;"><a href="/activity_log">Activity Log</a></span></h1>
+
+    <% @default_color = 'red' %>
+    <div id= project_id>
+                <ul>
+     <%@notes.select{ |note| note.project_id}.sort_by{|note| note.last_touched}.reverse.each_with_index do |note, index|%>
+                    <li style="float: left; margin-bottom: 10px; margin-left: 5px;">
+                        <a href="/project/40/<%=note.project_id%>">
+                        <span class="info-emphasis" style="background-color: <%= @notes[index].last_touched.day == @notes[index - 1].last_touched.day ? @default_color : @default_color = @color_array[rand(63)]%>";>
+                            <b><%= note.last_touched.strftime('%m/%d')%></b>
+                        </span>
+                        <span class="comment-display" style="padding: 3px; border: solid <%=@default_color%> 2px;">
+                            <%=note.comment%>
+                        </span>
+                        </a>
+                    </li>
+                <% end %>
+            </ul>
     </div>

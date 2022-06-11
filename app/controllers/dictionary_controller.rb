@@ -102,6 +102,15 @@ get '/dictionary/:id' do
     erb :"dictionaries/dictionary"
 end 
 
+get '/dictionary/:id/:entry_id' do 
+    @dictionary = Dictionary.find(params[:id])
+    @result = []
+    @result[0] = Entry.find_by_id(params[:entry_id])
+    erb :"dictionaries/dictionary"
+end 
+
+
+
 get '/dictionary/:id/tag/:tag' do 
     @dictionary = Dictionary.find(params[:id])
     @topic_entries = @dictionary.entries.select{|entry| entry.topic_tag == params[:tag]}

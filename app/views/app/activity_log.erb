@@ -1,23 +1,26 @@
         
         <style>
-        .info-box{
-            background: white;
-        }
 
-        .info-emphasis{
-            border: 2px solid black; 
-            border-radius: 10px; 
-            padding-left: 2px; 
-            padding-right: 2px;
-        }
 
         </style>
         
-        <h1>Activity Log </h1>
-            <div id="activity-log">
-                <%@activities.sort_by{|activity| activity.created_at}.reverse.each do |activity|%>
-                    <a href="/people/<%=activity.account_id%>"> <span class="info-emphasis"><b><%=activity.created_at.strftime('%m/%d')%></b></span><span class="info-box"><%=activity.title%></span>  :  <span class="info-box"><%=activity.description%></span></span></a>
-                <% end %>
-            </div>
+          <h1>Activity Log | <span style="font-size: 50%;"><a href="/project_log"> Project Log</a></span></h1>
 
+    <% @default_color = 'red' %>
+    <div id= project_id>
+                <ul>
+                <%@activities.sort_by{|activity| activity.created_at}.reverse.each_with_index do |activity, index|%>
+                    <li style="float: left; margin-bottom: 10px; margin-left: 5px;">
+                        <a href="/people/<%=activity.account_id%>">
+                            <span class="info-emphasis" style="background-color: <%= @activities[index].created_at.day == @activities[index - 1].created_at.day ? @default_color : @default_color = @color_array[rand(63)]%>">
+                                <b><%=activity.created_at.strftime('%m/%d')%></b>
+                            </span>   
+                            <span class="comment-display" style="padding: 3px; border: solid <%=@default_color%> 2px;">
+                                <%=activity.title%>
+                            </span>
+                        </a>
+                    </li>
+                <% end %>
+            </ul>
+    </div>
   

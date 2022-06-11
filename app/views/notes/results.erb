@@ -1,51 +1,113 @@
 
 <h1><%=@search_word%></h1>
 
-<h2>Notes:</h2>
 
 <% if @note_results %>
-
-<ol class="list-group list-group-numbered" style="border: black solid 2px;">
-        <% @note_results.sort_by{|note| note.last_touched }.reverse.each do |result| %>
-            <li class="list-group-item"><a href="/redirect_search/note/<%= @search_word %>/<%=result.id%>/<%=result.project_id || 0 %>"><%=result.comment%> -- <%=result.last_touched.strftime('%m/%d/%y')%> -- <%=result.created_at.strftime('%m/%d/%y')%></a>
-                <ul>
-                    <li><%=result.class%> with <%= result.project_id == nil ? "add_id : #{result.addendum_id}" : "project_id: #{result.project_id}" %> and id: <%=result.id %></li>
-                     <li><%= result.attributes %></li>
-                </ul>
-            </li>
-        <% end %>
-</ol>
-
-<% else %>
-
-    <ul class="list-group list-group" style="border: black solid 2px;">
-            <li class="list-group-item">"Sorry, Charlie, no results"</li>
-    </ul>
-
-
-
+        <div class="accordion" id="accordionExample">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingOne">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    <h2>Notes: <span style="font-size: 75%;"><%=@note_results.size%></span> </h2>
+                    </button>
+                </h2>
+                <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <div style=margin-left: 20px;>
+                            <ol class="list-group list-group-numbered" style="border: black solid 2px;">
+                                <% @note_results.sort_by{|note| note.last_touched }.reverse.each do |result| %>
+                                    <li class="list-group-item"><a href="/redirect_search/note/<%= @search_word %>/<%=result.id%>/<%=result.project_id || 0 %>"><%=result.comment%> -- <%=result.last_touched.strftime('%m/%d/%y')%> -- <%=result.created_at.strftime('%m/%d/%y')%></a>
+                                        <% comment do%>
+                                            <ul>
+                                                <li><%=result.class%> with <%= result.project_id == nil ? "add_id : #{result.addendum_id}" : "project_id: #{result.project_id}" %> and id: <%=result.id %></li>
+                                                <li><%= result.attributes %></li>
+                                            </ul>
+                                        <% end %>
+                                    </li>
+                                <% end %>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 <% end %>
 
-<h2 class="mt-2">Addendum:</h2>
+
 
 <% if @addendum_results %>
 
-<ol class="list-group list-group-numbered" style="border: black solid 2px;">
-        <% @addendum_results.reverse.each do |result| %>
-            <li class="list-group-item"><a href="/redirect_search/addendum/<%=@search_word %>/<%=result.note_id%>"><%=result.addition%> -- <%=result.created_at.strftime('%m/%d/%y')%></a>
-                 <ul>
-                    <li><%=result.class%>  <%= result.note_id %> and id: of <%= result.id %></li>
-                     <li><%= result.attributes %></li>
-                </ul>
-            </li>
-        <% end %>
-</ol>
+<div class="accordion" id="accordionExample">
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="headingOne">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+               <h2>Addendum: <span style="font-size: 75%;"><%=@addendum_results.size%></span> </h2>
+            </button>
+        </h2>
+        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+                <div style=margin-left: 20px;>
+                    <ol class="list-group list-group-numbered" style="border: black solid 2px;">
+                        <% @addendum_results.reverse.each do |result| %>
+                            <li class="list-group-item"><a href="/redirect_search/addendum/<%=@search_word %>/<%=result.note_id%>"><%=result.addition%> -- <%=result.created_at.strftime('%m/%d/%y')%></a>
+                                <% comment do%>
+                                <ul>
+                                    <li><%=result.class%>  <%= result.note_id %> and id: of <%= result.id %></li>
+                                    <li><%= result.attributes %></li>
+                                </ul>
+                                <% end %>
+                             </li>
+                         <% end %>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
 
-<% else %>
 
-    
-    <ul class="list-group list-group" style="border: black solid 2px;">
-            <li class="list-group-item">"Sorry, Charlie, no results"</li>
-    </ul>
 
 <% end %>
+
+
+
+<% if @entry_results %>
+
+<div class="accordion" id="accordionExample">
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="headingOne">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+               <h2>Entries: <span style="font-size: 75%;"><%=@entry_results.size%></span> </h2>
+            </button>
+        </h2>
+        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+                <div style=margin-left: 20px;>
+                    <ol class="list-group list-group-numbered" style="border: black solid 2px;">
+                        <% @entry_results.sort_by{|entry| entry.created_at }.reverse.each do |result| %>
+                            <li class="list-group-item"><a href= "/dictionary/<%=result.dictionary_id%>/<%=result.id%>"><%=result.term%> -- <%=result.created_at.strftime('%m/%d/%y')%> -- <%=result.created_at.strftime('%m/%d/%y')%></a>
+                                <ul>
+                                    <li><%=result.topic_tag%></li>
+                                    <li><%=result.entry_info%></li>
+                                        <% comment do%>
+                                            <li><%=result.class%></li>
+                                            <li><%= result.attributes %></li>
+                                        <% end %>
+                                </ul>
+                            </li>
+                        <% end %>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+
+<% end %>
+
+
+
+
+
+
+
+  
