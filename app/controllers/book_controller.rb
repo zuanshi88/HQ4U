@@ -2,6 +2,18 @@ class BookController < ApplicationController
     
 
 
+get '/book/:project_id/:book_id' do 
+    @project = Project.find(params[:project_id])
+    @book = Book.find(params[:book_id])
+    @person = Account.find(@project.account_id)
+
+    erb :"books/book"
+
+end 
+
+
+
+
 post '/quote/:project_id/:book_id' do
     @quote = Quote.create(text: params[:text], author: params[:author], source: params[:source])
     @book = Book.find(params[:book_id])
@@ -23,7 +35,7 @@ end
 
 
 
-get '/project/:project_id/book/:book_id/edit_notes_and_quotes' do 
+get '/edit_notes_and_quotes/:project_id/:book_id' do 
     @project = Project.find(params[:project_id])
     @book = Book.find(params[:book_id])
     @person = Account.find(@project.account_id)

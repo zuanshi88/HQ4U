@@ -24,7 +24,7 @@ class ProjectController < ApplicationController
     end 
 
 
-post '/project/:project_id/book/create' do
+post '/book/:project_id' do
 
     @book = Book.create(title: params[:title], author: params[:author], synopsis: params[:synopsis], pages: params[:pages])
     @project = Project.find(params[:project_id])
@@ -33,15 +33,6 @@ post '/project/:project_id/book/create' do
     
     
     erb :"projects/project"
-
-end 
-
-get '/book/:project_id/:book_id' do 
-    @project = Project.find(params[:project_id])
-    @book = Book.find(params[:book_id])
-    @person = Account.find(@project.account_id)
-
-    erb :"books/book"
 
 end 
 

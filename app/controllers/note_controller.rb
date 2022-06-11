@@ -15,10 +15,10 @@ class NoteController < ApplicationController
 
     end 
 
-    post "note/book/:project_id/:book_id" do 
+    post "/note/book/:project_id/:book_id" do 
         @project = Project.find_by_id(params[:project_id])
         @book = Book.find_by_id(params[:book_id])
-        @note = Note.create(comment: params[:comment], project_id: params[:project_id], book_id: params[:book_id])
+        @note = Note.create(comment: params[:comment])
         @book.notes << @note
         @book.save
         @person = Account.find_by_id(@project.account_id)
@@ -60,7 +60,7 @@ class NoteController < ApplicationController
         unless @entry_results.nil?
             @entry_results.uniq!
         end 
-        unless @weblink_results.nil?
+        unless @weblink_results.nil?    
             @weblink_results.uniq!
         end 
         unless @project_results.nil?
