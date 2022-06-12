@@ -26,6 +26,22 @@ class NoteController < ApplicationController
         erb :"books/book"
     end 
 
+    get "/edit/note/:note_id" do 
+        @note = Note.find_by_id(params[:note_id])
+        @project = Project.find_by_id(@note.project_id)
+
+        erb :"notes/edit_note"
+    end 
+
+    patch "/note/:note_id/:project_id" do 
+        @note = Note.find_by_id(params[:note_id])
+        @project = Project.find_by_id(params[:project_id])
+        @note.comment = params[:comment]
+        @note.save 
+    
+        erb :"projects/project_search_result"
+    end 
+
     delete "/note/:project_id/:note_id" do
         @note = Note.find_by_id(params[:note_id])
 

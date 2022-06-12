@@ -7,9 +7,8 @@
 
 06/10/2022
 
--- reroute from project_log via the search function...
--- how do you recursively delete dependent notes, addendums, etc.
 -- editing notes and addendum
+-- how do you recursively delete dependent notes, addendums, etc.
 -- get information about book from isbn #???
 -- implement photo caraosel 
 -- clean up options bar 

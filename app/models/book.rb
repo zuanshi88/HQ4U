@@ -1,8 +1,8 @@
 class Book < ActiveRecord::Base
-    belongs_to :bookect
-    has_many :photos 
-    has_many :notes 
-    has_many :quotes 
+    belongs_to :project
+    has_many :photos
+    has_many :notes, dependent: :destroy 
+    has_many :quotes, dependent: :destroy 
     has_many :weblinks
 
 
@@ -38,7 +38,7 @@ class Book < ActiveRecord::Base
                                 content_hash[word.downcase].push(book)
                         end 
                      end  
-        end 
+            end 
         content_hash
     end 
 

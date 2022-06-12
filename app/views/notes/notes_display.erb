@@ -1,13 +1,39 @@
+<style>
+
+.web-link-display {
+
+background: <%= rand_color %>;
+
+}
+
+
+.add-button {
+    background: <%= rand_color %>;
+}
+
+.doc-button {
+    background: <%= rand_color %>;
+}
+
+.link-button {
+    background: <%= rand_color %>;
+}
+
+</style>
+
+
 
 <ul margin-left: 20px;>
     <% @notes.reverse.each do |note|%>
+    <% @note = note %>
     <li class="note-display" style="background: <%=rand_color%>;  border: 2px solid <%=rand_color %>">
         <b><%= note.last_touched.strftime('%m/%d/%y') %></b>  
             <span class="<%= note.has_addendums ? 'on-click' : '' %>" onclick="call('show-addendum-<%=note.id%>')"><span class="addendum-display"><%= note.comment %> | <span style="font-size: 75%"><%= note.created_at.strftime('%m/%d/%y')%> | <%=note.addendums.size%></span></span></span> 
         <div id="show-addendum-<%=note.id%>" style="display:none;">
               <span onclick="call('add-add-<%=note.id%>')" class="add-button">add</span>
-            <span class="add-button"><a href="/open_file/<%=note.id%>">doc</a></span>
-             <span class="link-button" onclick="call('create-note-weblink-<%=note.id%>')"> link </span>
+             <span class="link-button" onclick="call('create-note-weblink-<%=note.id%>')">link</span>
+            <span class="doc-button"><a href="/open_file/<%=note.id%>">doc</a></span>
+            <span class="doc-button"><a href="/edit/note/<%=note.id%>">edit</a></span>
        
         <form action="/note/<%=@project.id%>/<%=note.id%>" method="post" style="display:inline">
             <input id="hidden" type="hidden" name="_method" value="delete">

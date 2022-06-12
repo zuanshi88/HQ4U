@@ -300,24 +300,9 @@ margin: auto;
   font-family: Courier;
 }
 
-.add-button {
+.add-button, .link-button, .doc-button {
   color: black;
   font-weight: bold;
-  background: <%=rand_color%>;
-  border: 1px solid black;
-  border-radius: 5px;
-  width: 50px;
-  height: 25px;
-  text-align: center;
-  margin-left: 5px;
-  font-size: 75%;
-  padding: 2px;
-}
-
-.link-button {
-  color: black;
-  font-weight: bold;
-  background: <%=rand_color%>;
   border: 1px solid black;
   border-radius: 5px;
   width: 50px;

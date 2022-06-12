@@ -1,7 +1,7 @@
 class Note < ActiveRecord::Base
-    belongs_to :project
-    belongs_to :quote 
-    belongs_to :book
+    belongs_to :project, dependent: :destroy
+    belongs_to :quote, dependent: :destroy
+    belongs_to :book, dependent: :destroy
     has_many :addendums
     has_many :examples
     has_many :weblinks

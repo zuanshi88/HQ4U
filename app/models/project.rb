@@ -1,15 +1,13 @@
-require_relative 'directory_module'
+
 
 class Project < ActiveRecord::Base
 
 
-    include Directory
-
     belongs_to :account
-    has_many :notes
+    has_many :notes, dependent: :destroy
     has_many :weblinks
     has_many :photos
-    has_many :books
+    has_many :books, dependent: :destroy
     has_many :addendums, through: :notes 
    
 

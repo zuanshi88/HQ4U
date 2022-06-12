@@ -38,14 +38,17 @@ class AccountController < ApplicationController
 
                 @results = account_index[@search.downcase]
 
-                if @results.size == 1 
+                if !@results
+                    @message = "No results, try again."
+                    return erb :"people/people"
+                elsif @results.size == 1
                     results = @results.first
                     @person = Account.find_by_id(results.id)
                     return erb :"people/person"
-                end 
+                else
                     
-                erb :"people/people"
-
+                    erb :"people/people"
+                end 
             end 
 
             get "/people/:id/edit" do 
@@ -60,7 +63,7 @@ class AccountController < ApplicationController
                 erb :"people/people"
             end  
 
-            patch "/people/:id/edit" do 
+            patch "/people/:id" do 
                 @person = Account.find(params[:id])
                 @person.name = params[:name]
                 @person.street_address = params[:street_address]

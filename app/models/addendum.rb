@@ -1,8 +1,8 @@
 class Addendum < ActiveRecord::Base
     belongs_to :note
     has_many :examples
-    has_many :weblinks
-    has_many :notes 
+    has_many :weblinks, dependent: :destroy
+    has_many :notes, dependent: :destroy
 
 
         def last_touched 

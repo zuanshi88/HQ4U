@@ -7,6 +7,7 @@
 </style>
 
 
+
 <div class="deck-box">
         <a href="/decks/alt">
             <h1 class="deck-title"><b>People</b></h1>
@@ -22,6 +23,11 @@
         <%= erb :"people/search_people" %>
 
 </div>
+
+<% if @message %>
+     <h2> <%= @message %> </h2>
+ 
+<% end %>
 
 <% if @results%>
 <div>
