@@ -3,6 +3,6 @@ module ApplicationHelper
     end 
 
     def rand_color 
-        @color_array[rand(40)]
+        @color_array[rand(39)]
     end 
 end 

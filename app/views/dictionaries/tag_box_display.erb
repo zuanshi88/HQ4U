@@ -1,0 +1,12 @@
+<div class="tag-box">
+                    <ul>
+                        <% @tags.each_with_index do |tag, index|%>
+                        <%# remove class="onclick" %>
+                            <li><span onclick="call('<%=tag%>-entries')"><%=tag%></span>
+                            <% unless index == @tags.length - 1 %>
+                            <span class="divider">|</span>
+                            <% end %>
+                        </li>
+                        <% end %>
+                    </ul>
+                </div> 

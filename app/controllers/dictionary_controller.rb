@@ -99,6 +99,12 @@ end
 
 get '/dictionary/:id' do 
     @dictionary = Dictionary.find(params[:id])
+    
+    unless @dictionary.entries[0] == nil 
+        @tags = @dictionary.entries.map{|entry| entry.topic_tag}.uniq.sort
+    end 
+
+
     erb :"dictionaries/dictionary"
 end 
 
