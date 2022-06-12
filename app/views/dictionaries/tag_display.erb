@@ -1,0 +1,70 @@
+<div style="margin-left: 100px; margin-top: 50px; color: black;">
+        <% @tags.uniq.each do |topic| %>
+            <% @collection = @dictionary.entries.select{|entry| entry.topic_tag == topic} %>
+                <% if @collection %>
+                    <div id="<%=topic%>-entries" style="display: none;">
+                    
+                        <% @collection.each do |entry| %>
+                                <div style="background-color: #C86464; padding: 10px; margin-bottom: 5px;"> 
+                                    <h2 style="font-weight: bold; margin-left: 50px;"><span style="background-color: <%=rand_color%>; padding: 10px; text-align: center; "><%=entry.term%> </span> <span style="color: silver; background-color: black;  font-size: 75%;">[<%=entry.topic_tag%>]</span> 
+                                    
+                              <form action="/dictionary/<%=@dictionary.id%>/delete/<%=entry.id%>" method="post" style="margin: auto; color: red; width: 10px; height: 5px; border-radius: 5;">
+                                            <input id="hidden" type="hidden" name="_method" value="delete">
+                                            <input type="submit" value="delete" onclick="clicked(event)">
+                                    </form> 
+                                
+                                    
+                                    </h2>  
+                                           
+                                            <span class="on-click" onclick="call('add-<%=entry.term%>-example');" style="color: silver; background-color: black; border: 2px solid silver; padding: 2px;  font-size: 75%; margin-left: 50px;margin-right: 10px;"><b>+ add info +</b></span>
+                                                <div id="add-<%=entry.term%>-example" style="display: none;">
+                                                    <form action="/example/<%=entry.id%>/create" method="POST">
+                                                        <input type="hidden" id="hidden">
+                                                        <input type="text" name="info">
+                                                        <input type="submit" value="info">
+                                                    </form>
+                                                </div>  
+                                <div style="margin-left: 50px;">
+
+
+            
+                                   <ul>
+                                    
+                                        
+                                       
+                                            <li class="entry-info"><%=entry.entry_info%></li>
+                                            <% unless entry.more_info.empty? %>
+                                            <li class="entry-info"><%=entry.more_info%></li>
+                                            <% end %>
+                                     
+                                     
+                                        <% entry.examples.each do |example| %>
+                                                <li class="entry-info">
+                                                    <%=example.info%>
+                                                    <form action="/example/<%=entry.id%>/<%=example.id%>/delete" method="post" style="display:inline;">
+                                                        <input id="hidden" type="hidden" name="_method" value="delete">
+                                                        <input type="submit" value="del" style="width: 25px; height: 15px; font-size: 50%;">
+                                                    </form> 
+                                                </li>
+                                        <% end %>
+                              
+                                         
+                                
+                                
+                                   
+                                   </ul>
+
+                                  </div> 
+
+
+
+
+
+
+                                </div>
+                            <% end %>
+            
+                    </div>
+                <% end %>
+        <% end %>
+  </div>
