@@ -1,10 +1,41 @@
+<style>
+
+.deck-box {
+    background-color: <%=rand_color%>;
+}
+
+</style>
+
+
+<div class="deck-box">
+        <a href="/decks/alt">
+            <h1 class="deck-title"><b>People</b></h1>
+        </a>
+
 <div>
-<h1 style="background-color: black; color: silver; border: 3px solid black; width: 225px; margin: auto; margin-bottom: 10px; padding: 5px; font-weight: bold; ">People</h1>
+        <ul class="horz-options">
+            <li><a href="/people/new" title="">new</a> |</li>
+            <%# can do the same search implementation as the dictionary/decks %>
+               <li><a onclick="call('search-box')">search</a></li>
+        </ul> 
 </div>
-            <div class="mb-3 border border-1 border-light w-10" style="text-align: center;">
-           <a href="/people/new" title="">new</a> |  <a href="#" title="">search</a> 
-             </div>
-<table class="table table-dark table-hover">
+        <%= erb :"people/search_people" %>
+
+</div>
+
+<% if @results%>
+<div>
+  <ul class="horz-options">
+      <li style="display:inline">Search results: </li>
+    <% @results.each_with_index do |acc, index|%>
+      <li  style="display:inline"><a href="/people/<%=acc.id%>"><%=acc.name %></a> <%= index == @results.size - 1 ? "" : "|" %></li>
+      <% end %>
+  </ul>
+
+</div>
+<% end %>
+          
+<table class="table table-dark table-hover" style="border: solid white 3px; border-radius: 10% / 50%;">
   <thead>
     <tr>
       <th scope="col">Name</th>

@@ -1,15 +1,7 @@
+<div style="background: <%=rand_color%>; padding: 20px; border: solid <%=rand_color%> 5px;">
 
+<h1 style="color: <%=rand_color%>">New Person Info</h1>
 
-
-<form method="POST" action="/people/create">
-  <p>Your Name: <input type="text" name="name"></p>
-  <p>Your street address: <input type="text" name="street_address"></p>
-  <p>Your city: <input type="text" name="city"></p>
-  <p>Your state: <input type="text" name="state"></p>
-  <p>Your zipcode: <input type="number" name="zip_code"></p>
-  <p>photo: <input type="file" alt="where's the photo?" name="photo"></p>
-  <p><input type="submit"></p>
-</form>
 
 <form class="row g-3"  method="POST" action="/people/create">
   <div class="col-md-6">
@@ -94,3 +86,4 @@
     <button type="submit" class="btn btn-primary">Submit</button>
   </div>
 </form>
+</div>

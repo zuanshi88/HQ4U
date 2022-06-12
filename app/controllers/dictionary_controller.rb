@@ -74,6 +74,12 @@ get '/decks' do
     erb :"dictionaries/dictionaries"
 end 
 
+get '/decks/alt' do 
+     @dictionaries = Dictionary.all.sort_by{|dict| dict.title}
+    erb :"dictionaries/decks"
+end 
+
+
 post '/dictionary/create' do
     @dictionary = Dictionary.create(title: params[:title])
     @dictionaries = Dictionary.all 
@@ -112,6 +118,13 @@ get '/dictionary/:id/:entry_id' do
     @dictionary = Dictionary.find(params[:id])
     @results = []
     @results[0] = Entry.find_by_id(params[:entry_id])
+    erb :"dictionaries/dictionary"
+end 
+
+get '/dictionary/tag/:id/:tag' do 
+    @dictionary = Dictionary.find(params[:id])
+    @results = @dictionary.entries.select{|entry| entry.topic_tag == params[:tag]}
+
     erb :"dictionaries/dictionary"
 end 
 
@@ -155,6 +168,19 @@ get '/search/dictionary/:id' do
 
     erb :"dictionaries/dictionary"
         
+end 
+
+get '/search/dictionaries' do 
+    entry_hash = Entry.index_content
+    @search_word = params[:search].downcase
+    @results = entry_hash[@search_word]
+
+    unless @results.nil?
+        @results.uniq!
+    end 
+
+    erb :"dictionaries/decks"
+
 end 
 
 #this controller links to an individual display of the entry from global search bar

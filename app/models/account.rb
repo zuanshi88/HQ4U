@@ -20,4 +20,18 @@ class Account < ActiveRecord::Base
         collected_photos.shuffle!
     end 
     
+    def self.name_index 
+            content_hash = {}
+            self.all.each do |acc|
+                unless acc.name == nil || acc.name == ""
+                    acc.name.split(/[\s]/).each do |word|
+                            content_hash[word.downcase] = [] if content_hash[word.downcase].nil? 
+                            content_hash[word.downcase].push(acc)
+                    end 
+                end 
+            end 
+        content_hash
+    end 
+
+
 end 

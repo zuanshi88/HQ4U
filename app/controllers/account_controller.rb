@@ -31,6 +31,23 @@ class AccountController < ApplicationController
                 
             end 
 
+            get "/person/search" do 
+
+                @search = params[:search]
+                account_index = Account.name_index
+
+                @results = account_index[@search.downcase]
+
+                if @results.size == 1 
+                    results = @results.first
+                    @person = Account.find_by_id(results.id)
+                    return erb :"people/person"
+                end 
+                    
+                erb :"people/people"
+
+            end 
+
             get "/people/:id/edit" do 
                 @person = Account.find(params[:id])
                 erb :"people/edit_person"

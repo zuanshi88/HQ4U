@@ -1,0 +1,10 @@
+  <div id='addEntry' class='addEntry' style="display:none;">
+            <form action="/dictionary/entry/<%=@dictionary.id%>" method= "POST">
+                <input type="text" name="term" placeholder="term">
+                <input type="text" name="entry_info" placeholder="entry info">
+                <input type="text" name="more_info" placeholder="more info">
+                <input type="text" name="topic_tag" placeholder="topic tag">
+                <input type="submit" value= "submit">
+                <input type="file" name="photo" placeholder="photo">
+           </form>
+        </div>

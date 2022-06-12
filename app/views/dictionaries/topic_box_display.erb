@@ -1,0 +1,11 @@
+<div class="tag-box">
+        <ul>
+            <% @dictionaries.each_with_index do |dict, index|%>
+                <li><a href="/dictionary/<%=dict.id%>"><%=dict.title%></a>
+                <% unless index == @dictionaries.length - 1 %>
+                <span class="divider">|</span>
+                <% end %>
+            </li>
+            <% end %>
+        </ul>
+</div> 

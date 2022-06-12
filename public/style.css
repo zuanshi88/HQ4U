@@ -506,4 +506,91 @@ input[type=submit] {
 }
 
 
+/* dictionary/deck styles */
+
+.deck-title {
+  font-size: 300%;
+  color: ivory;
+  text-shadow:
+    -1px -1px 0 #000,
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+    1px 1px 0 #000;
+}
+
+.horz-options {
+  text-align: center;
+  color: darkblue;
+  font-size: 110%;
+}
+
+.horz-options a {
+  color: darkblue;
+  font-weight: bold;
+}
+
+.deck-box {
+  margin: auto;
+  padding-top: 10px;
+  border: 2px solid black;
+  border-radius: 10% / 50%;
+}
+
+.deck-box hr {
+  margin: auto;
+  margin-bottom: 15px;
+  color: silver;
+  height: 2px;
+  width: 85%;
+  font-weight: bold;
+}
+
+.deck-box .addEntry {
+  margin-left: 60px;
+  margin-bottom: 25px;
+}
+
+.input-box {
+  margin: auto;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.deck-box .tag-box {
+  margin: auto;
+  text-align: center;
+  color: black;
+  font-size: 130%;
+  text-shadow:
+    -.5px -.5px 0 #999,
+    .5px -.5px 0 #999,
+    -.5px .5px 0 #999,
+    .5px .5px 0 #999;
+}
+
+.deck-box li {
+  display: inline;
+}
+
+
+.tag-box {
+  color: ivory;
+}
+
+.tag-box .divider {
+  text-shadow: none;
+  font-size: 75%;
+}
+
+.entry-info {
+
+  background-color: <%=rand_color%>;
+  padding: 20px;
+  padding-left: 30px;
+  margin-bottom: 3px;
+  border: 2px solid silver;
+  margin-left: 20px;
+  margin-right: 50px;
+}
+
 

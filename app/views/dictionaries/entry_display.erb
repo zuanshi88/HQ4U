@@ -12,7 +12,7 @@
                 </span>         
             </h2>  
             <span>
-                <form action="/dictionary/<%=@dictionary.id%>/delete/<%=result.id%>" method="post" style="margin: auto; margin-right: 50px; color: red; width: 10px; height: 5px; border-radius: 5;">
+                <form action="/dictionary/<%=result.dictionary_id%>/delete/<%=result.id%>" method="post" style="margin: auto; margin-right: 50px; color: red; width: 10px; height: 5px; border-radius: 5;">
                     <input id="hidden" type="hidden" name="_method" value="delete">
                     <input type="submit" value="delete" onclick="clicked(event)">
                 </form> 

@@ -24,7 +24,7 @@ class Addendum < ActiveRecord::Base
             content_hash = {}
             self.all.each do |add|
                 unless add.addition == nil 
-                    add.addition.split(' ').each do |word|
+                    add.addition.split(/[\s,-\.]/).each do |word|
                             content_hash[word.downcase] = [] if content_hash[word.downcase].nil? 
                             content_hash[word.downcase].push(add)
                     end 
