@@ -15,7 +15,7 @@
         <hr style="color: silver; height: 2px; width: 75%; font-weight: bold;">
 
         <div id='addEntry' style="display:none">
-            <form action="/dictionary/<%=@dictionary.id%>/entry/create" method= "POST" style="margin-top: 5px;">
+            <form action="/dictionary/entry/<%=@dictionary.id%>" method= "POST" style="margin-top: 5px;">
                 <input type="text" name="term" placeholder="term">
                 <input type="text" name="entry_info" placeholder="entry info">
                 <input type="text" name="more_info" placeholder="more info">
@@ -26,7 +26,7 @@
            </form>
     </div>
         <div id="search-box" style="display:none;">
-            <form action="/dictionary/search/<%=@dictionary.id%>" method="get" style="width:50%; margin:auto;">
+            <form action="/search/dictionary/<%=@dictionary.id%>" method="get" style="width:50%; margin:auto;">
                 <input type="text" name="search">
                 <input type="submit" value="submit">
                 <hr style="color: silver; height: 2px; width: 75%; font-weight: bold;">

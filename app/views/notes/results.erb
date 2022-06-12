@@ -99,7 +99,7 @@
                 <div style=margin-left: 20px;>
                     <ol class="list-group list-group-numbered" style="border: black solid 2px;">
                         <% @entry_results.sort_by{|entry| entry.created_at }.reverse.each do |result| %>
-                            <li class="list-group-item" style="background: <%=rand_color%>"><a href= "/dictionary/<%=result.dictionary_id%>/<%=result.id%>"><b><%=result.term%></b> -- <%=result.created_at.strftime('%m/%d/%y')%> -- <%=result.created_at.strftime('%m/%d/%y')%></a>
+                            <li class="list-group-item" style="background: <%=rand_color%>"><a href= "/dictionary/redirect/<%=result.dictionary_id%>/<%=result.id%>"><b><%=result.term%></b> -- <%=result.created_at.strftime('%m/%d/%y')%> -- <%=result.created_at.strftime('%m/%d/%y')%></a>
                                 <ul>
                                     <li><%=result.topic_tag%></li>
                                     <li><%=result.entry_info%></li>
@@ -151,6 +151,43 @@
   </div>
 
 <% end %>
+
+<% if @book_results %>
+
+<div class="accordion" id="accordionExample">
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="headingOne">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
+               <h2>Books: <span style="font-size: 75%;"><%=@book_results.size%></span> </h2>
+            </button>
+        </h2>
+        <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+                <div style=margin-left: 20px;>
+                    <ol class="list-group list-group-numbered" style="border: black solid 2px;">
+                        <% @book_results.sort_by{|book| book.created_at }.reverse.each do |result| %>
+                            <li class="list-group-item" style="background: <%=rand_color%>"><a href= "/book/<%=result.project_id%>/<%=result.id%>"><b><%=result.title%></b> -- <%=result.created_at.strftime('%m/%d/%y')%></a>
+                                <ul>
+                                    <li><%=result.synopsis%></li>
+                                        <% comment do%>
+                                            <li><%=result.class%></li>
+                                            <li><%= result.attributes %></li>
+                                        <% end %>
+                                </ul>
+                            </li>
+                        <% end %>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+
+<% end %>
+
+
+
+
 
 
 

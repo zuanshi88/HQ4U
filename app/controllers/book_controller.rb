@@ -1,6 +1,12 @@
 class BookController < ApplicationController
     
 
+    #display book
+
+get '/books' do
+
+    erb :"books/books"
+end 
 
 get '/book/:project_id/:book_id' do 
     @project = Project.find(params[:project_id])
@@ -11,6 +17,27 @@ get '/book/:project_id/:book_id' do
 
 end 
 
+#create book
+
+post '/book/:project_id' do
+
+    @book = Book.create(title: params[:title], author: params[:author], synopsis: params[:synopsis], pages: params[:pages])
+    @project = Project.find(params[:project_id])
+    @person = Account.find(@project.account_id)
+    @project.books << @book
+    
+    
+    erb :"projects/project"
+
+end 
+
+delete '/book/:book_id' do 
+    @book = Book.find_by_id(params[:book_id])
+    @book.destroy
+
+    erb :"/books/books"
+
+end 
 
 
 

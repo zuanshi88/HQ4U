@@ -118,7 +118,7 @@ get '/dictionary/:id/tag/:tag' do
     erb :"dictionaries/dictionary_collection"
 end 
 
-post '/dictionary/:id/entry/create' do
+post '/dictionary/entry/:id' do
     @entry = Entry.create(term: params[:term], entry_info: params[:entry_info], more_info: params[:more_info], topic_tag: params[:topic_tag], photo: params[:photo])
     @dictionary = Dictionary.find(params[:id])
     @dictionary.entries << @entry 
@@ -138,9 +138,9 @@ delete '/dictionary/:id/delete/:entry_id' do
 end 
 
 
-# this controller searchs from main dictionary serach bar
+# this controller searchs from dictionary/deck search bar
 
-get '/dictionary/search/:id' do
+get '/search/dictionary/:id' do
     @dictionary = Dictionary.find(params[:id])
     @result = @dictionary.determine_close_entry_matches(params[:search])
     if @result.empty? 
@@ -151,28 +151,17 @@ get '/dictionary/search/:id' do
         
 end 
 
-#this controller links to an individual display of the entry.
+#this controller links to an individual display of the entry from global search bar
 
-get '/dictionary/:id/:search' do
+get '/dictionary/redirect/:id/:result' do
     @dictionary = Dictionary.find(params[:id])
 
     # assigning @result to an array to make it pass when passed to the dictionary view
-    @result = [Entry.find(params[:search])]
+    @result = [Entry.find(params[:result])]
  
     erb :"dictionaries/dictionary"
         
 end 
-
-# get '/dictionary/:search/:id' do
-#     @dictionary = Dictionary.find(params[:id])
-#     @result = @dictionary.determine_close_entry_matches(params[:search])
-#     if @result.empty? 
-#         @message = "Sorry no results for #{params[:search]}"
-#     end 
-
-#     erb :dictionary
-        
-# end 
 
 
 post '/example/:entry_id/create' do 

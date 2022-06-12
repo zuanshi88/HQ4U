@@ -3,19 +3,14 @@
 <div>
 
 <h1 style="background-color: black; color: white; border: 3px solid white; width: 250px; margin: auto; ">Decks</h1>
-        <h3 class="on-click" style="margin:auto; margin-top: 4px; width:100px; text-align: center;" onclick="call('createDictionary')"><a href="#">create</a></h3>
-    <div id="createDictionary" style="display:none; margin:auto; width:15%;" >
-        <form method= "POST" action="/dictionary/create" style="margin-top: 5px;">
-            <input type="text" name= "title">
-            <input type="submit" value= "submit" style="float:right;">
-        </form>
-    </div>
+        <a href="#"><h5 class="on-click" style="border: black solid 2px; border-radius: 10% / 50%; background: <%=rand_color%>; margin:auto; margin-top: 5px; width:100px; text-align: center;" onclick="call('createDictionary')">create</h5></a>
+        <%= erb :"dictionaries/create_dictionary"%>
 </div>
 <div style="text-align: center;">
     <ul>
         <% @dictionaries = @dictionaries.sort_by{|dictionary| dictionary.entries[0] ? dictionary.entries[-1].created_at : dictionary.created_at}.reverse.each do |dictionary| %>
            
-           <div class="card col-sm-3" style="margin-bottom: 25px; border: 2px solid white; display: inline-block; line-height: 1; height: 100px; width: 200px; text-align: center; margin-left: 10px; float: left; background-color: <%=rand_color%>">
+           <div class="card col-sm-3" style="margin-bottom: 25px; border: 2px solid white; border-radius: 10% / 50%; display: inline-block; line-height: 1; height: 100px; width: 200px; text-align: center; margin-left: 10px; float: left; background-color: <%=rand_color%>">
                 <div class="card-body">
                     <span style="font-size: 120%; color: black; margin-bottom: 2px;"><b><a href="/dictionary/<%=dictionary.id%>"><%=dictionary.title%></b></a></span>
                     <br>

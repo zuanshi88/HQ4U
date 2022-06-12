@@ -30,15 +30,15 @@
 
 <ul>
     <% @book.notes.sort_by{|note| note.created_at}.reverse.each do |note|%>
-    <div class="book-note-box" style="background-color: <%=rand_color%>;">
-    <li><%= note.created_at.strftime('%m/%d/%y') %> <span class="red-date" ><%= note.created_at.strftime('%H:%M') %></span></li>
-    <li> <%= note.comment %>
-     <form action="/project/<%=@project.id%>/book/<%=@book.id%>/note/<%=note.id%>/delete" method="post" style="display:inline">
-                        <input id="hidden" type="hidden" name="_method" value="delete">
-                        <input type="submit" value="delete" style="float:right;" onclick="clicked(event)">
-    </form> 
-    </li>
-    </div>
+        <div class="book-note-box" style="background-color: <%=rand_color%>;">
+            <li><%= note.created_at.strftime('%m/%d/%y') %> <span class="red-date" ><%= note.created_at.strftime('%H:%M') %></span></li>
+            <li> <%= note.comment %>
+                    <form action="/note/<%=@project.id%>/<%=note.id%>" method="post" style="display:inline">
+                            <input id="hidden" type="hidden" name="_method" value="delete">
+                            <input type="submit" value="delete" style="float:right;" onclick="clicked(event)">
+                    </form> 
+            </li>
+        </div>
     <% end %>
 </ul>   
 
