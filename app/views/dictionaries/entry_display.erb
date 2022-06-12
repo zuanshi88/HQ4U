@@ -1,36 +1,51 @@
- <% @result.each do |result|%>
-    <div style="margin-left: 20px;">
-            <a href="/dictionary/<%=@dictionary.id%>/<%=result.id%>"><h2 style="font-weight: bold"><%=result.term%> </a>  
-            <span class="on-click" style="color: silver; background-color: black;  font-size: 75%" onclick="call('<%=result.topic_tag%>-entries')">[<%=result.topic_tag%>]</span>
-            <span class="on-click" onclick="call('add_example');" style="color: silver; background-color: black;  font-size: 75%">info+ </span>
-                <div id="add_example" style="display: none;">
-                    <form action="/example/<%=result.id%>/create" method="POST">
+ 
+ 
+<div style="margin-left: 100px; margin-top: 50px; color: black;">
+    <% @results.each do |result| %>
+        <div style="background-color: #C86464; padding: 10px; margin-bottom: 5px;"> 
+            <h2 style="font-weight: bold; margin-left: 50px;">
+                <span style="background-color: <%=rand_color%>; padding: 10px; text-align: center; ">
+                    <%=result.term%> 
+                </span> 
+                <span style="color: silver; background-color: black;  font-size: 75%;">
+                    [<%=result.topic_tag%>]
+                </span>         
+            </h2>  
+            <span>
+                <form action="/dictionary/<%=@dictionary.id%>/delete/<%=result.id%>" method="post" style="margin: auto; margin-right: 50px; color: red; width: 10px; height: 5px; border-radius: 5;">
+                    <input id="hidden" type="hidden" name="_method" value="delete">
+                    <input type="submit" value="delete" onclick="clicked(event)">
+                </form> 
+             </span>                       
+            <span onclick="call('add-example');" style="color: silver; background-color: black; border: 2px solid silver; padding: 2px;  font-size: 75%; margin-left: 50px;margin-right: 10px;">
+                <b>+ add info +</b>
+            </span>
+                <div id="add-example" style="display: none;">
+                    <form action="/example/<%=result.id%>" method="POST">
                         <input type="hidden" id="hidden">
                         <input type="text" name="info">
                         <input type="submit" value="info">
                     </form>
-                </div>     
-        <ul style="padding: 5px; background-color: <%=rand_color%>; border: 2px solid black;"> 
-            <li class="entry-info"> <%=result.entry_info%></li>
-            <% unless result.more_info.empty? %>
-            <li class="entry-info"> <%=result.more_info%></li>
-            <% end %>
-        <% if result.examples[0] %>
-                <%result.examples.each do |example|%>
-                        <li class="entry-info"><%=example.info%>
-                            <form action="/example/<%=result.id%>/<%=example.id%>/delete" method="post" style="display:inline;">
-                                <input id="hidden" type="hidden" name="_method" value="delete">
-                                <input type="submit" value="del" style="width: 25px; height: 15px; font-size: 50%;">
-                            </form> 
-                        </li>
-                    <% end %>
-                </ul>
-        <% end %>
-    </div>
-
-        <% if result.photo[0] %>
-                <div style="float:left;">
-                    <img src="/<%= result.photo[0] %>" alt=" " width="300" height= "200" style="border: 2px solid black; border-radius:15px; margin-left: 145px; margin-bottom: 10px;">
-                </div>
-            <% end %>
-<% end %>
+                </div>  
+                <div style="margin-left: 50px;">
+                    <ul>
+                            <li class="entry-info"><%=result.entry_info%></li>
+                        <% unless result.more_info.empty? %>
+                            <li class="entry-info"><%=result.more_info%></li>
+                        <% end %>
+                        <% if result.examples[0] %>
+                            <% result.examples.each do |example| %>
+                                    <li class="entry-info">
+                                        <%=example.info%>
+                                        <form action="/example/<%=result.id%>/<%=example.id%>" method="post" style="display:inline;">
+                                            <input id="hidden" type="hidden" name="_method" value="delete">
+                                            <input type="submit" value="del" style="width: 25px; height: 15px; font-size: 50%;">
+                                        </form> 
+                                    </li>
+                            <% end %>
+                        <% end %>
+                    </ul>
+                </div> 
+        </div>
+    <% end %>
+</div>

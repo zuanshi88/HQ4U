@@ -110,8 +110,8 @@ end
 
 get '/dictionary/:id/:entry_id' do 
     @dictionary = Dictionary.find(params[:id])
-    @result = []
-    @result[0] = Entry.find_by_id(params[:entry_id])
+    @results = []
+    @results[0] = Entry.find_by_id(params[:entry_id])
     erb :"dictionaries/dictionary"
 end 
 
@@ -148,8 +148,8 @@ end
 
 get '/search/dictionary/:id' do
     @dictionary = Dictionary.find(params[:id])
-    @result = @dictionary.determine_close_entry_matches(params[:search])
-    if @result.empty? 
+    @results = @dictionary.determine_close_entry_matches(params[:search])
+    if @results.empty? 
         @message = "Sorry no results for #{params[:search]}"
     end 
 
@@ -163,29 +163,32 @@ get '/dictionary/redirect/:id/:result' do
     @dictionary = Dictionary.find(params[:id])
 
     # assigning @result to an array to make it pass when passed to the dictionary view
-    @result = [Entry.find(params[:result])]
+    @results = [Entry.find(params[:result])]
  
     erb :"dictionaries/dictionary"
         
 end 
 
 
-post '/example/:entry_id/create' do 
+post '/example/:entry_id' do 
     @example = Example.create(info: params[:info])
     @entry = Entry.find(params[:entry_id])
     @dictionary = Dictionary.find(@entry.dictionary_id)
 
     @entry.examples << @example 
+
+    @results = [@entry]
  
     erb :"dictionaries/dictionary"
 end 
 
-delete '/example/:entry_id/:example_id/delete' do 
+delete '/example/:entry_id/:example_id' do 
     @example = Example.find(params[:example_id])
     @example.destroy 
     @entry = Entry.find(params[:entry_id])
     @dictionary = Dictionary.find(@entry.dictionary_id)
 
+    @results = [@entry]
 
     erb :"dictionaries/dictionary"
 
