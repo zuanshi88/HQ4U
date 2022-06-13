@@ -9,12 +9,12 @@ read -p "Proceed?" RESPONSE
 
 
 
-if RESPONSE == "n"   
-    then 
+if [[$RESPONSE == "n" ]] 
+then 
     echo "Aborting"
     exit
 else
-     git add .
+     git add -A
 fi 
 
 read -p "Message, por favor..." RESPONSE
