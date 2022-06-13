@@ -300,7 +300,7 @@ margin: auto;
   font-family: Courier;
 }
 
-.add-button, .link-button, .doc-button {
+.add-button, .link-button, .doc-button, .edit-button {
   color: black;
   font-weight: bold;
   border: 1px solid black;

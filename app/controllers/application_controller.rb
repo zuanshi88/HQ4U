@@ -115,7 +115,7 @@ class ApplicationController < Sinatra::Base
             @book_results.uniq!
         end 
 
-        erb :"notes/results"
+        erb :"app/results"
     end 
 
     get '/redirect_search/note/:search_word/:id' do 
