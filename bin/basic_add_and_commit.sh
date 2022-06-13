@@ -9,7 +9,7 @@ read -p "Proceed?" RESPONSE
 
 
 
-if [[$RESPONSE == "n" ]] 
+if [$RESPONSE == "n"];
 then 
     echo "Aborting"
     exit
