@@ -58,6 +58,9 @@ class Project < ActiveRecord::Base
         "BOO!!!"
     end 
 
-
+    def project_notes 
+        project_notes = self.notes.filter{|note| note.addendum_id.nil? && note.book_id.nil? }
+        project_notes.sort_by{|note| note.last_touched}.reverse
+    end 
 
 end 

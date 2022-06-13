@@ -1,0 +1,17 @@
+
+<% if @book%>
+        <% @type = "book" %>
+        <%= erb :"books/book_nav"%>
+
+<% else %>
+        <% @type = "project" %>
+        <%= erb :"projects/project_nav"%>
+
+<% end %>
+
+
+        <%= erb :"notes/notes_display" %>
+
+<p>
+        <%= erb :"app/menu_links" %>
+</p>

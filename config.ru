@@ -18,6 +18,7 @@ run ApplicationController
 use Rack::MethodOverride
 use ProjectController
 use NoteController
+use AddendumController
 use DictionaryController
 use BookController
 use PhotoController

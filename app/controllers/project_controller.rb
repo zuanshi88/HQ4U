@@ -26,6 +26,8 @@ get "/projects/:id" do
     @person = Account.find_by_id(params[:id].to_i)
     @projects = @person.projects
 
+    @notes = @project.project_notes
+
     erb :"projects/projects"  
 end 
 
@@ -46,18 +48,9 @@ get "/project/:account_id/:project_id" do
     @project = Project.find_by_id(params[:project_id])
     @person = Account.find(params[:account_id])
 
+    @notes = @project.project_notes
+
     erb :"projects/project"
 end 
-
-get "/project/search_result" do
-    @person = Account.find(40)
-    @project = Project.find_by_id(30)
-
-    erb :"projects/project_search_result"
-
-end 
-
-
-
 
 end

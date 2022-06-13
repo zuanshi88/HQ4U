@@ -1,49 +1,42 @@
 class WeblinkController < ApplicationController
     
 
+    "/weblink/<%=@note.project_id%>/<%=@note.id%>/<%=@note.class%>"
          
 
-    post "/project/:project_id/*/*/weblink/create" do
+    post "/weblink/:project_id/*/*" do
         @hash = {title: params[:title], url: params[:url], description: params[:description]} 
+        @weblink = Weblink.create(@hash)
+        @project = Project.find(params[:project_id])
 
-            if params['splat'][0] =~ /main/
-                @weblink = Weblink.create(@hash)
-                @project = Project.find_by_id(params['splat'][1].to_i)
-                @project.weblinks << @weblink
-                @weblink.save 
-                @project.save 
-
+        if params['splat'][0] =~ /project/
+            @project.weblinks << @weblink
         elsif params['splat'][0] =~ /note/
-            @hash[:note_id] = params[:note_id]
-            @weblink = Weblink.create(@hash)
-            @note = Note.find_by_id(params['splat'][1])
+            @weblink.note_id = params['splat'][1]
+            @note = Note.find(params['splat'][1])
             @note.weblinks << @weblink
-
-        elsif params['splat'][0] =~ /addendum/
-            @weblink = Weblink.create(@hash)
-            @addendum = Addendum.find_by_id(params['splat'][1])
+        else params['splat'][0] =~ /addendum/
+            @addendum = Addendum.find(params['splat'][1])
             @addendum.weblinks << @weblink
-
-        else 
-            erb :project
+            @note = Note.find(@addendum.note_id)
         end 
 
-        @project = @project || Project.find_by_id(params[:project_id])
-        @person = Account.find_by_id(@project.account_id)
+        if @note 
+            @notes = [@note]
+        end 
 
-        erb :"projects/project"
-
+        erb :"app/display"
 
     end 
 
-    delete "/people/:project_id/weblinks/delete/:link_id" do 
+    delete "/weblinks/:project_id/:link_id" do 
+
         @weblink = Weblink.find_by_id(params[:link_id])
         @project = Project.find_by_id(params[:project_id])
         @person = Account.find_by_id(@project.account_id)
         @weblink.destroy
 
-        erb :"projects/project"  
-
+        erb :"app/display"  
 
     end 
 

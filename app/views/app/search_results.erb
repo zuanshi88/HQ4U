@@ -33,11 +33,11 @@
                                 <% @note_results.sort_by{|note| note.last_touched }.reverse.each do |result| %>
                                     <li class="list-group-item" style="background: <%=rand_color%>"><a href="/redirect_search/note/<%= @search_word %>/<%=result.id%>"><b><%=result.comment%></b> -- <%=result.last_touched.strftime('%m/%d/%y')%> -- <%=result.created_at.strftime('%m/%d/%y')%></a>
                                         <% comment do%>
+                                        <% end %>
                                             <ul>
                                                 <li><%=result.class%> with <%= result.project_id == nil ? "add_id : #{result.addendum_id}" : "project_id: #{result.project_id}" %> and id: <%=result.id %></li>
                                                 <li><%= result.attributes %></li>
                                             </ul>
-                                        <% end %>
                                     </li>
                                 <% end %>
                             </ol>
@@ -66,11 +66,11 @@
                         <% @addendum_results.reverse.each do |result| %>
                             <li class="list-group-item" style="background: <%=rand_color%>"><a href="/redirect_search/addendum/<%=@search_word %>/<%=result.note_id%>"><b><%=result.addition%></b> -- <%=result.created_at.strftime('%m/%d/%y')%></a>
                                 <% comment do%>
+                                <% end %>
                                 <ul>
                                     <li><%=result.class%>  <%= result.note_id %> and id: of <%= result.id %></li>
                                     <li><%= result.attributes %></li>
                                 </ul>
-                                <% end %>
                              </li>
                          <% end %>
                     </ol>
@@ -106,9 +106,9 @@
                                     <li><%=result.topic_tag%></li>
                                     <li><%=result.entry_info%></li>
                                         <% comment do%>
+                                        <% end %>
                                             <li><%=result.class%></li>
                                             <li><%= result.attributes %></li>
-                                        <% end %>
                                 </ul>
                             </li>
                         <% end %>
@@ -139,9 +139,9 @@
                                 <ul>
                                     <li><%=result.description%></li>
                                         <% comment do%>
+                                        <% end %>
                                             <li><%=result.class%></li>
                                             <li><%= result.attributes %></li>
-                                        <% end %>
                                 </ul>
                             </li>
                         <% end %>
@@ -172,9 +172,9 @@
                                 <ul>
                                     <li><%=result.synopsis%></li>
                                         <% comment do%>
+                                        <% end %>
                                             <li><%=result.class%></li>
                                             <li><%= result.attributes %></li>
-                                        <% end %>
                                 </ul>
                             </li>
                         <% end %>

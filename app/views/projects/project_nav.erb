@@ -1,12 +1,14 @@
 
                 <%# leaving this 40 hard coded until I do my big routes clean up. %>
-        <h1 class="mb-3"><a href="/project/40/<%=@project.id %>"><%=@project.title%></a></h1>
+        <h1 class="mb-1" style="background: <%= rand_color %>; padding: 3px; border: solid <%= rand_color %> 3px;">
+            <a href="/project/40/<%=@project.id %>"><%=@project.title%></a>
+        </h1>
 
        <%if @search_word %>
         <p class="h4" style="color: black"><%= @search_word %> => <%= @note.comment%>  </p>
        <% end %>
 
-        <nav class="navbar navbar-expand-lg bg-light">
+        <nav class="navbar navbar-expand-lg bg-light" style="border: solid <%= rand_color %>;" >
                     <div class="container-fluid">
                         <div class="collapse navbar-collapse" id="navbarNav">
                             <ul class="navbar-nav">
@@ -103,7 +105,8 @@
             </div>
 
             <div id="create-weblink" style="display:none">
-                <%= erb :'weblinks/create_project_weblink' %>
+                <% @focus = @project %>
+                <%= erb :'weblinks/create_weblink' %>
             </div>
 
             <div id="create-new-book" style="display:none;">

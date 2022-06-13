@@ -9,7 +9,6 @@ background: <%= rand_color %>;
 
 .add-button {
     background: <%= rand_color %>;
-    margin-left: 100px;
 }
 
 .doc-button {
@@ -18,85 +17,97 @@ background: <%= rand_color %>;
 
 .link-button {
     background: <%= rand_color %>;
+    margin-left: 100px;
 }
 
 .edit-button {
     background: <%= rand_color %>;
-    margin-right: 10px;
 }
 
 
+.note-display {
+    background: <%=rand_color%>;  
+    border: 2px solid <%=rand_color %>;
+}
+
+.smaller-text {
+    style="font-size: 75%"
+}
+
+.note-comment {
+    font-size: 150%; 
+    color: #FAF9F6; 
+    margin-right: 10px;
+}
+
+.delete-right {
+    float: right; 
+    margin-right: 20px; 
+    font-size: 75%;
+}
+
+.add-addendum {
+    margin-left: 32px;
+}
 
 </style>
 
 
 
 <ul margin-left: 20px;>
-    <% @notes.reverse.each do |note|%>
-    <% @note = note %>
-    <li class="note-display" style="background: <%=rand_color%>;  border: 2px solid <%=rand_color %>">
-                    <span onclick="call('add-add-<%=note.id%>')" class="add-button">add</span>
-                    <span class="link-button" onclick="call('create-note-weblink-<%=note.id%>')">link</span>
-                    <span class="doc-button"><a href="/open_file/<%=note.id%>">doc</a></span>
-                    <span class="edit-button"><a href="/edit/note/<%=note.id%>">edit</a></span>
-                    <span class="<%= note.has_addendums ? 'on-click' : '' %>" onclick="call('show-addendum-<%=note.id%>')">
-                        <span class="addendum-display">
-                            <span style="font-size: 150%; color: #FAF9F6; margin-right: 10px;">
-                                <%= note.comment %> 
-                            </span>
+    <% @notes.each do |note|%>
+    <li style="background: <%=rand_color%>; border: 2px solid <%=rand_color %>;">
+        <div>
+                <span class="link-button" onclick="call('create-note-weblink-<%=note.id%>')">link</span>
+                <span class="doc-button"><a href="/open_file/<%=note.id%>">doc</a></span>
+                <span class="edit-button"><a href="/edit/note/<%=note.id%>">edit</a></span>
+                <span class="<%= note.has_addendums ? 'on-click' : '' %>" onclick="call('show-addendum-<%=note.id%>')">
+                <span onclick="call('add-add-<%=note.id%>')" class="add-button">add</span>
+                    <span class="addendum-display">
+                        <span class="note-comment">
+                            <%= note.comment %> 
                         </span>
-                    </span> 
-                    <span style="font-size: 75%">
-                          <b><%= note.last_touched.strftime('%m/%d/%y')%>  |  <%=note.addendums.size%></b>
                     </span>
-                <div id="show-addendum-<%=note.id%>" style="display:none;">
-                    <span style="text-align: right; margin-right: 20px; font-size: 75%">
-                        <%= "created at: #{note.created_at.strftime('%m/%d/%y')}"%>
-                            <form action="/note/<%=@project.id%>/<%=note.id%>" method="post" style="display:inline">
-                                <input id="hidden" type="hidden" name="_method" value="delete">
-                                <input type="submit" value="delete" onclick="clicked(event)">
-                            </form> 
-                    </span>
-       
-                <div id="create-note-weblink-<%=note.id%>" style="display:none">
-                    <form action="/project/<%=@project.id%>/note/<%=note.id%>/weblink/create" method="POST">
-                        <input type="hidden" id="hidden">
-                        <label for="title">title</label>
-                        <input type="text" name="title">
-                        <label for="url">url</label>
-                        <input type="text" name="url">
-                        <label for="description">description</label>
-                        <input type="text" name="description">
-                        <input type="submit" value="link">
-                    </form>
-                </div>
+                </span> 
+                <span class="smaller-text">
+                    <b><%= note.last_touched.strftime('%m/%d/%y')%>  |  <%=note.addendums.size%></b>
+                </span>
+                 <span class="delete-right">
+                       <%= "created: #{note.created_at.strftime('%m/%d/%y')}"%>
+                        <form action="/note/<%=note.project_id%>/<%=note.id%>" method="post" style="display:inline">
+                            <input id="hidden" type="hidden" name="_method" value="delete">
+                            <input type="submit" value="delete" onclick="clicked(event)">
+                        </form> 
+                 </span>
+        </div>
+            <div id="create-note-weblink-<%=note.id%>" style="display:none; margin-left: 30px; color: white;">
+                    <% @focus = note %>
+                    <%= erb :"weblinks/create_weblink" %>
+            </div>
+            <div id="add-add-<%=note.id%>" style="display: none;"></div>
+                    <%= erb :"notes/notes_add_addendum_form" %> 
+            </div>
 
-                <div id="add-add-<%=note.id%>" style="display: none;">
-                    <form action="/project/<%=@project.id%>/note/<%=note.id%>/addendum/create" method="post">
-                            <input id="hidden" type="hidden" name="_method" value="post">
-                            <textarea rows="3" cols="100" name="addition"></textarea>
-                            <input type="submit" value="submit">
-                    </form>
-                </div>
                 <div> 
                     <% unless note.weblinks[0] == nil%>
-                                        <span>
-                                            <ul>
-                                            <% note.weblinks.each do |link| %>
-                                                <li class="web-link-display"><span class="web-link-decoration"><a href="<%=link.url %>"><%=link.title%></a></span>
-                                                        <form action="/people/<%=@project.id%>/weblinks/delete/<%=link.id%>" method="post" style="display:inline">
-                                                            <input id="hidden" type="hidden" name="_method" value="delete">
-                                                            <input type="submit" value="delete" class="del-button" onclick="clicked(event)">
-                                                        </form>
-                                                    </li>
-                                                <% end %>
-                                            </ul>    
-                                        </span>
-                                        
-                                    <% end %>
+                        <span>
+                            <ul>
+                            <% note.weblinks.each do |link| %>
+                                <li class="web-link-display"><span class="web-link-decoration"><a href="<%=link.url %>"><%=link.title%></a></span>
+                                        <form action="/people/<%=note.project_id%>/weblinks/delete/<%=link.id%>" method="post" style="display:inline">
+                                            <input id="hidden" type="hidden" name="_method" value="delete">
+                                            <input type="submit" value="delete" class="del-button" onclick="clicked(event)">
+                                        </form>
+                                    </li>
+                                <% end %>
+                            </ul>    
+                        </span>
+                    <% end %>
                 </div>
-                        
+
+
                     <% unless note.addendums[0] == nil %>
+        <div id="show-addendum-<%=note.id%>" style="display:none;">
                         <ul style="padding: 10px;">
                     <% note.addendums.sort_by{|add| add.last_touched}.reverse.each do |addendum|%>
                             <li class="addendum-display" style="background: <%=rand_color%>; border: 2px solid <%=rand_color%>">
@@ -106,7 +117,7 @@ background: <%= rand_color %>;
                                       <% addendum.weblinks.each do |link| %>
                                             <li class="web-link-display">
                                                 <span class="web-link-decoration"><span class="web-link-decoration"><a href="<%=link.url %>"><%=link.title%></a> | 
-                                                    <form action="/people/<%=@project.id%>/weblinks/delete/<%=link.id%>" method="post" style="display:inline">
+                                                    <form action="/people/<%=note.project_id%>/weblinks/delete/<%=link.id%>" method="post" style="display:inline">
                                                         <input id="hidden" type="hidden" name="_method" value="delete">
                                                         <input type="submit" value="delete" style="width: 25px; height: 15px; font-size: 30%; text-align: center; padding: 0px;" onclick="clicked(event)">
                                                     </form>
@@ -115,13 +126,12 @@ background: <%= rand_color %>;
                                         <% end %>
                                     </ul>    
                                 </span>
-                                
                               <% end %>
                             
                               <span><span onclick="call('options-buttons-<%=addendum.id%>')"><%=addendum.last_touched.strftime('%m/%d/%y')%> <b style="font-size: 110%;">=></b>  </span></span><span onclick="call('display-add-notes-<%=addendum.id%>')" class="<%= addendum.notes[0] ? 'on-click' : '' %>"><%=addendum.addition %></span> | <span style="font-size: 75%"><%=addendum.created_at.strftime('%m/%d/%y') %></span>
                               <span id="options-buttons-<%=addendum.id%>" style="display: none; margins: 0px; float: left;">
                                      <div id="create-addendum-weblink-<%=addendum.id%>" style="display:none">
-                                        <form action="/project/<%=@project.id%>/addendum/<%=addendum.id%>/weblink/create" method="POST">
+                                        <form action="/project/<%=note.project_id%>/addendum/<%=addendum.id%>/weblink/create" method="POST">
                                             <input type="hidden" id="hidden">
                                             <label for="title">title</label>
                                             <input type="text" name="title">
@@ -133,7 +143,7 @@ background: <%= rand_color %>;
                                         </form>
                                     </div>
                                     <div id="create-add-add-note-<%=addendum.id%>" style="display: none;">
-                                        <form action="/project/<%=@project.id%>/addendum/<%=addendum.id%>/note/create" method="POST">
+                                        <form action="/note/addendum/<%=note.project_id%>/<%=addendum.id%>/<%=@type%>" method="POST">
                                             <input id="hidden" type="hidden" name="_method" value="post">
                                             <textarea rows="3" cols="50" name="comment"></textarea>
                                             <input type="submit" value="submit">
@@ -141,12 +151,11 @@ background: <%= rand_color %>;
                                     </div>
                                 <span class="add-button" onclick="call('create-add-add-note-<%=addendum.id%>')">add</span>
                                 <span class="link-button" onclick="call('create-addendum-weblink-<%=addendum.id%>')"> link </span>
-                                    <form action="/project/<%=@project.id%>/note/<%=note.id%>/addendum/<%=addendum.id%>/delete" method="post">
+                                    <form action="/addendum/<%=@type%>/<%=note.id%>/<%=addendum.id%>" method="post">
                                         <input id="hidden" type="hidden" name="_method" value="delete">
                                         <input type="submit" value="del" onclick="clicked(event)">
                                     </form> 
 
-                            </li>
                                     <div id="display-add-notes-<%=addendum.id%>" style="display:none;">
 
 
@@ -157,7 +166,7 @@ background: <%= rand_color %>;
                                                 <%addendum.notes.reverse.each do |note|%>
                                                     <li style="background: <%=rand_color%>; margin-top: 5px; padding: 20px; border: 2px solid <%=rand_color %>"><%= note.addendums[0] ? note.addendums[-1].updated_at.strftime('%m/%d/%y') : note.updated_at.strftime('%m/%d/%y') %> => <%=note.comment%>
                                                     <span>
-                                                        <form action="/project/<%=@project.id%>/addendum/<%=addendum.id%>/note/<%=note.id%>/delete" method="post">
+                                                        <form action="/note/<%=@type%>/addendum/note/<%=addendum.id%>/<%=note.id%>" method="post">
                                                             <input id="hidden" type="hidden" name="_method" value="delete">
                                                             <input type="submit" value="del" onclick="clicked(event)">
                                                         </form> 
@@ -168,13 +177,12 @@ background: <%= rand_color %>;
                                                 <% end %>
                                             </ul>
                                         <% end %>
-                                    
                                     </div>
+                                    </li>
                             <% end %>
                         </ul>
                     <% end %>
-                </div>
-                        
+                </div>  
             </li>
     <% end %>
 </ul>

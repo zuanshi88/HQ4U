@@ -26,6 +26,7 @@ post '/book/:project_id' do
     @person = Account.find(@project.account_id)
     @project.books << @book
     
+    @notes = @project.project_notes
     
     erb :"projects/project"
 

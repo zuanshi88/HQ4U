@@ -1,0 +1,12 @@
+   <div id="create-note-weblink-<%=@note.id%>" style="display:none; margin-left: 30px; color: white;">
+        <form action="/weblink/<%=@note.project_id%>/<%=@note.class%>/<%=@note.id%>" method="POST">
+            <input type="hidden" id="hidden">
+            <label for="title">title</label>
+            <input type="text" name="title">
+            <label for="url">url</label>
+            <input type="text" name="url">
+            <label for="description">description</label>
+            <input type="text" name="description">
+            <input type="submit" value="link" class="link-button">
+        </form>
+    </div>

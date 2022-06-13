@@ -1,11 +1,10 @@
 
 <div class="solid-color">
+    <% @type = "project" %>
     <%= erb :"projects/project_nav"%>
 </div>
 
 <% if @project.notes[0]%>
-    <% @project_notes = @project.notes.filter{|note| note.addendum_id.nil?}%>
-    <% @notes = @project_notes.sort_by{|note| note.last_touched} %>
     
     <%= erb :"notes/notes_display" %>
 

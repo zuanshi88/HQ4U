@@ -1,4 +1,16 @@
-<%= erb :"projects/project_nav"%>
+
+
+<% if @book%>
+
+        <%= erb :"books/book_nav"%>
+
+<% else %>
+
+        <%= erb :"projects/project_nav"%>
+
+<% end %>
+
+<h5 style="background: <%=rand_color%>">Edit Note:</h5>
 
    <form action="/note/<%=@note.id%>/<%=@note.project_id%>" method="POST">
             <input type="hidden" id="hidden" name="_method" value="patch">

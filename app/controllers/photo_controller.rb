@@ -18,6 +18,8 @@ class PhotoController < ApplicationController
             @project.save
             @person = Account.find(@project.account_id)
 
+            @notes = @project.project_notes
+
             erb :"projects/project"
 
         end

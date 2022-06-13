@@ -37,8 +37,10 @@ class ApplicationController < Sinatra::Base
             @color_array =  ["#624d60", " #624d60", " #878db5", " #b335a6", " #25a5da", " #9f600c", " #7a8d21", " #688fae", " #44dd7d", " #9c33f6", " #89038b", " #c85ce1", " #136888", " #52ebeb", " #29d441", " #98bed7", " #246c06", " #0e8996", " #e37d26", "#e37d26", " #587900", " #44d76b", " #3095b2", " #b58e54", " #4c144a", " #c5ac66", "#c5ac66", " #3ea511", " #C5AC66", " #64ae22", " #c4b645", " #b60762", " #0121e5", " #6e352c", " #5c4d98", " #6c7dea", " #aebd16", " #c941c9", " #872b3b"]
             @default_account = Account.find_by_id(40)
             @default_id = @default_account.id
+            @person = Account.find(40)
         end 
         
+    
         
         get "/" do
             
@@ -115,46 +117,57 @@ class ApplicationController < Sinatra::Base
             @book_results.uniq!
         end 
 
-        erb :"app/results"
+        erb :"app/search_results"
     end 
 
     get '/redirect_search/note/:search_word/:id' do 
         @note = Note.find(params[:id])
         @search_word = params[:search_word]
         @search_word.upcase!
+        @project = Project.find_by_id(@note.project_id)
 
-        if @note.project_id == nil 
+
+            # if @note.addendum_id != nil 
+
+            # end 
+
             if @note.book_id != nil 
                 @book = Book.find_by_id(@note.book_id)
-                @note.project_id = @book.project_id
-                @note.save
-                @project = Project.find_by_id(@note.project_id)
-
-                erb :"books/book"
-            else 
-                @addendum = Addendum.find_by_id(@note.addendum_id)
-                @upnote = Note.find_by_id(@addendum.note_id)
-                @project = Project.find_by_id(@upnote.id)
-                @note.project_id = @project.id 
-                @note.save
+                # @note.project_id = @book.project_id
+                # @note.save
+                # @project = Project.find_by_id(@note.project_id)
+                # @notes = [@note]
             end 
-        else  
-            @project = Project.find_by_id(@note.project_id)
-        end 
 
+            # if @note.addendum_id != nil
+            #     @addendum = Addendum.find_by_id(@note.addendum_id)
+            #     @upnote = Note.find_by_id(@addendum.note_id)
+            #     @project = Project.find_by_id(@upnote.id)
+            #     @note.project_id = @project.id 
+            #     @note.save
+            # end 
+    
 
-        erb :"projects/project_search_result"
+        @notes = [@note]
+
+        erb :"app/display"
         
 
     end 
 
-      get '/redirect_search/addendum/:search_word/:id' do 
-            @note = Note.find(params[:id])
+      get '/redirect_search/addendum/:search_word/:note_id' do 
+            @note = Note.find(params[:note_id])
+            if @note.book_id != nil 
+                @book = Book.find(@note.book_id)
+            end 
+
             @search_word = params[:search_word]
             @search_word.upcase!
             @project = Project.find(@note.project_id)
 
-        erb :"projects/project_search_result"
+            @notes = [@note]
+
+        erb :"app/display"
         
 
     end 
