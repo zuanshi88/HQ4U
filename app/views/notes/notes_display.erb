@@ -80,14 +80,15 @@ background: <%= rand_color %>;
                         </form> 
                  </span>
         </div>
-            <div id="create-note-weblink-<%=note.id%>" style="display:none; margin-left: 30px; color: white;">
                     <% @focus = note %>
+            <div id="create-note-weblink-<%=note.id%>" style="display:none; margin-left: 30px; color: white;">
                     <%= erb :"weblinks/create_weblink" %>
             </div>
-            <div id="add-add-<%=note.id%>" style="display: none;"></div>
+            <div id="add-add-<%=@focus.id%>" style="display: none;">
                     <%= erb :"notes/notes_add_addendum_form" %> 
             </div>
 
+        <div id="show-addendum-<%=note.id%>" style="display:none;">
                 <div> 
                     <% unless note.weblinks[0] == nil%>
                         <span>
@@ -107,7 +108,6 @@ background: <%= rand_color %>;
 
 
                     <% unless note.addendums[0] == nil %>
-        <div id="show-addendum-<%=note.id%>" style="display:none;">
                         <ul style="padding: 10px;">
                     <% note.addendums.sort_by{|add| add.last_touched}.reverse.each do |addendum|%>
                             <li class="addendum-display" style="background: <%=rand_color%>; border: 2px solid <%=rand_color%>">
