@@ -17,8 +17,8 @@ background: <%= rand_color %>;
 
 .link-button {
     background: <%= rand_color %>;
-    margin-left: 100px;
 }
+
 
 .edit-button {
     background: <%= rand_color %>;
@@ -55,14 +55,14 @@ background: <%= rand_color %>;
     <% @notes.each do |note|%>
     <% @note = note %>
     <li style="background: <%=rand_color%>; border: 2px solid <%=rand_color %>;">
-        <div>
+        <div style="padding: 20px;">
                 <span class="link-button" onclick="call('create-note-weblink-<%=note.id%>')">link</span>
                 <span class="doc-button"><a href="/open_file/<%=note.id%>">doc</a></span>
-                <span class="edit-button"><a href="/edit/note/<%=note.id%>">edit</a></span>
+                <span class="edit-button"><a href="/edit/note/<%=@note.id%>">edit</a></span>
                 <span class="<%= note.has_addendums ? 'on-click' : '' %>" onclick="call('show-addendum-<%=note.id%>')">
                 <span onclick="call('add-add-<%=note.id%>')" class="add-button">add</span>
                     <span class="addendum-display">
-                        <span class="note-comment">
+                        <span class="note-comment" style="margin-left: 160px;">
                             <%= note.comment %> 
                         </span>
                     </span>
@@ -73,24 +73,22 @@ background: <%= rand_color %>;
                  </span>
         </div>
             <div id="create-note-weblink-<%=note.id%>" style="display:none; margin-left: 30px; color: white;">
-                    <%= erb :"weblinks/create_weblink" %>
+                    <%= erb :"weblinks/create_note_weblink" %>
             </div>
             <div id="add-add-<%=note.id%>" style="display: none;">
                     <%= erb :"notes/notes_add_addendum_form" %> 
             </div>
 
-        <div id="show-addendum-<%=note.id%>" style="display:none;">
+        <div id="show-addendum-<%=note.id%>" style="display:<%= @open ? '' : 'none' %>;">
                 <div> 
                     <% unless note.weblinks[0] == nil%>
                         <span>
                             <ul>
                             <% note.weblinks.each do |link| %>
+                            <% @link = link %>
                                 <li class="web-link-display"><span class="web-link-decoration"><a href="<%=link.url %>"><%=link.title%></a></span>
-                                        <form action="/people/<%=note.project_id%>/weblinks/delete/<%=link.id%>" method="post" style="display:inline">
-                                            <input id="hidden" type="hidden" name="_method" value="delete">
-                                            <input type="submit" value="delete" class="del-button" onclick="clicked(event)">
-                                        </form>
-                                    </li>
+                                      <%= erb :"weblinks/delete_note_link" %>
+                                </li>
                                 <% end %>
                             </ul>    
                         </span>
@@ -100,70 +98,70 @@ background: <%= rand_color %>;
 
                     <% unless note.addendums[0] == nil %>
                         <ul style="padding: 10px;">
-                    <% note.addendums.sort_by{|add| add.last_touched}.reverse.each do |addendum|%>
-                            <li class="addendum-display" style="background: <%=rand_color%>; border: 2px solid <%=rand_color%>">
-                              <% unless addendum.weblinks[0] == nil%>
-                                <span>
-                                    <ul>
-                                      <% addendum.weblinks.each do |link| %>
-                                            <li class="web-link-display">
-                                                <span class="web-link-decoration"><span class="web-link-decoration"><a href="<%=link.url %>"><%=link.title%></a> | 
-                                                    <form action="/people/<%=note.project_id%>/weblinks/delete/<%=link.id%>" method="post" style="display:inline">
-                                                        <input id="hidden" type="hidden" name="_method" value="delete">
-                                                        <input type="submit" value="delete" style="width: 25px; height: 15px; font-size: 30%; text-align: center; padding: 0px;" onclick="clicked(event)">
-                                                    </form>
-                                                </span>
-                                            </li>
-                                        <% end %>
-                                    </ul>    
+                            <% note.addendums.sort_by{|add| add.updated_at }.reverse.each do |addendum|%>
+                            <% @addendum = addendum %>
+                            <li style="background: <%=rand_color%>; border: 2px solid <%=rand_color%>">
+                              
+                            <div style="padding: 20px;">
+                                <span onclick="call('options-buttons-<%=addendum.id%>')">
+                                        <span style="font-size: 200%; color: <%= rand_color %>"><b>*</b></span> 
                                 </span>
-                              <% end %>
-                            
-                              <span><span onclick="call('options-buttons-<%=addendum.id%>')"><%=addendum.last_touched.strftime('%m/%d/%y')%> <b style="font-size: 110%;">=></b>  </span></span><span onclick="call('display-add-notes-<%=addendum.id%>')" class="<%= addendum.notes[0] ? 'on-click' : '' %>"><%=addendum.addition %></span> | <span style="font-size: 75%"><%=addendum.created_at.strftime('%m/%d/%y') %></span>
-                              <span id="options-buttons-<%=addendum.id%>" style="display: none; margins: 0px; float: left;">
-                                     <div id="create-addendum-weblink-<%=addendum.id%>" style="display:none">
-                                        <form action="/project/<%=note.project_id%>/addendum/<%=addendum.id%>/weblink/create" method="POST">
-                                            <input type="hidden" id="hidden">
-                                            <label for="title">title</label>
-                                            <input type="text" name="title">
-                                            <label for="url">url</label>
-                                            <input type="text" name="url">
-                                            <label for="description">description</label>
-                                            <input type="text" name="description">
-                                            <input type="submit" value="link">
-                                        </form>
+                                 <span onclick="call('display-add-notes-<%=addendum.id%>')" class="<%= addendum.notes[0] ? 'on-click' : '' %>">
+                                    <%=addendum.addition %>
+                                 </span>
+                             
+                                 <span style="font-size: 75%; float: right; margin-right: 10px;">
+                                    <%=addendum.last_touched.strftime('%m/%d/%y')%> | 
+                                    <%=addendum.notes.size%> |
+                                    <%=addendum.updated_at.strftime('%m/%d/%y') %>
+                                 </span>
+                                  <span id="options-buttons-<%=addendum.id%>" style="display: none;">    
+                                    <span class="link-button" onclick="call('create-addendum-weblink-<%=addendum.id%>')">link</span>
+                                    <span class="edit-button"><a href="/addendum/edit/<%=addendum.id%>">edit</a></span>
+                                    <span class="add-button" onclick="call('create-add-add-note-<%=addendum.id%>')">add</span>
+                                   </span>   
+                                    
+                                    <div id="create-addendum-weblink-<%=addendum.id%>"  style="display: none;">
+                                       <%= erb :"weblinks/create_addendum_link" %>
                                     </div>
                                     <div id="create-add-add-note-<%=addendum.id%>" style="display: none;">
-                                        <form action="/note/addendum/<%=note.project_id%>/<%=addendum.id%>/<%=@type%>" method="POST">
-                                            <input id="hidden" type="hidden" name="_method" value="post">
-                                            <textarea rows="3" cols="50" name="comment"></textarea>
-                                            <input type="submit" value="submit">
-                                        </form>
+                                       <%= erb :"notes/create_addendum_note" %>
                                     </div>
-                                <span class="add-button" onclick="call('create-add-add-note-<%=addendum.id%>')">add</span>
-                                <span class="link-button" onclick="call('create-addendum-weblink-<%=addendum.id%>')"> link </span>
-                                    <form action="/addendum/<%=@type%>/<%=note.id%>/<%=addendum.id%>" method="post">
-                                        <input id="hidden" type="hidden" name="_method" value="delete">
-                                        <input type="submit" value="del" onclick="clicked(event)">
-                                    </form> 
+                                    <div>
+                                            <% unless addendum.weblinks[0] == nil%>
+                                                <span>
+                                                    <ul>
+                                                    <% addendum.weblinks.each do |link| %>
+                                                    <%@link = link %>
+                                                            <li class="web-link-display">
+                                                                <span class="web-link-decoration"><span class="web-link-decoration"><a href="<%=link.url %>"><%=link.title%></a> | 
+                                                                <%= erb :"weblinks/delete_addendum_link" %>
+                                                                </span>
+                                                            </li>
+                                                        <% end %>
+                                                    </ul>    
+                                                </span>
+                                            <% end %>
+                                            </div> 
 
-                                    <div id="display-add-notes-<%=addendum.id%>" style="display:none;">
 
 
-                                        <%# we can in theory add addendums to these notes... but should we... 
-                                        also could do links here... %>
+
+
+                                    <div id="display-add-notes-<%=addendum.id%>" style="display: <%= @add_open ? '' : 'none' %>;">
+
                                         <% unless addendum.notes[0] == nil %>
                                             <ul>
                                                 <%addendum.notes.reverse.each do |note|%>
-                                                    <li style="background: <%=rand_color%>; margin-top: 5px; padding: 20px; border: 2px solid <%=rand_color %>"><%= note.addendums[0] ? note.addendums[-1].updated_at.strftime('%m/%d/%y') : note.updated_at.strftime('%m/%d/%y') %> => <%=note.comment%>
-                                                    <span>
-                                                        <form action="/note/<%=@type%>/addendum/note/<%=addendum.id%>/<%=note.id%>" method="post">
-                                                            <input id="hidden" type="hidden" name="_method" value="delete">
-                                                            <input type="submit" value="del" onclick="clicked(event)">
-                                                        </form> 
-                                                    </span>
-                                                    
-                                                    
+                                                <% @add_note = note %>
+                                                    <li style="background: <%=rand_color%>; margin-top: 5px; padding: 20px; border: 2px solid <%= rand_color %>">
+                                                        <span style="font-size: 75%; font-weight: bold; margin-right: 5px;">
+                                                            <%= note.addendums[0] ? note.addendums[-1].updated_at.strftime('%m/%d/%y') : note.updated_at.strftime('%m/%d/%y') %> 
+                                                        </span>
+                                                    <%=note.comment%>
+                                                        <a href="/edit/note/addendum/note/<%=note.id%>"><span class="edit-button" style="float: right; margin-right: 10px;">
+                                                                edit
+                                                        </span></a>
                                                     </li>
                                                 <% end %>
                                             </ul>

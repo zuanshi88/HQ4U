@@ -10,16 +10,17 @@
 
 <% end %>
 <div style="background: <%=rand_color%>;">
-<h1 style="color: ivory; padding-top: 10px; padding-bottom: 0px;">Edit <%=@note.comment%> below:</h1>
+<h1 style="color: ivory; padding-top: 10px; padding-bottom: 0px;">Edit Note below:</h1>
 
-        <form action="/note/delete/<%=@note.project_id%>/<%=@note.id%>" method="post" style="display:inline">
+        <form action="/note/delete/<%=@note.project_id%>/<%=@note.id%>" method="POST" style="display:inline">
                 <input id="hidden" type="hidden" name="_method" value="delete">
                 <input type="submit" value="delete" onclick="clicked(event)" style="float: right;">
         </form> 
-        <form action="/note/update/<%=@note.project_id%>/<%=@note.id%>" method="POST">
+        <form action="/note/addendum/note/update/<%=@note.project_id%>/<%=@note.id%>" method="POST">
                 <input type="submit" value="submit">
                 <input type="hidden" id="hidden" name="_method" value="patch">
 </div>
-                <input type="textarea" rows="3" cols="100" class="form-control" name="comment" value="<%= @note.comment %>">
+            <textarea rows="3" cols="100" class="form-control" name="comment"><%= @note.comment %></textarea>
+
         </form>
 

@@ -29,22 +29,53 @@ class ApplicationController < Sinatra::Base
             set :database_file, 'config/database.yml'
             set :views, "app/views"
             set :public_folder, "public"
+            
+           
+
         end
 
         include ApplicationHelper
         
+        #  enable :sessions 
+
+            
+
         before do 
             @color_array =  ["#624d60", " #624d60", " #878db5", " #b335a6", " #25a5da", " #9f600c", " #7a8d21", " #688fae", " #44dd7d", " #9c33f6", " #89038b", " #c85ce1", " #136888", " #52ebeb", " #29d441", " #98bed7", " #246c06", " #0e8996", " #e37d26", "#e37d26", " #587900", " #44d76b", " #3095b2", " #b58e54", " #4c144a", " #c5ac66", "#c5ac66", " #3ea511", " #C5AC66", " #64ae22", " #c4b645", " #b60762", " #0121e5", " #6e352c", " #5c4d98", " #6c7dea", " #aebd16", " #c941c9", " #872b3b"]
+            
+            # exploring different ways to approach this
             @default_account = Account.find_by_id(40)
             @default_id = @default_account.id
             @person = Account.find(40)
+            session[:user] = Account.find(40)
+            session[:secret_message] = "Zhe shi mimi, ni zhidao, ma?"
+            session[:quote] = "Try, try again, fail again, fail better."
         end 
         
     
         
         get "/" do
-            
+            @user = session[:user]
             erb :home
+        end
+
+# below are some somewhat random notes from sinatra docs
+
+        get '/stream' do
+                stream do |out|
+                    out << "It's gonna be legen -\n"
+                    "#{out}"
+                    sleep 2
+                    out << " (wait for it) \n"
+                    "#{out}"
+                    sleep 2
+                    out << "- dary!\n"
+                    "#{out}"
+                end
+                array = []
+                array << session[:secret_message]
+                array << session[:quote]
+                array.each{|s| s }
         end
 
         get "/about" do
@@ -155,17 +186,24 @@ class ApplicationController < Sinatra::Base
 
     end 
 
-      get '/redirect_search/addendum/:search_word/:note_id' do 
-            @note = Note.find(params[:note_id])
+      get '/redirect_search/addendum/:search_word/:addendum_id' do 
+
+        #could add an updated at method here to make addendum float to top of search
+            @addendum = Addendum.find(params[:addendum_id])
+            @note = Note.find(@addendum.note_id)
+            @project = Project.find(@note.project_id)
+            @addendum.updated_at = Time.now
+            @addendum.save
+
             if @note.book_id != nil 
                 @book = Book.find(@note.book_id)
             end 
 
             @search_word = params[:search_word]
             @search_word.upcase!
-            @project = Project.find(@note.project_id)
 
             @notes = [@note]
+            @open = true
 
         erb :"app/display"
         

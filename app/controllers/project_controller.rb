@@ -23,10 +23,12 @@ class ProjectController < ApplicationController
     end 
 
 get "/projects/:id" do 
-    @person = Account.find_by_id(params[:id].to_i)
-    @projects = @person.projects
+    
+    @projects = Project.all
 
-    @notes = @project.project_notes
+    @projects = @projects.sort_by{|p| p.updated_at }
+
+    # @notes = @project.project_notes
 
     erb :"projects/projects"  
 end 

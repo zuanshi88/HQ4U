@@ -296,8 +296,10 @@ margin: auto;
 
 .addendum-display {
   font-size: 120%;
-  font-weight: bold;
-  font-family: Courier;
+  font-family: Consolas;
+  margin-top: 5px;
+  margin-left: 20px;
+  padding: 20px;
 }
 
 .add-button, .link-button, .doc-button, .edit-button {
@@ -339,11 +341,6 @@ margin: auto;
   padding: 2px;
 }
 
-.addendum-display {
-  margin-top: 5px;
-  margin-left: 20px;
-  padding: 20px;
-}
 
 /* h3 in the person view */
 

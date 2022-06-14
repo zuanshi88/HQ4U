@@ -64,7 +64,7 @@
                 <div style=margin-left: 20px;>
                     <ol class="list-group list-group-numbered" style="border: black solid 2px;">
                         <% @addendum_results.reverse.each do |result| %>
-                            <li class="list-group-item" style="background: <%=rand_color%>"><a href="/redirect_search/addendum/<%=@search_word %>/<%=result.note_id%>"><b><%=result.addition%></b> -- <%=result.created_at.strftime('%m/%d/%y')%></a>
+                            <li class="list-group-item" style="background: <%=rand_color%>"><a href="/redirect_search/addendum/<%=@search_word %>/<%=result.id%>"><b><%=result.addition%></b> -- <%=result.created_at.strftime('%m/%d/%y')%></a>
                                 <% comment do%>
                                 <% end %>
                                 <ul>

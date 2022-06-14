@@ -1,7 +1,23 @@
-<%= erb :"projects/project_nav"%>
+<% if @book%>
 
-   <form action="/note/<%=@note.id%>/<%=@note.project_id%>" method="POST">
-            <input type="hidden" id="hidden" name="_method" value="patch">
-            <input type="textarea" rows="3" cols="100" class="form-control" name="comment" value="<%= @note.comment %>">
-            <input type="submit" value="submit">
-    </form>
+        <%= erb :"books/book_nav"%>
+
+<% else %>
+
+        <%= erb :"projects/project_nav"%>
+
+<% end %>
+<div style="background: <%=rand_color%>;">
+<h1 style="color: ivory; padding-top: 10px; padding-bottom: 0px;">Edit Addendum below:</h1>
+
+        <form action="/addendum/<%=@addendum.id%>" method="post">
+                <input id="hidden" type="hidden" name="_method" value="delete">
+                <input type="submit" value="delete" onclick="clicked(event)" style="float: right;">
+        </form> 
+
+        <form action="/addendum/update/<%=@addendum.id%>" method="POST">
+                <input type="submit" value="submit">
+                <input type="hidden" id="hidden" name="_method" value="patch">
+</div>               
+                <textarea rows="3" cols="100" class="form-control" name="addition"><%= @addendum.addition %></textarea>
+        </form>
