@@ -50,7 +50,7 @@ get "/project/:account_id/:project_id" do
 
     @notes = @project.project_notes
 
-    erb :"projects/project"
+    erb :"app/display"
 end 
 
 end

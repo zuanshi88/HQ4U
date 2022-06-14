@@ -1,9 +1,10 @@
 <% if @book.quotes[0]%>
-<h3 style="margin-left: 20px;">Notes and quotes <a href="/edit_notes_and_quotes/<%=@book.project_id%>/<%=@book.id%>"><span style="font-size: 75%">edit</span></a></h3>
-
+<div style="background: <%=rand_color%> ">
+<h5>Quotes</h5>
     <ul>
         <% @book.quotes.each do |quote|%>
         <li><%=quote.text%> --<%=quote.author%></li>
         <% end %>
     <ul>
 <% end %>
+</div>
