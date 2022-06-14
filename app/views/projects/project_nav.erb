@@ -1,7 +1,7 @@
 
                 <%# leaving this 40 hard coded until I do my big routes clean up. %>
-        <h1 class="mb-1" style="background: <%= rand_color %>; padding: 3px; border: solid <%= rand_color %> 3px;">
-            <a href="/project/40/<%=@project.id %>"><%=@project.title%></a>
+        <h1 class="mb-1 deck-title" style="background: <%= rand_color %>; padding: 3px; border: solid <%= rand_color %> 3px;">
+            <a href="/project/40/<%=@project.id %>"><b><%=@project.title%></a></b> 
         </h1>
 
        <%if @search_word %>

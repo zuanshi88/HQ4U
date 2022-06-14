@@ -30,8 +30,10 @@ background: <%= rand_color %>;
     border: 2px solid <%=rand_color %>;
 }
 
-.smaller-text {
-    style="font-size: 75%"
+.smaller-text-right {
+    font-size: 90%;
+    float: right; 
+    margin-right: 20px; 
 }
 
 .note-comment {
@@ -40,11 +42,6 @@ background: <%= rand_color %>;
     margin-right: 10px;
 }
 
-.delete-right {
-    float: right; 
-    margin-right: 20px; 
-    font-size: 75%;
-}
 
 .add-addendum {
     margin-left: 32px;
@@ -56,6 +53,7 @@ background: <%= rand_color %>;
 
 <ul margin-left: 20px;>
     <% @notes.each do |note|%>
+    <% @note = note %>
     <li style="background: <%=rand_color%>; border: 2px solid <%=rand_color %>;">
         <div>
                 <span class="link-button" onclick="call('create-note-weblink-<%=note.id%>')">link</span>
@@ -69,22 +67,15 @@ background: <%= rand_color %>;
                         </span>
                     </span>
                 </span> 
-                <span class="smaller-text">
-                    <b><%= note.last_touched.strftime('%m/%d/%y')%>  |  <%=note.addendums.size%></b>
-                </span>
-                 <span class="delete-right">
-                       <%= "created: #{note.created_at.strftime('%m/%d/%y')}"%>
-                        <form action="/note/<%=note.project_id%>/<%=note.id%>" method="post" style="display:inline">
-                            <input id="hidden" type="hidden" name="_method" value="delete">
-                            <input type="submit" value="delete" onclick="clicked(event)">
-                        </form> 
+                 <span class="smaller-text-right">
+                    <b><%= note.last_touched.strftime('%m/%d/%y')%></b>   |    <b><%=note.addendums.size%></b>   |   
+                       <%= note.created_at.strftime('%m/%d/%y')%>
                  </span>
         </div>
-                    <% @focus = note %>
             <div id="create-note-weblink-<%=note.id%>" style="display:none; margin-left: 30px; color: white;">
                     <%= erb :"weblinks/create_weblink" %>
             </div>
-            <div id="add-add-<%=@focus.id%>" style="display: none;">
+            <div id="add-add-<%=note.id%>" style="display: none;">
                     <%= erb :"notes/notes_add_addendum_form" %> 
             </div>
 

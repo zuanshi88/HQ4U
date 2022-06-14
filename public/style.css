@@ -503,6 +503,10 @@ input[type=submit] {
     1px 1px 0 #000;
 }
 
+.deck-title a {
+  color: ivory;
+}
+
 .horz-options {
   text-align: center;
   color: darkblue;
