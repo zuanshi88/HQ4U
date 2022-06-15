@@ -50,9 +50,15 @@ class NoteController < ApplicationController
 
         if @parent_note && @parent_note.book_id != nil 
             @book = Book.find(parent_note.book_id)
+            @book.touch
             @note.book_id = @book.id
             @note.save
         end 
+
+        @project.touch 
+        @addendum.touch 
+        @parent_note.touch
+
 
         erb :"app/display" 
 end 
@@ -91,12 +97,15 @@ end
 
          if @note.book_id != nil
             @book = Book.find_by_id(@note.book_id)
+            @book.touch
          end 
 
          if @note.addendum_id != nil 
             @open = true
             @add_open = true
          end 
+
+        #  @project.touch 
 
         @notes = [@note]
     

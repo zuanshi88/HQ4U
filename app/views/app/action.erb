@@ -12,12 +12,11 @@
 
     </style>        
             <div>
-                    <%add_sorted_projects = @projects.sort_by{|project| project.notes.sort_by{|note| note.last_touched}[-1].last_touched}%> 
-                    <%add_sorted_projects.reverse.each do |project|%>
+                    <%@projects.sort_by{|p| p.updated_at }.reverse.each do |project|%>
                         <a class="undecorated-link" href="/project/<%=@default_id%>/<%=project.id%>">
                             <div class="project-boxes" style="background-color: <%=rand_color%>;">
                                     <h5 class="project-title"><%=project.title%></h5>
-                                    <span class="date-display"><b><%=project.last_touched.strftime('%m/%d/%y')%></b></span>
+                                    <span class="date-display"><b><%=project.updated_at.strftime('%m/%d/%y')%></b></span>
                             </div>
                         </a>
                     <% end %>

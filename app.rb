@@ -546,6 +546,8 @@ get '/action' do
     @projects = @account.projects
     @notes = Note.all.filter{|note| note.project_id } 
     
+    @projects = @projects.sort_by{ |project| project.updated_at }
+
 
     erb :action
 
