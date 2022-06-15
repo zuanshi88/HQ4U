@@ -1,10 +1,12 @@
 
 require 'did_you_mean'
 
-
-class Dictionary < ActiveRecord::Base
-    has_many :entries, dependent: :destroy
-
+    
+    
+    class Dictionary < ActiveRecord::Base
+        has_many :entries, dependent: :destroy
+        
+       
 
      def distance(word1, word2)
       DidYouMean::Levenshtein.distance(word1, word2)

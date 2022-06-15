@@ -1,11 +1,14 @@
-class Book < ActiveRecord::Base
-    belongs_to :project
-    has_many :photos
-    has_many :notes, dependent: :destroy 
-    has_many :quotes, dependent: :destroy 
-    has_many :weblinks
-
-
+    
+    
+    class Book < ActiveRecord::Base
+        belongs_to :project
+        has_many :photos
+        has_many :notes, dependent: :destroy 
+        has_many :quotes, dependent: :destroy 
+        has_many :weblinks
+        
+        
+       
 
      def self.index_content 
 

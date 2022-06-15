@@ -4,21 +4,24 @@ class NoteController < ApplicationController
     
     #create PROJECT note
     
-    post "/note/project/:project_id/:type" do 
+    post "/note/:project_id/:type" do 
        
-        @project = Project.find_by_id(params[:project_id])
+        @project = Project.find(params[:project_id])
         @note = Note.create(comment: params[:comment], project_id: params[:project_id])
         
-        if params[:type] != nil 
-            @book = param[:type]
+        if params[:type] != "project" 
+            @book = Book.find(params[:type])
             @book.notes << @note
             @notes = @book.notes 
+                @book.touch
         else
             @project.notes << @note 
             @notes = @project.project_notes
         end 
 
-        erb :"projects/project"
+        @project.touch
+
+        erb :"app/display"
         
     end 
     
@@ -30,7 +33,7 @@ class NoteController < ApplicationController
         @book.save
         @person = Account.find_by_id(@project.account_id)
     
-        erb :"books/book"
+        erb :"app/display"
     end 
 
     post '/note/addendum/note/:project_id/:addendum_id' do 

@@ -1,7 +1,8 @@
 
 
 class Project < ActiveRecord::Base
-
+    
+   
 
     belongs_to :account
     has_many :notes, dependent: :destroy
@@ -12,6 +13,8 @@ class Project < ActiveRecord::Base
    
 
     #this is coupled here via the call of the last_touched method.
+
+ 
 
     def last_touched 
         if notes[0] != nil

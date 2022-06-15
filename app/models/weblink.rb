@@ -1,9 +1,12 @@
-class Weblink < ActiveRecord::Base 
-    belongs_to :project
-    belongs_to :book
-    belongs_to :note 
-    belongs_to :addendum 
-
+    
+    
+    class Weblink < ActiveRecord::Base 
+        belongs_to :project
+        belongs_to :book
+        belongs_to :note 
+        belongs_to :addendum 
+        
+       
 
      def self.index_content
             #   t.integer "project_id"

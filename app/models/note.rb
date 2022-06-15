@@ -1,11 +1,14 @@
-class Note < ActiveRecord::Base
-    belongs_to :project, dependent: :destroy
-    belongs_to :quote, dependent: :destroy
-    belongs_to :book, dependent: :destroy
-    has_many :addendums
-    has_many :examples
-    has_many :weblinks
-
+    
+    
+    class Note < ActiveRecord::Base
+        belongs_to :project, dependent: :destroy
+        belongs_to :quote, dependent: :destroy
+        belongs_to :book, dependent: :destroy
+        has_many :addendums
+        has_many :examples
+        has_many :weblinks
+        
+       
 
 
         # coupling alert. calling last_touched of addendum from within note!!!
@@ -71,6 +74,7 @@ class Note < ActiveRecord::Base
                             content_hash[note.comment.downcase] = [] if content_hash[note.comment.downcase].nil? 
                             content_hash[note.comment.downcase].push(note)
                     end 
+                    
 
                     note.comment.split(/[\s,'-]/).each do |word|
                             content_hash[word.downcase] = [] if content_hash[word.downcase].nil? 

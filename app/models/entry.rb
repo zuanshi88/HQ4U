@@ -1,10 +1,12 @@
-
-class Entry < ActiveRecord::Base 
-    belongs_to  :dictionary
-    has_many :examples, dependent: :destroy
-    has_many :quotes
-
-
+    
+    
+    class Entry < ActiveRecord::Base 
+        belongs_to  :dictionary
+        has_many :examples, dependent: :destroy
+        has_many :quotes
+        
+        
+       
 
       def self.index_content
             # information = ["name", "last_name", "first_name"]
