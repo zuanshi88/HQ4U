@@ -66,12 +66,18 @@ class Note < ActiveRecord::Base
             # information = ["name", "last_name", "first_name"]
             content_hash = {}
             self.all.each do |note|
-                unless note.comment == nil 
+                unless note.comment == nil || note.comment == ""
+                    unless note.comment.size > 20 
+                            content_hash[note.comment.downcase] = [] if content_hash[note.comment.downcase].nil? 
+                            content_hash[note.comment.downcase].push(note)
+                    end 
+
                     note.comment.split(/[\s,'-]/).each do |word|
                             content_hash[word.downcase] = [] if content_hash[word.downcase].nil? 
                             content_hash[word.downcase].push(note)
                     end 
                 end 
+
 
                     # note.comment.downcase.split(" ").each do |word|
                     #     index[word] ? index[word] << note : index[word] = []

@@ -55,4 +55,21 @@ get "/project/:account_id/:project_id" do
     erb :"app/display"
 end 
 
+get "/projects/edit/:project_id" do 
+    @project = Project.find(params[:project_id])
+
+    erb :"projects/edit_project"
+end 
+
+
+patch "/projects/update/:project_id" do 
+     @project = Project.find(params[:project_id])
+     @project.title = params[:title]
+     @project.save
+     @notes = @project.project_notes
+     erb :"app/display"
+end 
+
+
+
 end
