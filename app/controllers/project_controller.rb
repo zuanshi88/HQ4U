@@ -14,9 +14,9 @@ class ProjectController < ApplicationController
 
 # cut from line 226 in application controller
 
-    delete '/projects/:project_id' do 
+    delete '/projects/delete/:project_id' do 
         @project = Project.find_by_id(params[:project_id])
-        @person = Account.find_by_id(@project.account_id)
+        @person = Account.find_by_id(@person.id)
         @project.destroy
 
         erb :"people/person" 

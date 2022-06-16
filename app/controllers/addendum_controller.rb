@@ -6,6 +6,7 @@ class AddendumController < ApplicationController
         @note = Note.find(params[:note_id])
         @project = Project.find(@note.project_id)
         @note.addendums << @addendum 
+        @project.touch
 
         @notes = [@note]
         @open = true

@@ -182,6 +182,7 @@ end
         @note = Note.find_by_id(params[:note_id])
         @note.open_file
         @project = Project.find_by_id(@note.project_id)
+        @project.touch
         @notes = @project.project_notes
         erb:"projects/project"
     end 

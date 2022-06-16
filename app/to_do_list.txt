@@ -5,6 +5,10 @@
 -- controller testing -- testing routes
 
 
+06/16/2022
+
+-- add edit view for entries
+
 06/10/2022
 
 -- editing notes and addendum

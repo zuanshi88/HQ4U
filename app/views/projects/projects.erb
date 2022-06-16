@@ -2,18 +2,17 @@
 
 
 <div>
-    <%# <%@projects = @projects.sort_by{|project| project.notes.sort_by{|note| note.last_touched}[-1].last_touched} %>
-    <% @projects.reverse.each do |project|%>
-    <div>
-        <h4 style="width: 325px; height: 60px; float: left; margin-right: 5px; border: solid black 2px;"><span style="margin-left: 5px;"><a href="/project/<%=project.account_id%>/<%=project.id%>"><%=project.title%></a></span> 
-        <%# <span style="font-size: 50%"><%=project.last_touched.strftime('%m/%d/%y') %> 
-        <%# <%=project.notes[-1].created_at.strftime('%m/%d')%>  %> %>
-                <form action="/projects/<%=project.id%>" method="post" style="display:inline">
-                    <input id="hidden" type="hidden" name="_method" value="delete">
-                    <input type="submit" value="delete" style="text-align: right; margin-left: 20px;" onclick="clicked(event)">
-                </form>
-            </span> 
-        </h4>
+    <% @projects.sort_by(&:updated_at).each do |project|%>
+    <div style="width: 300px; height: 60px; float: left; margin-right: 5px; border: solid black 2px;">
+        <h4>
+            <span style="margin-left: 5px;">
+                <a href="/project/<%=project.account_id%>/<%=project.id%>"><%=project.title%></a>
+           </span> 
+           <br>
+           <span style="font-size: 75%">
+                <%=project.updated_at %>
+           </span>
+         </h4>
     </div>
     <% end %>
 </div>
