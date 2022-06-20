@@ -97,6 +97,13 @@
         content_hash
     end
 
+    def search_keys(search_word, index)
+        hits = index.keys.select{ |key| /search_word/ =~ key }
+        result = []
+        hits.each{ |h| result << index[h]}
+        result
+    end 
+
     
     def open_file
       file_name = self.comment.gsub(" ", "")[0..6].downcase

@@ -121,6 +121,8 @@ class ApplicationController < Sinatra::Base
         book_hash = Book.index_content
 
         @search_word = params[:search_word].downcase
+
+        
         
         @note_results = note_hash[@search_word]
         @addendum_results = addendum_hash[@search_word]
