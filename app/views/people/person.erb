@@ -94,8 +94,8 @@
 
         <% if @person.projects[0]%>
             <ul>
-                <% @person.projects.sort_by{|project| project.last_touched}.reverse.slice(0,10).each do |project| %>
-                    <li><%=project.last_touched.strftime('%m/%d')%> -- <span style="font-size:120%"><a href="/project/<%=@person.id%>/<%=project.id%>"> <%= project.title %> </a></span>: <span class="description"><%= project.description %> </span></li>
+                <% @person.projects.sort_by{|project| project.updated_at}.reverse.slice(0,10).each do |project| %>
+                    <li><%=project.updated_at.strftime('%m/%d')%> -- <span style="font-size:120%"><a href="/project/<%=@person.id%>/<%=project.id%>"> <%= project.title %> </a></span>: <span class="description"><%= project.description %> </span></li>
                 <% end %>
             </ul>
         <% end %>
