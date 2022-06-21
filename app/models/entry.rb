@@ -1,11 +1,11 @@
-    
+ require './app/models/model_helper.rb'
     
     class Entry < ActiveRecord::Base 
         belongs_to  :dictionary
         has_many :examples, dependent: :destroy
         has_many :quotes
         
-        
+        extend ModelHelper
        
 
       def self.index_content

@@ -29,7 +29,7 @@
             <div class="accordion-body">
                 <div style=margin-left: 20px;>
                     <ol class="list-group list-group-numbered" style="border: black solid 2px;">
-                        <% @project_results.sort_by{|proj| proj.last_touched }.reverse.each do |result| %>
+                        <% @project_results.sort_by{|proj| proj.updated_at }.reverse.each do |result| %>
                             <li class="list-group-item" style="background: <%=rand_color%>"><a href= "/project/<%=@default_id%>/<%=result.id%>"><b><%=result.title%></b> -- <%=result.updated_at.strftime('%m/%d/%y')%> -- <%=result.created_at.strftime('%m/%d/%y')%></a>
                                 <ul>
                                     <li><%=result.description%></li>
@@ -63,8 +63,8 @@
                     <div class="accordion-body">
                         <div style=margin-left: 20px;>
                             <ol class="list-group list-group-numbered" style="border: black solid 2px;">
-                                <% @note_results.sort_by{|note| note.last_touched }.reverse.each do |result| %>
-                                    <li class="list-group-item" style="background: <%=rand_color%>"><a href="/redirect_search/note/<%= @search_word %>/<%=result.id%>"><b><%=result.comment%></b> -- <%=result.last_touched.strftime('%m/%d/%y')%> -- <%=result.created_at.strftime('%m/%d/%y')%></a>
+                                <% @note_results.sort_by{|note| note.updated_at }.reverse.each do |result| %>
+                                    <li class="list-group-item" style="background: <%=rand_color%>"><a href="/redirect_search/note/<%= @search_word %>/<%=result.id%>"><b><%=result.comment%></b> -- <%=result.updated_at.strftime('%m/%d/%y')%> -- <%=result.created_at.strftime('%m/%d/%y')%></a>
                                         <% comment do%>
                                         <% end %>
                                             <ul>

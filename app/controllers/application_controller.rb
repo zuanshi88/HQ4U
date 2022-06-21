@@ -116,40 +116,15 @@ class ApplicationController < Sinatra::Base
 
         
     get '/search' do 
-        note_hash = Note.index_content
-        addendum_hash = Addendum.index_content
-        entry_hash = Entry.index_content
-        weblink_hash = Weblink.index_content
-        project_hash = Project.index_content
-        book_hash = Book.index_content
-
+    
         @search_word = params[:search_word].downcase
 
-
-        @note_results = Note.search(@search_word)        
-        # @note_results = note_hash[@search_word]
-        @addendum_results = addendum_hash[@search_word]
-        @entry_results = entry_hash[@search_word]
-        @weblink_results = weblink_hash[@search_word]
-        @project_results = project_hash[@search_word]
-        @book_results = book_hash[@search_word]
- 
-        
-        unless @addendum_results.nil?
-            @addendum_results.uniq!
-        end 
-        unless @entry_results.nil?
-            @entry_results.uniq!
-        end 
-        unless @weblink_results.nil?    
-            @weblink_results.uniq!
-        end 
-        unless @project_results.nil?
-            @project_results.uniq!
-        end 
-        unless @book_results.nil?
-            @book_results.uniq!
-        end 
+        @note_results = Note.search(@search_word)     
+        @addendum_results = Addendum.search(@search_word)
+        @entry_results = Entry.search(@search_word)
+        @weblink_results = Weblink.search(@search_word)
+        @project_results = Project.search(@search_word)
+        @book_results = Book.search(@search_word)
 
         erb :"app/search_results"
     end 

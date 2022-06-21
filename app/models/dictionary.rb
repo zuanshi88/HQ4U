@@ -1,12 +1,14 @@
 
 require 'did_you_mean'
+require './app/models/model_helper.rb'
 
     
     
     class Dictionary < ActiveRecord::Base
         has_many :entries, dependent: :destroy
         
-       
+    
+    extend ModelHelper   
 
      def distance(word1, word2)
       DidYouMean::Levenshtein.distance(word1, word2)

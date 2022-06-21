@@ -1,11 +1,13 @@
 
+   require './app/models/model_helper.rb'
+   
+   class Addendum < ActiveRecord::Base
+    belongs_to :note
+    has_many :examples
+    has_many :weblinks, dependent: :destroy
+    has_many :notes, dependent: :destroy
     
-    class Addendum < ActiveRecord::Base
-        belongs_to :note
-        has_many :examples
-        has_many :weblinks, dependent: :destroy
-        has_many :notes, dependent: :destroy
-        
+    extend ModelHelper
 
         def last_touched 
         

@@ -20,10 +20,6 @@ RSpec.describe Project do
             expect(subject.description).to eq("Log book 3000")
         end 
 
-        it "has Directory module class methods" do 
-            expect(subject.boo).to eq("BOO!!!")
-        end 
-
 
         it "can return an index" do 
             subject.notes << Note.new(comment: "This is only a test.")

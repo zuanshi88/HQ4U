@@ -1,11 +1,12 @@
-    
-    
+require './app/models/model_helper.rb'
+
     class Weblink < ActiveRecord::Base 
         belongs_to :project
         belongs_to :book
         belongs_to :note 
         belongs_to :addendum 
         
+        extend ModelHelper
        
 
      def self.index_content

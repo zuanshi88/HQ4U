@@ -1,8 +1,10 @@
 
+require './app/models/model_helper.rb'
 
 class Project < ActiveRecord::Base
     
    
+    extend ModelHelper
 
     belongs_to :account
     has_many :notes, dependent: :destroy
@@ -14,24 +16,7 @@ class Project < ActiveRecord::Base
 
     #this is coupled here via the call of the last_touched method.
 
- 
 
-    def last_touched 
-        if notes[0] != nil
-            self.notes.sort_by{|note| note.last_touched}[-1].last_touched
-        end 
-    end 
-
-    def alternative_last_touch 
-        self.addendums.sort_by{|add| add.last_touched}[-1].last_touched
-    end 
-
-
-    #thids will likely come out of here.
-
-    def determine_close_matches(search, resource)
-        resource.filter{ |term| self.distance(search.downcase, term.downcase) < 3 || self.distance(search.downcase, entry.topic_tag.downcase) < 3 }
-    end 
 
     def self.index_content 
 
@@ -57,13 +42,9 @@ class Project < ActiveRecord::Base
         content_hash
     end 
 
-    def boo 
-        "BOO!!!"
-    end 
-
     def project_notes 
         project_notes = self.notes.filter{|note| note.addendum_id.nil? && note.book_id.nil? }
-        project_notes.sort_by{|note| note.last_touched}.reverse
+        project_notes.sort_by{|note| note.updated_at}.reverse
     end 
 
 end 

@@ -1,3 +1,5 @@
+require './app/models/model_helper.rb'
+
 class Account < ActiveRecord::Base
     has_many :activities, dependent: :destroy
     has_many :projects, dependent: :destroy
@@ -5,6 +7,7 @@ class Account < ActiveRecord::Base
     # could have many notes and addendum trhough things.
     #also has many books-- lets experiment with that...
 
+    extend ModelHelper
 
     def collected_photos 
          collected_photos = []

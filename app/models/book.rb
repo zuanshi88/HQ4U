@@ -1,5 +1,7 @@
     
-    
+   require './app/models/model_helper.rb'
+ 
+ 
     class Book < ActiveRecord::Base
         belongs_to :project
         has_many :photos
@@ -8,7 +10,7 @@
         has_many :weblinks
         
         
-       
+          extend ModelHelper
 
      def self.index_content 
 
