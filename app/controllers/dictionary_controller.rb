@@ -121,6 +121,8 @@ get '/dictionary/:id/:entry_id' do
     erb :"dictionaries/dictionary"
 end 
 
+# are the following two routes different???? Serve different purposes?
+
 get '/dictionary/tag/:id/:tag' do 
     @dictionary = Dictionary.find(params[:id])
     @results = @dictionary.entries.select{|entry| entry.topic_tag == params[:tag]}

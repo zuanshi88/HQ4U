@@ -579,4 +579,13 @@ input[type=submit] {
   margin-right: 50px;
 }
 
+.typewriter {
+  font-family: 'Courier New';
+  font-weight: bold;
+}
+
+.highlight {
+  background-color: yellow;
+}
+
 

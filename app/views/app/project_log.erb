@@ -5,14 +5,14 @@
     <% @message = "log redirect"%>
     <div id= project_id style="margin-top:20px;">
                 <ul>
-     <%@notes.select{ |note| note.project_id}.sort_by{|note| note.last_touched}.reverse.each_with_index do |note, index|%>
+     <%@notes.select{ |note| note.project_id}.sort_by{|note| note.updated_at}.reverse.each_with_index do |note, index|%>
                     <li style="float: left; margin-bottom: 10px; margin-left: 5px;">
                         <a href="/redirect_search/note/<%= @message %>/<%=note.id%>">
-                        <span class="info-emphasis" style="background-color: <%= @notes[index].last_touched.day == @notes[index - 1].last_touched.day ? @default_color : @default_color = rand_color%>";>
-                            <b><%= note.last_touched.strftime('%m/%d')%></b>
+                        <span class="info-emphasis" style="background-color: <%= @notes[index].updated_at.day == @notes[index - 1].updated_at.day ? @default_color : @default_color = rand_color%>";>
+                            <b><%= note.updated_at.strftime('%m/%d')%></b>
                         </span>
                         <span class="comment-display" style="padding: 3px; border: solid <%=@default_color%> 2px;">
-                            <%=note.comment%>
+                            <%=note.comment[0..15]%>
                         </span>
                         </a>
                     </li>

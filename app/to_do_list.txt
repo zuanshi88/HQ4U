@@ -5,9 +5,15 @@
 -- controller testing -- testing routes
 
 
-06/16/2022
 
--- add edit view for entries
+
+06/16/2022 -- 06/21/2022
+
+-- add edit view for entries and examples!!!
+-- update example editing 
+-- clean up display after search 
+-- make this more module to make editing and displaying entries
+-- think of how best to link flashtree with information.
 
 06/10/2022
 

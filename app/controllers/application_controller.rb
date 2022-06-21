@@ -134,6 +134,8 @@ class ApplicationController < Sinatra::Base
         @search_word = params[:search_word]
         @search_word.upcase!
         @project = Project.find_by_id(@note.project_id)
+        @note.touch 
+        @project.touch
 
 
             # if @note.addendum_id != nil 
@@ -142,6 +144,7 @@ class ApplicationController < Sinatra::Base
 
             if @note.book_id != nil 
                 @book = Book.find_by_id(@note.book_id)
+                @book.touch
                 # @note.project_id = @book.project_id
                 # @note.save
                 # @project = Project.find_by_id(@note.project_id)
@@ -172,6 +175,8 @@ class ApplicationController < Sinatra::Base
             @project = Project.find(@note.project_id)
             @addendum.updated_at = Time.now
             @addendum.save
+            @note.touch
+            @project.touch
 
             if @note.book_id != nil 
                 @book = Book.find(@note.book_id)
