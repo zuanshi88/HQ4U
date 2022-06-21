@@ -10,7 +10,7 @@ RSpec.describe 'App' do
     include Rack::Test::Methods
 
     def app 
-        Sinatra::Application
+        ApplicationController
     end 
 
     it "gets 200 response from /" do

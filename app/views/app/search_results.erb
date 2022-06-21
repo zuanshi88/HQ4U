@@ -30,7 +30,7 @@
                 <div style=margin-left: 20px;>
                     <ol class="list-group list-group-numbered" style="border: black solid 2px;">
                         <% @project_results.sort_by{|proj| proj.last_touched }.reverse.each do |result| %>
-                            <li class="list-group-item" style="background: <%=rand_color%>"><a href= "/project/<%=@person.id%>/<%=result.id%>"><b><%=result.title%></b> -- <%=result.updated_at.strftime('%m/%d/%y')%> -- <%=result.created_at.strftime('%m/%d/%y')%></a>
+                            <li class="list-group-item" style="background: <%=rand_color%>"><a href= "/project/<%=@default_id%>/<%=result.id%>"><b><%=result.title%></b> -- <%=result.updated_at.strftime('%m/%d/%y')%> -- <%=result.created_at.strftime('%m/%d/%y')%></a>
                                 <ul>
                                     <li><%=result.description%></li>
                                         <% comment do%>

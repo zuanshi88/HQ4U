@@ -1,0 +1,13 @@
+#!/bin/
+
+
+#spec runner -- take second argument to run only controllers/models
+
+
+echo "running cosntroller specs" 
+
+
+
+
+
+echo "successful run!!"

@@ -32,7 +32,7 @@
     <div class="activity-box"; style="background-color: <%=rand_color%>">
         <li><%= activity.created_at.strftime('%m/%d/%y') %> <span style="font-size: 75%; color: red;"><%= activity.created_at.strftime('%H:%M') %></span></li>
         <li><%= activity.title %> -- <%= activity.description %>
-            <form action="/activity/<%=@person.id%>/<%=activity.id %>" method="post" style="display:inline">
+            <form action="/activity/<%=@default_id%>/<%=activity.id %>" method="post" style="display:inline">
                             <input id="hidden" type="hidden" name="_method" value="delete">
                             <input type="submit" value="delete" style="float:right;" onclick="clicked(event)">
             </form> 

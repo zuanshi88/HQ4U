@@ -1,6 +1,6 @@
 <div id="home">
-    <h1>SinatraHQ   </h1>
-    <h2><%= "Welcome back, #{@user.name}" %></h2>
+    <h1>SinatraHQ</h1>
+    <h2><%= @user ? "Welcome back, #{@user.name}" : "Login!!!" %></h2>
     <h3><a href="/action">action</a></h3>
     <h3><a href="/decks">decks</a></h3>
     <h3><a href="/project_log">logs</a></h3>

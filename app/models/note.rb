@@ -1,4 +1,5 @@
-    
+    require 'did_you_mean'
+    require './app/models/model_helper.rb'
     
     class Note < ActiveRecord::Base
         belongs_to :project, dependent: :destroy
@@ -8,7 +9,7 @@
         has_many :examples
         has_many :weblinks
         
-       
+       extend ModelHelper
 
 
         # coupling alert. calling last_touched of addendum from within note!!!
@@ -50,10 +51,6 @@
     end 
 
 
-    def determine_close_matches(search, resource)
-        resource.filter{ |term| self.distance(search.downcase, term.downcase) < 3 || self.distance(search.downcase, entry.topic_tag.downcase) < 3 }
-    end 
-
     def self.note_index 
         @note_index||= Note.set_note_index 
     end 
@@ -70,13 +67,13 @@
             content_hash = {}
             self.all.each do |note|
                 unless note.comment == nil || note.comment == ""
-                    unless note.comment.size > 20 
+                    unless note.comment.size > 25
                             content_hash[note.comment.downcase] = [] if content_hash[note.comment.downcase].nil? 
                             content_hash[note.comment.downcase].push(note)
                     end 
                     
 
-                    note.comment.split(/[\s,'-]/).each do |word|
+                    note.comment.split(/[\s,'-\.!]/).each do |word|
                             content_hash[word.downcase] = [] if content_hash[word.downcase].nil? 
                             content_hash[word.downcase].push(note)
                     end 
@@ -97,12 +94,6 @@
         content_hash
     end
 
-    def search_keys(search_word, index)
-        hits = index.keys.select{ |key| /search_word/ =~ key }
-        result = []
-        hits.each{ |h| result << index[h]}
-        result
-    end 
 
     
     def open_file

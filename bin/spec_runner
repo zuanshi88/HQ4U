@@ -1,0 +1,30 @@
+#!/bin/
+
+
+echo "Commencing spec run" 
+
+if [[ $1 == "all" ]];
+then 
+
+#controllers 
+
+rspec ./spec/controller_spec/application_controller_spec.rb
+
+#models 
+
+rspec ./spec/account_spec.rb ./spec/note_spec.rb ./spec/project_spec.rb ./spec/dictionary_spec.rb ./spec/app_spec.rb 
+ 
+TYPE='COMPLETE'
+
+else 
+
+rspec ./spec/account_spec.rb ./spec/note_spec.rb ./spec/project_spec.rb ./spec/dictionary_spec.rb ./spec/app_spec.rb 
+
+
+TYPE='MODEL'
+
+fi
+
+echo "$TYPE spec run complete!!"
+
+echo "$* args passed"

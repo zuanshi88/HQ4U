@@ -45,9 +45,12 @@ class ApplicationController < Sinatra::Base
             
             # exploring different ways to approach this
             @default_account = Account.find_by_id(40)
-            @default_id = @default_account.id
-            @person = Account.find(40)
-            session[:user] = Account.find(40)
+            #hard coded this response for testing purposes.
+            # need to clean up the default user implmentation...
+            @default_id = @default_account ? @default_account.id : 40
+            # find where this has been left in -- could search
+            # @person = Account.find(40)
+            session[:user] = @default_account || nil 
             session[:secret_message] = "Zhe shi mimi, ni zhidao, ma?"
             session[:quote] = "Try, try again, fail again, fail better."
         end 
@@ -55,7 +58,7 @@ class ApplicationController < Sinatra::Base
     
         
         get "/" do
-            @user = session[:user]
+            @user = session[:user] || nil 
             erb :home
         end
 
@@ -122,18 +125,16 @@ class ApplicationController < Sinatra::Base
 
         @search_word = params[:search_word].downcase
 
-        
-        
-        @note_results = note_hash[@search_word]
+
+        @note_results = Note.search(@search_word)        
+        # @note_results = note_hash[@search_word]
         @addendum_results = addendum_hash[@search_word]
         @entry_results = entry_hash[@search_word]
         @weblink_results = weblink_hash[@search_word]
         @project_results = project_hash[@search_word]
         @book_results = book_hash[@search_word]
-
-        unless @note_results.nil?
-            @note_results.uniq!
-        end 
+ 
+        
         unless @addendum_results.nil?
             @addendum_results.uniq!
         end 

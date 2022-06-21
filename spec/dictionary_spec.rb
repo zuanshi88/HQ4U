@@ -1,22 +1,24 @@
-require_relative "../app.rb"
-require './model/account.rb'
-require './model/entry.rb'
+require 'spec_helper'
+require './app/controllers/application_controller.rb'
+require './app/models/dictionary.rb'
+require './app/models/account.rb'
+require './app/models/entry.rb'
 require 'rack/test'
 
 
-RSpec.describe "Dictionary Model" do 
+RSpec.describe "Dictionary" do 
     
-    let(:dictionary) { Dictionary.new }
+    subject { Dictionary.create({:title => "General"}) }
     let(:entry) { Entry.new(term: "A Term", topic_tag: "computers")}
     let(:other_entry) { Entry.new(term: "Another Term", topic_tag: "the arts")}
     let(:real_dictionary) {Dictionary.all[1]}
 
     it 'has the correct class' do 
-        expect(dictionary.class).to eq(Dictionary)
+        expect(subject.class).to eq(Dictionary)
     end 
 
     it 'returns an empty array of entries' do 
-        expect(dictionary.entries).to eq([])
+        expect(subject.entries).to eq([])
     end 
     
     
@@ -26,12 +28,12 @@ RSpec.describe "Dictionary Model" do
     end 
 
     it 'responds to Levenshtein disance method' do 
-        expect(dictionary.distance('bob', 'boob')).to eq(1)
+        expect(subject.distance('bob', 'boob')).to eq(1)
     end 
 
-context "constains and accesses entries" do 
+context "contains and accesses entries" do 
 
-    dictionary = Dictionary.new 
+    dictionary = Dictionary.create(title:"New Book") 
 
     dictionary.entries <<  Entry.new(term: "A Term", topic_tag: "computers")
     dictionary.entries << Entry.new(term: "Another Term", topic_tag: "the arts")
@@ -52,15 +54,15 @@ end
     context "works with a real dictionary" do 
 
         it 'works on a real dictionary' do 
-            expect(real_dictionary.title).to eq("Ruby")
+            expect(subject.title).to eq("General")
         end 
 
         it 'had a lot of entries' do 
-            expect(real_dictionary.entries.length).to be > 100
+            expect(subject.entries.length).to be < 100
         end
 
         it 'can return the correct entry' do 
-            expect(real_dictionary.determine_close_entry_matches("vadilate").size).to be > 50
+            expect(subject.determine_close_entry_matches("vadilate").size).to be  < 5
         end 
 
     end 
