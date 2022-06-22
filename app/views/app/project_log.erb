@@ -12,7 +12,7 @@
                             <b><%= note.updated_at.strftime('%m/%d')%></b>
                         </span>
                         <span class="comment-display" style="padding: 3px; border: solid <%=@default_color%> 2px;">
-                            <%=note.comment[0..15]%>
+                            <%= @titles[note.project_id] %>
                         </span>
                         </a>
                     </li>

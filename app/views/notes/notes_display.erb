@@ -104,10 +104,10 @@ background: <%= rand_color %>;
                               
                             <div style="padding: 20px;">
                                 <span onclick="call('options-buttons-<%=addendum.id%>')">
-                                        <span style="font-size: 200%; color: <%= rand_color %>"><b>*</b></span> 
+                                        <span style="font-size: 75%;background: <%= rand_color %>; color: <%= rand_color %>; border: solid black 1px;"><b>O</b></span> 
                                 </span>
                                  <span onclick="call('display-add-notes-<%=addendum.id%>')" class="<%= addendum.notes[0] ? 'on-click' : '' %>">
-                                    <%=addendum.addition %>
+                                    <b><%=addendum.addition %></b>
                                  </span>
                              
                                  <span style="font-size: 75%; float: right; margin-right: 10px;">

@@ -9,6 +9,9 @@
 
 
     <div class="deck-box">
+    <% if @message%>
+       <p><%=@message%></p>
+    <% end %>
             <a href="/decks/alt">
                 <h1 class="deck-title"><b>Decks</b></h1>
             </a>

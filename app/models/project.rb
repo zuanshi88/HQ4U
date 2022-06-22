@@ -47,4 +47,12 @@ class Project < ActiveRecord::Base
         project_notes.sort_by{|note| note.updated_at}.reverse
     end 
 
+    def self.title_hash 
+        titles = {}
+        Project.all.each do |proj|
+            titles[proj.id] = proj.title
+        end 
+        titles
+    end 
+
 end 

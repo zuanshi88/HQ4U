@@ -11,7 +11,7 @@
 
 -- add edit view for entries and examples!!!
 -- update example editing 
--- clean up display after search 
+-- clean up display after search -- add an index  
 -- make this more module to make editing and displaying entries
 -- think of how best to link flashtree with information.
 

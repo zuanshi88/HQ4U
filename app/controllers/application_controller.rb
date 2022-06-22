@@ -104,6 +104,13 @@ class ApplicationController < Sinatra::Base
 
         get "/project_log" do 
             @notes = Note.all 
+            # originally had this Project call in the view, 
+            # but that didn't feel right at all, so I created 
+            # a model method on Project
+            # and passed the view a hash, instead of making 
+            # a database query right from the view
+            @titles = Project.title_hash
+        
 
             erb :"app/project_log"
         end 

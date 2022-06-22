@@ -180,6 +180,9 @@ get '/search/dictionaries' do
     unless @results.nil?
         @results.uniq!
     end 
+    if @results.empty? 
+        @message = "Sorry no results for #{params[:search]}"
+    end 
 
     erb :"dictionaries/decks"
 
