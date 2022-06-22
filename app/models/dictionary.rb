@@ -22,6 +22,12 @@ require './app/models/model_helper.rb'
         self.entries.filter{ |entry| self.distance(search.downcase, entry.term.downcase) < 3 || self.distance(search.downcase, entry.topic_tag.downcase) < 3 }
     end 
 
+    def self.term_index 
+        term_hash = {}
+        Entry.all.each{|e| term_hash[e.term] = e }
+        term_hash
+    end 
+
     # def find_result(search_obj)
     #     self.entries.filter{|entry| !!(entry.term =~ /search_obj.term/i) || !!(entry.topic_tag =~ /search_obj.topic_tag/i) }
     # end 

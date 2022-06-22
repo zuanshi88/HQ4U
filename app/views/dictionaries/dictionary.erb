@@ -34,18 +34,16 @@
         <hr>
             <%= erb :"dictionaries/tag_box_display" %>    
     <% end %>   
+
+     <% if @results && @results.size > 1 %>
+        <%@results.sort_by!{|r| r.term }%>
+        <hr>
+            <%= erb :"dictionaries/result_index"%>
+     <% end %>
 </div>
 
 
 
-    <% if @tags%>
-    
-
-
-
-    <% end %>
-
-  <%# this now links the topic tag to the gopic tag drawer... %>
 
     <% if @results%>
         <%= erb :"dictionaries/entry_display"%>

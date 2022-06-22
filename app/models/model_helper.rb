@@ -3,12 +3,12 @@ require 'did_you_mean'
 module ModelHelper 
         
 
-    def search(search_word)
+    def search(search_word, dist = 3)
         results = []
         created_index = self.index_content
         s_word = search_word.downcase
 
-        hits = created_index.keys.filter{ |key| self.distance(s_word, key) < 3 }
+        hits = created_index.keys.filter{ |key| self.distance(s_word, key) < dist }
 
         created_index.keys.each do |key| 
             if key.include?(s_word) 

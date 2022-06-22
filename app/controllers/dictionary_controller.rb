@@ -186,13 +186,24 @@ end
 
 get '/search/dictionary/:id' do
     @dictionary = Dictionary.find(params[:id])
-    @results = @dictionary.determine_close_entry_matches(params[:search])
+    @search_word = params[:search].downcase
+    @results = Entry.search(@search_word, 1)
     if @results.empty? 
         @message = "Sorry no results for #{params[:search]}"
     end 
 
     erb :"dictionaries/dictionary"
         
+end 
+
+get '/search/dictionary/term/:id/:term' do 
+     @dictionary = Dictionary.find(params[:id])
+     @term_hash = Dictionary.term_index
+     @term = params[:term]
+     @results = [@term_hash[:term]]
+
+     erb :"dictionaries/dictionary"
+
 end 
 
 get '/search/tag/dictionary/:id/:tag' do 
@@ -208,7 +219,7 @@ end
 get '/search/dictionaries' do 
     entry_hash = Entry.index_content
     @search_word = params[:search].downcase
-    @results = entry_hash[@search_word]
+    @results = Entry.search(@search_word, 1)
 
     unless @results.nil?
         @results.uniq!
