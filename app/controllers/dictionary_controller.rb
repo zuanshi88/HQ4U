@@ -121,7 +121,7 @@ get '/dictionary/:id/:entry_id' do
     erb :"dictionaries/dictionary"
 end 
 
-# are the following two routes different???? Serve different purposes?
+# are the following two routes different???? Serve different
 
 get '/dictionary/tag/:id/:tag' do 
     @dictionary = Dictionary.find(params[:id])

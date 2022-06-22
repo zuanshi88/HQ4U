@@ -24,7 +24,9 @@
             <li><a onclick="call('search-box')">search</a></li>
         </ul> 
 </div>
-      <%= erb :"dictionaries/add_entry_form" %>
+     <div id='addEntry' class='addEntry' style="display:none;">
+         <%= erb :"dictionaries/add_entry_form" %>
+    </div>
       <%= erb :"dictionaries/search_form" %>
 
 
