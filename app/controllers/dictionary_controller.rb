@@ -156,6 +156,29 @@ delete '/dictionary/:id/delete/:entry_id' do
     @entry.destroy 
 
     erb :"dictionaries/dictionary" 
+end
+
+get '/dictionary/entry/edit/:id/:entry_id' do
+      @dictionary = Dictionary.find(params[:id])
+      @entry = Entry.find(params[:entry_id])
+
+      erb :"/dictionaries/edit_entry"
+end 
+
+patch '/dictionary/entry/update/:id/:entry_id' do 
+     @dictionary = Dictionary.find(params[:id])
+     @entry = Entry.find(params[:entry_id])
+     @entry.term = params[:term]
+     @entry.entry_info = params[:entry_info]
+     @entry.more_info = params[:more_info]
+     @entry.topic_tag = params[:topic_tag]
+     @entry.photo = params[:photo]
+     @entry.save 
+
+     @results = [@entry] 
+
+      erb :"dictionaries/dictionary"
+
 end 
 
 
@@ -170,6 +193,16 @@ get '/search/dictionary/:id' do
 
     erb :"dictionaries/dictionary"
         
+end 
+
+get '/search/tag/dictionary/:id/:tag' do 
+    @dictionary = Dictionary.find(params[:id])
+    @tag = params[:tag]
+    @results = Entry.all.select{|entry| entry.topic_tag == @tag}
+     if @results.empty? 
+        @message = "Sorry no results for #{params[:search]}"
+    end 
+       erb :"dictionaries/dictionary"
 end 
 
 get '/search/dictionaries' do 

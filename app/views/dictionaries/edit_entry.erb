@@ -1,0 +1,44 @@
+
+
+<style>
+
+.deck-box {
+    background-color: <%=rand_color%>;
+}
+
+</style>
+
+
+
+          <p><%=@message%></p>
+
+<div class="deck-box">
+        <a href="/dictionary/<%=@dictionary.id%>">
+            <h1 class="deck-title"><b><%=@dictionary.title%></b></h1>
+        </a>
+
+<div>
+        <ul class="horz-options">
+            <li><a onclick="call('addEntry')">add</a> |</li>
+            <li><a href="/dictionary/edit/<%=@dictionary.id%>">edit</a> |</li>
+            <li><a onclick="call('search-box')">search</a></li>
+        </ul> 
+</div>
+     <div id='addEntry' class='addEntry' style="display:none;">
+         <%= erb :"dictionaries/add_entry_form" %>
+    </div>
+      <%= erb :"dictionaries/search_form" %>
+
+
+    <% if @tags %>
+        <hr>
+            <%= erb :"dictionaries/tag_box_display" %>    
+    <% end %>   
+</div>
+
+
+  <%# this now links the topic tag to the gopic tag drawer... %>
+
+    <% if @entry%>
+        <%= erb :"dictionaries/edit_entry_form"%>
+    <% end %>

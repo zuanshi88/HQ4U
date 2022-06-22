@@ -2,24 +2,27 @@
  
 <div style="margin-left: 100px; margin-top: 50px; color: black;">
     <% @results.each do |result| %>
+    <% @entry = result%>
         <div style="background-color: #C86464; padding: 10px; margin-bottom: 5px;"> 
-            <h2 style="font-weight: bold; margin-left: 50px;">
-                <span style="background-color: <%=rand_color%>; padding: 10px; text-align: center; ">
+           <span> 
+            <h2 style="font-weight: bold; margin-left: 50px; margin-bottom: 20px;">
+                <span style="background-color: <%=rand_color%>; padding: 10px; text-align: center; margin-bottom: 10px; border: <%=rand_color%> solid 2px; ">
                     <%=result.term%> 
                 </span> 
-                <span style="color: silver; background-color: black;  font-size: 75%;">
-                    [<%=result.topic_tag%>]
-                </span>         
             </h2>  
-            <span>
-                <form action="/dictionary/<%=result.dictionary_id%>/delete/<%=result.id%>" method="post" style="margin: auto; margin-right: 50px; color: red; width: 10px; height: 5px; border-radius: 5;">
-                    <input id="hidden" type="hidden" name="_method" value="delete">
-                    <input type="submit" value="delete" onclick="clicked(event)">
-                </form> 
-             </span>                       
-            <span onclick="call('add-example');" style="color: silver; background-color: black; border: 2px solid silver; padding: 2px;  font-size: 75%; margin-left: 50px;margin-right: 10px;">
-                <b>+ add info +</b>
+            <span style="margin-left: 80px; margin-top: 10px;">                      
+                <a href="/dictionary/entry/edit/<%=result.dictionary_id%>/<%=result.id%>">
+                    <span class="edit-button" style="background: <%= rand_color %>;">
+                        edit
+                    </span>
+                </a>          
+            <span onclick="call('add-example');" class="add-button" style="background-color: <%=rand_color%>">
+                <b> add </b>
             </span>
+                <span style="margin-left: 5px; background: silver; font-size: 75%;">
+                    <% params[:search] = result.topic_tag%>
+                    <a href="/search/tag/dictionary/<%=result.dictionary_id%>/<%=result.topic_tag%>">[<%=result.topic_tag%>]</a>
+                </span>
                 <div id="add-example" style="display: none;">
                     <form action="/example/<%=result.id%>" method="POST">
                         <input type="hidden" id="hidden">
@@ -27,6 +30,7 @@
                         <input type="submit" value="info">
                     </form>
                 </div>  
+             </span>
                 <div style="margin-left: 50px;">
                     <ul>
                             <li class="entry-info"><%=result.entry_info%></li>

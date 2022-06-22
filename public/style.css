@@ -579,6 +579,23 @@ input[type=submit] {
   margin-right: 50px;
 }
 
+  .entry-form {
+       
+       
+  }
+
+  .form-box {
+    margin-top: 10px;
+  }
+
+  .form-label {
+    font-weight: bold;
+    font-size: 110%;
+    margin-left: 75px;
+    margin-right: 20px;
+    width: 50px;
+  }
+
 .typewriter {
   font-family: 'Courier New';
   font-weight: bold;
