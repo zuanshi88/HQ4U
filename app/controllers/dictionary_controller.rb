@@ -269,6 +269,20 @@ delete '/example/:entry_id/:example_id' do
 
 end 
 
+patch '/example/update/:id/:example_id' do 
+     @example = Example.find(params[:example_id])
+     @dictionary = Dictionary.find(params[:id])
+     @example.info = params[:info] 
+     @example.save 
+
+     @entry = Entry.find(@example.entry_id)
+
+     @results = [@entry]
+
+      erb :"dictionaries/dictionary"
+
+end 
+
 
 
 

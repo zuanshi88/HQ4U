@@ -3,7 +3,7 @@ require 'did_you_mean'
 module ModelHelper 
         
 
-    def search(search_word, dist = 3)
+    def search(search_word, dist = 2)
         results = []
         created_index = self.index_content
         s_word = search_word.downcase

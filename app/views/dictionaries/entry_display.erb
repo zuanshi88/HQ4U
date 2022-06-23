@@ -12,23 +12,18 @@
             </h2>  
             <span style="margin-left: 80px; margin-top: 10px;">                      
                 <a href="/dictionary/entry/edit/<%=result.dictionary_id%>/<%=result.id%>">
-                    <span class="edit-button" style="background: <%= rand_color %>;">
+                    <span class="edit-button" style="background: <%= @edit_color = rand_color %>;">
                         edit
                     </span>
                 </a>          
             <span onclick="call('add-example');" class="add-button" style="background-color: <%=rand_color%>">
                 <b> add </b>
             </span>
-                <span style="margin-left: 5px; background: silver; font-size: 75%;">
-
+                <span class="add-button" style="margin-left: 5px; background: silver; font-size: 75%;">
                     <a href="/search/tag/dictionary/<%=result.dictionary_id%>/<%=result.topic_tag%>">[<%=result.topic_tag%>]</a>
                 </span>
                 <div id="add-example" style="display: none;">
-                    <form action="/example/<%=result.id%>" method="POST">
-                        <input type="hidden" id="hidden">
-                        <input type="text" name="info">
-                        <input type="submit" value="info">
-                    </form>
+                    <%= erb :"dictionaries/create_example"%>
                 </div>  
              </span>
                 <div style="margin-left: 50px;">
@@ -38,13 +33,16 @@
                             <li class="entry-info"><%=result.more_info%></li>
                         <% end %>
                         <% if result.examples[0] %>
-                            <% result.examples.each do |example| %>
+                            <% result.examples.each_with_index do |example, index| %>
+                            <% @example = example %>
                                     <li class="entry-info">
                                         <%=example.info%>
-                                        <form action="/example/<%=result.id%>/<%=example.id%>" method="post" style="display:inline;">
-                                            <input id="hidden" type="hidden" name="_method" value="delete">
-                                            <input type="submit" value="del" style="width: 25px; height: 15px; font-size: 50%;">
-                                        </form> 
+                                    <span onclick="call('edit-example-<%=result.term%>-<%=index%>')" class="edit-button" style="background: <%= @edit_color %>; float:right;">
+                                        edit
+                                    </span>
+                                        <div id="edit-example-<%=result.term%>-<%=index%>" style="display: none;">
+                                            <%= erb :"dictionaries/edit_example_form"%>
+                                        </div>  
                                     </li>
                             <% end %>
                         <% end %>

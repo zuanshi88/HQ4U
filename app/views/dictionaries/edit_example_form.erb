@@ -1,0 +1,12 @@
+    <div>
+        <form action="/example/update/<%=@entry.dictionary_id%>/<%=@example.id%>" method="POST">
+            <input type="hidden" id="hidden" name="_method" value="patch">
+            <textarea type="text" name="info" rows="3" cols="80"><%=@example.info%></textarea>
+            <input type="submit" value="update">
+        </form>
+    
+        <form action="/example/<%=@entry.id%>/<%=@example.id%>" method="post" style="display:inline;">
+            <input id="hidden" type="hidden" name="_method" value="delete">
+            <input type="submit" value="del" onclick="clicked(event)" style="float: right;">
+        </form> 
+    </div>

@@ -5,6 +5,7 @@
         belongs_to :project, dependent: :destroy
         belongs_to :quote, dependent: :destroy
         belongs_to :book, dependent: :destroy
+        belongs_to :addendum, dependent: :destroy
         has_many :addendums
         has_many :examples
         has_many :weblinks
