@@ -3,8 +3,6 @@
 
 class WeblinkController < ApplicationController
     
-         
-    
 
     post "/weblink/create/:project_id/*/*" do
         @hash = {title: params[:title], url: params[:url], description: params[:description]} 

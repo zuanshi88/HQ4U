@@ -1,7 +1,7 @@
   <div class="tag-box" style="margin-bottom: 20px;>
         <ul style="display: inline;">
          <% @results.each_with_index do |result, index| %>
-            <li><a href="/dictionary/<%=@dictionary.id%>/<%=result.id%>"><%=result.term%></a>
+            <li><a href="/dictionary/<%=result.dictionary_id%>/<%=result.id%>"><%=result.term%></a>
              <% unless index == @results.length - 1 %>
                 <span class="divider">|</span>
             <% end %>

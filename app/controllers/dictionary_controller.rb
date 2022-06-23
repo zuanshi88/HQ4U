@@ -143,6 +143,9 @@ post '/dictionary/entry/:id' do
     @entry = Entry.create(term: params[:term], entry_info: params[:entry_info], more_info: params[:more_info], topic_tag: params[:topic_tag], photo: params[:photo])
     @dictionary = Dictionary.find(params[:id])
     @dictionary.entries << @entry 
+    @dictionary.touch
+
+    @results = [@entry]
    
     erb :"dictionaries/dictionary" 
 
@@ -174,6 +177,7 @@ patch '/dictionary/entry/update/:id/:entry_id' do
      @entry.topic_tag = params[:topic_tag]
      @entry.photo = params[:photo]
      @entry.save 
+     @dictionary.touch
 
      @results = [@entry] 
 
@@ -182,18 +186,40 @@ patch '/dictionary/entry/update/:id/:entry_id' do
 end 
 
 
-# this controller searchs from dictionary/deck search bar
+# this controller searchs from a specific dictionary/deck search bar
 
 get '/search/dictionary/:id' do
     @dictionary = Dictionary.find(params[:id])
     @search_word = params[:search].downcase
     @results = Entry.search(@search_word, 1)
-    if @results.empty? 
-        @message = "Sorry no results for #{params[:search]}"
+    if !@results 
+        @message = "Sorry no results for '#{params[:search]}'"
+    else  
+        @results.uniq!
     end 
 
     erb :"dictionaries/dictionary"
         
+end 
+
+#global search
+
+get '/search/dictionaries' do 
+    entry_hash = Entry.index_content
+    @search_word = params[:search].downcase
+    @results = Entry.search(@search_word, 2)
+
+       
+
+    if !@results
+        @message = "Sorry no results for #{params[:search]}"
+        @results = nil
+    else 
+        @results.uniq!
+    end 
+
+    erb :"dictionaries/decks"
+
 end 
 
 get '/search/dictionary/term/:id/:term' do 
@@ -216,21 +242,9 @@ get '/search/tag/dictionary/:id/:tag' do
        erb :"dictionaries/dictionary"
 end 
 
-get '/search/dictionaries' do 
-    entry_hash = Entry.index_content
-    @search_word = params[:search].downcase
-    @results = Entry.search(@search_word, 1)
 
-    unless @results.nil?
-        @results.uniq!
-    end 
-    if @results.empty? 
-        @message = "Sorry no results for #{params[:search]}"
-    end 
 
-    erb :"dictionaries/decks"
 
-end 
 
 #this controller links to an individual display of the entry from global search bar
 

@@ -7,23 +7,23 @@
                 </form> 
              </span> 
              <br>
-    <form action="/dictionary/entry/update/<%=@dictionary.id%>/<%=@entry.id%>" method= "POST">
-        <label class="form-label" for="term">term:</label>
-        <input class="entry-form" type="text" name="term" value="<%=@entry.term %>">
-        <br>
-        <label class="form-label" for="entry_info">info:</label>
-        <textarea class="entry-form" rows="3" cols="100" name="entry_info"><%=@entry.entry_info %></textarea>
-        <br>
-        <label class="form-label" for="more_info">info+:</label>
-        <textarea class="entry-form" rows="3" cols="100" name="more_info"><%=@entry.more_info %></textarea>
-        <br>
-        <label class="form-label" for="topic_tag">tag:</label>
-        <input class="entry-form" type="text" name="topic_tag" value="<%=@entry.topic_tag %>">
-        <br>
-        <label class="form-label" for="photo">photo:</label>
-        <input class="entry-form" type="file" name="photo" value="<%=@entry.photo %>">
-        <br>
-        <input type="hidden" id="hidden" name="_method" value="patch">
-        <input type="submit" value= "submit">
-    </form>
+        <form action="/dictionary/entry/update/<%=@dictionary.id%>/<%=@entry.id%>" method= "POST">
+            <label class="form-label" for="term">term:</label>
+            <input class="entry-form" type="text" name="term" value="<%=@entry.term %>">
+            <br>
+            <label class="form-label" for="entry_info">info:</label>
+            <textarea class="entry-form" rows="3" cols="100" name="entry_info"><%=@entry.entry_info %></textarea>
+            <br>
+            <label class="form-label" for="more_info">info+:</label>
+            <textarea class="entry-form" rows="3" cols="100" name="more_info"><%=@entry.more_info %></textarea>
+            <br>
+            <label class="form-label" for="topic_tag">tag:</label>
+            <input class="entry-form" type="text" name="topic_tag" value="<%=@entry.topic_tag %>">
+            <br>
+            <label class="form-label" for="photo">photo:</label>
+            <input class="entry-form" type="file" name="photo" value="<%=@entry.photo %>">
+            <br>
+            <input type="hidden" id="hidden" name="_method" value="patch">
+            <input type="submit" value= "submit">
+        </form>
     </div>

@@ -152,11 +152,7 @@ class ApplicationController < Sinatra::Base
             if @note.book_id != nil 
                 @book = Book.find_by_id(@note.book_id)
                 @book.touch
-                # @note.project_id = @book.project_id
-                # @note.save
-                # @project = Project.find_by_id(@note.project_id)
-                # @notes = [@note]
-            end 
+            end
 
             # if @note.addendum_id != nil
             #     @addendum = Addendum.find_by_id(@note.addendum_id)

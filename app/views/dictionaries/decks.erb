@@ -9,28 +9,34 @@
 
 
     <div class="deck-box">
-    <% if @message%>
-       <p><%=@message%></p>
-    <% end %>
-            <a href="/decks/alt">
-                <h1 class="deck-title"><b>Decks</b></h1>
-            </a>
+            <% if @message%>
+            <p><%=@message%></p>
+            <% end %>
+                    <a href="/decks/alt">
+                        <h1 class="deck-title"><b>Decks</b></h1>
+                    </a>
 
-    <div>
-            <ul class="horz-options">
-                <li><a onclick="call('createDictionary')">create</a> |</li>
-                <li><a onclick="call('search-box')">search</a></li> |
-                <li><a href="/decks">boxview</a></li>
-            </ul> 
-    </div>
-        <%= erb :"dictionaries/create_dictionary" %>
-        <%= erb :"dictionaries/search_form_full" %>
+            <div>
+                    <ul class="horz-options">
+                        <li><a onclick="call('createDictionary')">create</a> |</li>
+                        <li><a onclick="call('search-box')">search</a></li> |
+                        <li><a href="/decks">boxview</a></li>
+                    </ul> 
+            </div>
+                <%= erb :"dictionaries/create_dictionary" %>
+                <%= erb :"dictionaries/search_form_full" %>
 
 
-        <% if @dictionaries %>
-            <hr>
-                <%= erb :"dictionaries/topic_box_display" %>    
-        <% end %>   
+                <% if @dictionaries %>
+                    <hr>
+                        <%= erb :"dictionaries/topic_box_display" %>    
+                <% end %>   
+
+                  <% if @results && @results.size > 1 %>
+                    <%@results.sort_by!{|r| r.term }%>
+                    <hr>
+                    <%= erb :"dictionaries/result_index"%>
+                <% end %>
     </div>
 
 

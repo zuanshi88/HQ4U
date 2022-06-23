@@ -5,6 +5,18 @@
     background-color: <%=rand_color%>;
 }
 
+.deck-card {
+    margin-bottom: 25px; 
+    border: 2px solid white; 
+    border-radius: 10% / 50%; 
+    display: inline-block; 
+    line-height: 1; 
+    height: 100px; 
+    width: 200px; 
+    text-align: center; 
+    margin-left: 10px; 
+}
+
 </style>
 
 
@@ -27,11 +39,11 @@
 
 <div style="text-align: center;">
     <ul>
-        <% @dictionaries = @dictionaries.sort_by{|dictionary| dictionary.entries[0] ? dictionary.entries[-1].created_at : dictionary.created_at}.reverse.each do |dictionary| %>
+        <% @dictionaries.sort_by{|dictionary| dictionary.updated_at }.reverse.each do |dictionary| %>
            <% @dictionary = dictionary%>
-           <div class="card col-sm-3" style="margin-bottom: 25px; border: 2px solid white; border-radius: 10% / 50%; display: inline-block; line-height: 1; height: 100px; width: 200px; text-align: center; margin-left: 10px; float: left; background-color: <%=rand_color%>">
+           <div class="card col-sm-3 deck-card" style="background-color: <%=rand_color%>">
                 <div class="card-body">
-                    <span style="font-size: 120%; color: black; margin-bottom: 2px;"><b><a href="/dictionary/<%=dictionary.id%>"><%=dictionary.title%></b></a></span>
+                    <span class="mb-1"><a class="deck-title" style="color: ivory; font-size: 115%;" href="/dictionary/<%=dictionary.id%>"><%=dictionary.title%></a></span>
                     <br>
                     <br>
                     <span class= "on-click" onclick="call('add-<%=dictionary.title%>-entry')"><a href="#">add</a></span><span style="color:gold;"> | </span>
