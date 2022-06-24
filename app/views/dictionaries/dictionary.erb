@@ -32,13 +32,17 @@
 
     <% if @tags %>
         <hr>
-            <%= erb :"dictionaries/tag_box_display" %>    
+            <div style="background: <%=rand_color%>; width: 75%; margin: auto; border: <%rand_color%> solid 3px; margin-bottom: 5px;">
+                <%= erb :"dictionaries/tag_box_display" %>  
+            </div>  
     <% end %>   
 
      <% if @results && @results.size > 1 %>
         <%@results.sort_by!{|r| r.term }%>
         <hr>
+        <div style="background: <%=rand_color%>; width: 75%; margin: auto; border: <%rand_color%> solid 3px;">
             <%= erb :"dictionaries/result_index"%>
+        </div>
      <% end %>
 </div>
 

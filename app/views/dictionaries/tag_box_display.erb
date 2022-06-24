@@ -3,7 +3,7 @@
         <% @tags.each_with_index do |tag, index|%>
         <%# remove class="onclick" %>
         <%# removed span %>
-            <li><a href="/dictionary/tag/<%=@dictionary.id%>/<%=tag%>"><%=tag%></a>
+            <li><a href="/dictionary/tag/<%=@dictionary.id%>/<%=tag%>" style="color: ivory;"><%=tag%></a>
             <% unless index == @tags.length - 1 %>
             <span class="divider">|</span>
             <% end %>

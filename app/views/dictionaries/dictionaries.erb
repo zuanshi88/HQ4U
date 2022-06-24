@@ -36,8 +36,7 @@
       <%= erb :"dictionaries/search_form_full" %>
   
 
-
-<div style="text-align: center;">
+<div style="text-align: center; background: <%=rand_color%>; width: 85%; margin: auto; border: <%rand_color%> solid 3px; margin-bottom: 5px;">
     <ul>
         <% @dictionaries.sort_by{|dictionary| dictionary.updated_at }.reverse.each do |dictionary| %>
            <% @dictionary = dictionary%>

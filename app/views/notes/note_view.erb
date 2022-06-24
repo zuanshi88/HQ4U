@@ -15,9 +15,9 @@
 
 <% if @note.addendums[0]%>
 <div style="padding: 5px; background: <%= rand_color %>;">
-    <ol class="ml-3 mt-3 p-3" style="margin-left: 50px; padding: 3px; color: white;">
+    <ol class="ml-3 mt-3 p-3" style="margin-left: 2px; padding: 3px; background-color: white; black: white;">
         <% @note.addendums.each do |addendum|%>
-        <li class="mb-3"><span style="margin-left: 10px;">
+        <li class="mb-3" style="margin-left: 20px;"><span style="margin-left: 20px; background-color: white; padding: 2px;">
             <a href="/addendum/<%=addendum.id%>">
             <%= addendum.addition %></a>
               <% unless addendum.notes[0] == nil %>

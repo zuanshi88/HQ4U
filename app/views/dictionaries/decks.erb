@@ -29,7 +29,9 @@
 
                 <% if @dictionaries %>
                     <hr>
+                     <div style="background: <%=rand_color%>; width: 75%; margin: auto; border: <%rand_color%> solid 3px; margin-bottom: 5px;">
                         <%= erb :"dictionaries/topic_box_display" %>    
+                    </div>  
                 <% end %>   
 
                   <% if @results && @results.size > 1 %>
