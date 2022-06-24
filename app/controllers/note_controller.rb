@@ -4,6 +4,16 @@ class NoteController < ApplicationController
     
     #create PROJECT note
     
+    get "/note/:id" do 
+        @note = Note.find(params[:id])
+        @project = Project.find(@note.project_id)
+
+        @notes = [@note]
+
+        erb :"app/display"
+    end 
+    
+    
     post "/note/:project_id/:type" do 
        
         @project = Project.find(params[:project_id])
@@ -185,7 +195,15 @@ end
         @project.touch
         @note.touch
         @notes = @project.project_notes
-        erb:"projects/project"
+
+        erb :"projects/project"
+    end 
+
+    get "/note/view/:note_id" do 
+         @note = Note.find_by_id(params[:note_id])
+         @project = Project.find(@note.project_id)
+
+         erb :"notes/note_view"
     end 
 
 

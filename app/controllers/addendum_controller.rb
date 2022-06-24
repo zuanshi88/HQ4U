@@ -67,6 +67,22 @@ class AddendumController < ApplicationController
             erb :"app/display"
         end 
 
+        get "/addendum/:addendum_id" do 
+            @addendum = Addendum.find(params[:addendum_id])
+            @note = Note.find(@addendum.note_id)
+            @project = Project.find(@note.project_id)
+
+            if @note.book_id != nil
+                @book = Book.find(@note.book_id)
+            end 
+            @addendum.touch
+            @notes = [@note]
+            @open = true
+        
+            erb :"app/display"
+
+        end 
+
 
 
 

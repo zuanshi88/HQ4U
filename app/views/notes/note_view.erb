@@ -1,0 +1,52 @@
+
+<% if @book%>
+        <% @type = "book" %>
+        <%= erb :"books/book_nav"%>
+
+<% else %>
+        <% @type = "project" %>
+        <%= erb :"projects/project_nav"%>
+
+<% end %>
+
+<h2 style="color: white; background: <%= rand_color %>; padding: 5px; text-align: center;">
+   <a href="/note/<%=@note.id%>"><%= @note.comment %> NOTES </a>
+</h2>
+
+<% if @note.addendums[0]%>
+<div style="padding: 5px; background: <%= rand_color %>;">
+    <ol class="ml-3 mt-3 p-3" style="margin-left: 50px; padding: 3px; color: white;">
+        <% @note.addendums.each do |addendum|%>
+        <li class="mb-3"><span style="margin-left: 10px;">
+            <a href="/addendum/<%=addendum.id%>">
+            <%= addendum.addition %></a>
+              <% unless addendum.notes[0] == nil %>
+                <span style="margin-left: 10px;" onclick="call('display-add-notes-<%=addendum.id%>');">
+                & 
+                </span>
+            <% end %>
+
+            <div id="display-add-notes-<%=addendum.id%>" style="display: <%= @add_open ? '' : 'none' %>;">
+                    <% unless addendum.notes[0] == nil %>
+                        <ul>
+                            <%addendum.notes.reverse.each do |note|%>
+                            <% @add_note = note %>
+                                <li style="background: <%=rand_color%>; margin-top: 5px; padding: 20px; border: 2px solid <%= rand_color %>">
+                                     <span style="margin-left: 30px;"><%=note.comment%></span>
+                                     <a>
+                                        <span style="font-size: 75%; font-weight: bold; float: right; margin-right: 10px;">
+                                            <%= note.addendums[0] ? note.addendums[-1].updated_at.strftime('%m/%d/%y') : note.updated_at.strftime('%m/%d/%y') %> 
+                                        </span>
+                                    </a>
+                                </li>
+                            <% end %>
+                        </ul>
+                    <% end %>
+                </div>
+        
+        </li>
+        <hr>
+        <% end %>
+    </ol>
+    <% end %>
+</div>
