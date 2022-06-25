@@ -1,3 +1,12 @@
+<style>
+
+.ampersand {
+    color: <%= rand_color %>
+}
+
+</style>
+
+
 
 <% if @book%>
         <% @type = "book" %>
@@ -16,20 +25,20 @@
 <% if @note.addendums[0]%>
 <div style="padding: 5px; background: <%= rand_color %>;">
     <ol class="ml-3 mt-3 p-3" style="margin-left: 2px; padding: 3px; background-color: white; black: white;">
-        <% @note.addendums.each do |addendum|%>
+        <% @note.addendums.reverse.each do |addendum|%>
         <li class="mb-3" style="margin-left: 20px;"><span style="margin-left: 20px; background-color: white; padding: 2px;">
             <a href="/addendum/<%=addendum.id%>">
             <%= addendum.addition %></a>
               <% unless addendum.notes[0] == nil %>
-                <span style="margin-left: 10px;" onclick="call('display-add-notes-<%=addendum.id%>');">
-                & 
+                <span class="ampersand" style="font-size: 120%; margin-left: 10px;" onclick="call('display-add-notes-<%=addendum.id%>');">
+                <a><b>&</b></a>
                 </span>
             <% end %>
 
             <div id="display-add-notes-<%=addendum.id%>" style="display: <%= @add_open ? '' : 'none' %>;">
                     <% unless addendum.notes[0] == nil %>
                         <ul>
-                            <%addendum.notes.reverse.each do |note|%>
+                            <%addendum.notes.each do |note|%>
                             <% @add_note = note %>
                                 <li style="background: <%=rand_color%>; margin-top: 5px; padding: 20px; border: 2px solid <%= rand_color %>">
                                      <span style="margin-left: 30px;"><%=note.comment%></span>

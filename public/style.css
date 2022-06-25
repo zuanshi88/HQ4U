@@ -603,6 +603,11 @@ input[type=submit] {
 
 .highlight {
   background-color: yellow;
+  padding: 2px; 
+}
+
+.lyric {
+  margin-left: 300px;
 }
 
 

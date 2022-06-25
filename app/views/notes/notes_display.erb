@@ -108,6 +108,11 @@ background: <%= rand_color %>;
                                     <span onclick="call('options-buttons-<%=addendum.id%>')" style="font-size: 120%; background: <%= rand_color %>; margin-left: 35px; color: white; border: solid silver 2px;">
                                     <a><b>^</b>  </a>
                                     </span> 
+                                  <span id="options-buttons-<%=addendum.id%>" style="display: none; margin-left: 10px; margin-top: 5px;">    
+                                    <span class="link-button" onclick="call('create-addendum-weblink-<%=addendum.id%>')">link</span>
+                                    <span class="edit-button"><a href="/addendum/edit/<%=addendum.id%>">edit</a></span>
+                                    <span class="add-button" onclick="call('create-add-add-note-<%=addendum.id%>')">add</span>
+                                   </span>   
                               
                                  <span onclick="call('display-add-notes-<%=addendum.id%>')" style="font-size: 120%; margin-left: 40px;" class="<%= addendum.notes[0] ? 'on-click' : '' %>">
                                     <b><%=addendum.addition %></b>
@@ -118,11 +123,6 @@ background: <%= rand_color %>;
                                     <%=addendum.notes.size%> |
                                     <%=addendum.updated_at.strftime('%m/%d/%y') %>
                                  </span>
-                                  <span id="options-buttons-<%=addendum.id%>" style="display: none; margin-left: 95px; margin-top: 5px;">    
-                                    <span class="link-button" onclick="call('create-addendum-weblink-<%=addendum.id%>')">link</span>
-                                    <span class="edit-button"><a href="/addendum/edit/<%=addendum.id%>">edit</a></span>
-                                    <span class="add-button" onclick="call('create-add-add-note-<%=addendum.id%>')">add</span>
-                                   </span>   
                                     
                                     <div id="create-addendum-weblink-<%=addendum.id%>"  style="display: none;">
                                        <%= erb :"weblinks/create_addendum_link" %>
