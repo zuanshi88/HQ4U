@@ -95,21 +95,22 @@ class ApplicationController < Sinatra::Base
             @account = Account.find(40)
             @activities = Activity.all
             @projects = @account.projects
-            @notes = Note.all.filter{|note| note.project_id } 
-            
-        
+            @notes = Note.all.filter{|note| note.project_id }
+
             erb :"app/action"
         
         end
 
         get "/project_log" do 
-            @notes = Note.all 
+            @notes = Note.all.select{|n| n.addendum_id.nil?  }.sort_by{|note| note.updated_at}.reverse 
+        
+            
             # originally had this Project call in the view, 
             # but that didn't feel right at all, so I created 
             # a model method on Project
             # and passed the view a hash, instead of making 
             # a database query right from the view
-            @titles = Project.title_hash
+            # @titles = Project.title_hash
         
 
             erb :"app/project_log"
