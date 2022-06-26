@@ -1,8 +1,9 @@
      
      <h1><span style="font-size: 50%;"><a href="/annuals">Annuals</a>   |   </span>Project Log<span style="font-size: 50%;">   |   <a href="/activity_log">Activity Log</a></span></h1>
-
+<h3>HEY!!</h3>
     <% @default_color = 'red' %>
-    <% @message = "log redirect"%>
+    <%= @message %>
+    <%= @notes.size%>
     <div id= project_id style="margin-top:20px;">
                 <ul>
      <%@notes.select{ |note| note.project_id}.sort_by{|note| note.updated_at}.reverse.each_with_index do |note, index|%>
@@ -12,7 +13,10 @@
                             <b><%= note.updated_at.strftime('%m/%d')%></b>
                         </span>
                         <span class="comment-display" style="padding: 3px; border: solid <%=@default_color%> 2px;">
-                            <%= @titles[note.project_id] %>
+                            <% comment do %>
+                                <%= @titles[note.project_id] %>
+                            <% end %>
+                                <%= note.comment[0..25]%>
                         </span>
                         </a>
                     </li>

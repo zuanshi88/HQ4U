@@ -44,8 +44,8 @@ end
 
 
 get "/project_log" do 
-    @notes = Note.all 
-
+    @notes = Note.all.select{|n| n.addendum_id == nil }
+    @message = "Now we are in!"
     erb :project_log
 end 
 

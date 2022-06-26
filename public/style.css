@@ -610,4 +610,10 @@ input[type=submit] {
   margin-left: 300px;
 }
 
+.note-list {
+  margin-left: 300px;
+  background: white;
+  padding: 5px;
+}
+
 
