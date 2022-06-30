@@ -12,7 +12,8 @@
 <body style="background: pink;">
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
-    <a class="navbar-brand" href="/">SinatraHQ</a>
+   <h2></h2>
+    <a class="navbar-brand" href="/"><%= @user ? "#{@user.user_title}" : "Login!!!" %>HQ</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>

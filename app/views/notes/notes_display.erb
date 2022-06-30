@@ -55,7 +55,7 @@ background: <%= rand_color %>;
     <% @notes.each do |note|%>
     <% @note = note %>
     <li style="background: <%=rand_color%>; border: 2px solid <%=rand_color %>;">
-        <div style="padding: 20px;">
+        <div style="padding: 20px; margin-left: 20px;">
                 <span class="link-button" onclick="call('create-note-weblink-<%=note.id%>')">link</span>
                 <span class="doc-button"><a href="/open_file/<%=note.id%>">doc</a></span>
                 <span class="edit-button"><a href="/edit/note/<%=@note.id%>">edit</a></span>
@@ -63,14 +63,17 @@ background: <%= rand_color %>;
                 <span onclick="call('add-add-<%=note.id%>')" class="add-button">add</span>
                 <span class="link-button"><a href="/note/view/<%=note.id%>">view</a></span>
                     <span class="addendum-display">
-                        <span class="note-comment" style="margin-left: 160px;">
-                            <%= note.comment %> 
+                        <span class="note-comment" style="margin-left: 100px;">
+                            <%= note.comment[0..20] %> 
                         </span>
                     </span>
                 </span> 
                  <span class="smaller-text-right">
                     <b><%= note.updated_at.strftime('%m/%d/%y')%></b>   |    <b><%=note.addendums.size%></b>   |   
                        <%= note.created_at.strftime('%m/%d/%y')%>
+                 <span style="background: <%= rand_color %>; border: solid black 2px; text-align: center; padding: 1px; margin-right: 5px;">
+                 <a href="/redirect_search/note/<%="nong'd" %>/<%=note.id%>"><b>弄</b></a>
+                 </span>
                  </span>
         </div>
             <div id="create-note-weblink-<%=note.id%>" style="display:none; margin-left: 30px; color: white;">

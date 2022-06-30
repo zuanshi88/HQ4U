@@ -36,5 +36,9 @@ class Account < ActiveRecord::Base
         content_hash
     end 
 
+    def user_title 
+        self.name.split(' ')[1]
+    end 
+
 
 end 
