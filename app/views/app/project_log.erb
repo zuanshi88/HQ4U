@@ -10,7 +10,7 @@
                         <span class="info-emphasis" style="background-color: <%= @notes[index].updated_at.day == @notes[index - 1].updated_at.day ? @default_color : @default_color = rand_color%>";>
                             <b><%= note.updated_at.strftime('%m/%d')%></b>
                         </span>
-                        <span class="comment-display" style="padding: 3px; border: solid <%=@default_color%> 2px;">
+                        <span class="comment-display" style="padding: 3px; border: solid <%=@default_color%> 2px; background: <%= note.pending? ? 'red' : 'white' %>">
                             <% comment do %>
                                 <%= @titles[note.project_id] %>
                             <% end %>

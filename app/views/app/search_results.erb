@@ -1,3 +1,10 @@
+<style>
+.button-color{
+    background: <%= rand_color%>;
+}
+</style>
+
+
 
 
 <h1 style="text-align: center; border: solid black 2px; padding: 3px; margin-bottom: 3px; background: <%=rand_color%>"> <%=@search_word.upcase%></h1>
@@ -64,7 +71,7 @@
                         <div style=margin-left: 20px;>
                             <ol class="list-group list-group-numbered" style="border: black solid 2px;">
                                 <% @note_results.sort_by{|note| note.updated_at }.reverse.each do |result| %>
-                                    <li class="list-group-item" style="background: <%=rand_color%>"><a href="/redirect_search/note/<%= @search_word %>/<%=result.id%>"><b><%=result.comment%></b> -- <%=result.updated_at.strftime('%m/%d/%y')%> -- <%=result.created_at.strftime('%m/%d/%y')%></a>
+                                    <li class="list-group-item" style="background: <%=rand_color%>"><a href="/redirect_search/note/<%= @search_word %>/<%=result.id%>"><b><%=result.comment%></b> -- <%=result.updated_at.strftime('%m/%d/%y')%> -- <%=result.created_at.strftime('%m/%d/%y')%></a> <a href="/open_file/<%=result.id%>"><span class="doc-button button-color">doc</span></a>
                                         <% comment do%>
                                             <ul>
                                                 <li><%=result.class%> with <%= result.project_id == nil ? "add_id : #{result.addendum_id}" : "project_id: #{result.project_id}" %> and id: <%=result.id %></li>

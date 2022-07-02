@@ -83,6 +83,31 @@ class AddendumController < ApplicationController
 
         end 
 
+        get "/addendum/pending/:addendum_id" do 
+            @addendum = Addendum.find(params[:addendum_id])
+
+            if @addendum.pending? 
+                @addendum.update({pending?: false})
+            else 
+                @addendum.update({pending?: true})
+            end 
+
+            @addendum.save
+
+            @note = Note.find(@addendum.note_id)
+            @project = Project.find(@note.project_id)
+
+            if @note.book_id != nil
+                @book = Book.find(@note.book_id)
+            end 
+            @addendum.touch
+            @notes = [@note]
+            @open = true
+        
+            erb :"app/display"
+
+        end 
+
 
 
 

@@ -18,6 +18,23 @@
         self.addendums.size >= 1 ? true : false
     end
 
+    def has_pending_keyword 
+         self.addendums.each do |add|
+                if add.pending?
+                    return true
+                end 
+            end 
+        false
+    end 
+
+    def pending? 
+        if self.has_addendums && self.has_pending_keyword
+           true
+        else
+            false 
+        end 
+    end 
+
 
 
      def self.index_content
