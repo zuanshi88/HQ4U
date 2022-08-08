@@ -125,7 +125,7 @@ background: <%= rand_color %>;
                                  <span style="font-size: 75%; float: right; margin-right: 10px;">
                                     <%=addendum.updated_at.strftime('%m/%d/%y')%> | 
                                     <%=addendum.notes.size%> |
-                                    <%=addendum.updated_at.strftime('%m/%d/%y') %>
+                                    <%=addendum.created_at.strftime('%m/%d/%y') %>
                                  </span>
                                     
                                     <div id="create-addendum-weblink-<%=addendum.id%>"  style="display: none;">
