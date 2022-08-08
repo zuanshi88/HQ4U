@@ -2,3 +2,4 @@
 *.txt
 *.docx
 doc_files/
+public/images/*.jpg
