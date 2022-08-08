@@ -3,4 +3,4 @@
 *.txt
 *.docx
 doc_files/
-public/images
+public/images/*.jpg
