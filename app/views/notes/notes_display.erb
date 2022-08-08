@@ -121,7 +121,7 @@ background: <%= rand_color %>;
                                  <span onclick="call('display-add-notes-<%=addendum.id%>')" style="font-size: 120%; margin-left: 40px;" class="<%= addendum.notes[0] ? 'on-click' : '' %>">
                                     <b><%=addendum.addition %></b>
                                  </span>
-                             
+                             <%#  %>
                                  <span style="font-size: 75%; float: right; margin-right: 10px;">
                                     <%=addendum.updated_at.strftime('%m/%d/%y')%> | 
                                     <%=addendum.notes.size%> |

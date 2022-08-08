@@ -1,0 +1,25 @@
+
+
+
+<div>
+     <form action="/library/book_lookup" method="POST">
+        <input type="hidden" id="hidden">
+        <label for="title">title</label>
+        <input type="text" name="title">
+        <label for="url">author</label>
+        <input type="text" name="author">
+        <label for="synopsis">isbn</label>
+        <input type="textarea" name="isbn">
+        <label for="pages">pages</label>
+        <input type="integer" name="pages">
+        <input type="submit" value="link">
+    </form>
+ </div> 
+
+ <% if @book %>
+
+ <div>
+    <h1>@book.title</h1>
+ </div>
+
+ <% end %>

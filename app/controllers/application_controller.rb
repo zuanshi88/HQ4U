@@ -2,6 +2,8 @@ require "sinatra/base"
 require "sinatra/reloader"
 require "sinatra/activerecord"
 
+require "openlibrary"
+
 
 require_relative "../models/account.rb"
 require_relative "../models/activity.rb"
@@ -60,6 +62,18 @@ class ApplicationController < Sinatra::Base
         get "/" do
             erb :home
         end
+
+        get "/library" do 
+            erb :"library"
+        end 
+
+        post "/library/book_lookup" do 
+           client = Openlibrary::Client.new
+
+           @book = client.book(params[:isbn]) 
+
+            erb :library
+        end 
 
 # below are some somewhat random notes from sinatra docs
 
