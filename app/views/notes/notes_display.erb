@@ -116,6 +116,21 @@ background: <%= rand_color %>;
                                     <span class="edit-button"><a href="/addendum/edit/<%=addendum.id%>">edit</a></span>
                                     <span class="add-button" onclick="call('create-add-add-note-<%=addendum.id%>')">add</span>
                                     <span class="link-button"><a href="/addendum/pending/<%=addendum.id%>">pend</a></span>
+
+                                    <% unless addendum.weblinks[0] == nil%>
+                                                <span>
+                                                    <ul>
+                                                    <% addendum.weblinks.each do |link| %>
+                                                    <%@link = link %>
+                                                            <li class="web-link-display">
+                                                                <span class="web-link-decoration"><span class="web-link-decoration"><a href="<%=link.url %>"><%=link.title%></a> | 
+                                                                <%= erb :"weblinks/delete_addendum_link" %>
+                                                                </span>
+                                                            </li>
+                                                        <% end %>
+                                                    </ul>    
+                                                </span>
+                                            <% end %>
                                    </span>   
                               
                                  <span onclick="call('display-add-notes-<%=addendum.id%>')" style="font-size: 120%; margin-left: 40px;" class="<%= addendum.notes[0] ? 'on-click' : '' %>">
@@ -135,21 +150,8 @@ background: <%= rand_color %>;
                                        <%= erb :"notes/create_addendum_note" %>
                                     </div>
                                     <div>
-                                            <% unless addendum.weblinks[0] == nil%>
-                                                <span>
-                                                    <ul>
-                                                    <% addendum.weblinks.each do |link| %>
-                                                    <%@link = link %>
-                                                            <li class="web-link-display">
-                                                                <span class="web-link-decoration"><span class="web-link-decoration"><a href="<%=link.url %>"><%=link.title%></a> | 
-                                                                <%= erb :"weblinks/delete_addendum_link" %>
-                                                                </span>
-                                                            </li>
-                                                        <% end %>
-                                                    </ul>    
-                                                </span>
-                                            <% end %>
-                                            </div> 
+                                            
+                        </div> 
 
 
 

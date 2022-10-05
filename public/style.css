@@ -316,11 +316,12 @@ margin: auto;
 }
 
 .del-button {
-  width: 50px;
-  height: 25px;
-  font-size: 75%;
+  /* width: 50px;
+  height: 25px; */
   color: black;
   background: <%=rand_color%>;
+  font-weight: bold;
+  font-style: italic;
   /* margin: 0px; 
     width: 25px; 
     height: 15px; 
@@ -337,7 +338,7 @@ margin: auto;
 
 .web-link-decoration {
   background-color: <%=rand_color%>;
-  border: 2px solid black;
+  border: 2px solid white;
   padding: 2px;
 }
 
