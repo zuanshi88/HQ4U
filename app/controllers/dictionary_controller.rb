@@ -72,7 +72,7 @@ get '/flashcards' do
     erb :"flashcards/flashcards_index"
 end 
 
-get '/flashcards/session' do 
+post '/flashcards/session' do 
     @number = params[:number] 
     @difficulty = params[:difficulty] 
     @views = params[:views]
