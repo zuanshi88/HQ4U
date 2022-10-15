@@ -1,3 +1,4 @@
+require 'spec_helper'
 require './app/controllers/application_controller.rb'
 require 'rack/test'
 require 'rspec'

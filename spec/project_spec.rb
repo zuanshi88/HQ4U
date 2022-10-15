@@ -1,3 +1,4 @@
+require 'spec_helper'
 require './app/controllers/application_controller.rb'
 require './app/models/project.rb'
 require './app/models/note.rb'
