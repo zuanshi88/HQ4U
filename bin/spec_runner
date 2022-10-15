@@ -8,23 +8,36 @@ then
 
 #controllers 
 
-rspec ./spec/controller_spec/application_controller_spec.rb
+TYPE='CONTROLLERS'
+
+
+bash ./bin/controller_specs
+
+echo "$TYPE spec run complete!!"
 
 #models 
 
-rspec ./spec/account_spec.rb ./spec/note_spec.rb ./spec/project_spec.rb ./spec/dictionary_spec.rb ./spec/app_spec.rb 
- 
-TYPE='COMPLETE'
+TYPE='MODEL'
+
+bash ./bin/model_specs
+
+echo "$TYPE spec run complete!!"
+
+TYPE='ALL'
+
+echo "$TYPE spec run complete!!"
 
 else 
 
 rspec ./spec/account_spec.rb ./spec/note_spec.rb ./spec/project_spec.rb ./spec/dictionary_spec.rb ./spec/app_spec.rb 
 
-
 TYPE='MODEL'
 
-fi
+echo ""
+echo "----------------------"
+echo ""
 
 echo "$TYPE spec run complete!!"
 
-echo "$* args passed"
+fi
+

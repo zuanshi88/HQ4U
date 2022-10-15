@@ -7,6 +7,13 @@
         
         extend ModelHelper
        
+    def decrease 
+        self.difficulty -= 1
+    end 
+
+    def viewed 
+        self.views += 1
+    end 
 
       def self.index_content
             # information = ["name", "last_name", "first_name"]

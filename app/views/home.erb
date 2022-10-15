@@ -1,5 +1,5 @@
 <div id="home">
-    <h1><%= @user.user_title %>HQ</h1>
+    <h1><%= @user.user_title if @user %>HQ</h1>
     <h3><a href="/people">people</a></h3> 
     <h3><a href="/action">action</a></h3>
     <h3><a href="/project_log">logs</a></h3>

@@ -1,8 +1,9 @@
 #!/bin/
 
 
-echo "running cosntroller specs" 
+echo "running model specs" 
 
-
+rspec ./spec/account_spec.rb ./spec/note_spec.rb ./spec/project_spec.rb ./spec/dictionary_spec.rb ./spec/app_spec.rb 
+ 
 
 echo "successful run!!"

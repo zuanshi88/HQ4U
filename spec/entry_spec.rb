@@ -1,7 +1,6 @@
 require 'spec_helper'
 require './app/controllers/application_controller.rb'
 require './app/models/entry.rb'
-require 'rack/test'
 
 
 
@@ -31,29 +30,42 @@ RSpec.describe Entry do
    end 
     
 
-    context 'has auto generated attributes' do 
+        context 'has auto generated attributes' do 
 
-        it 'has default difficulty' do 
-            expect(@entry.difficulty).to eql(10)
+            it 'has default values' do 
+                expect(@entry.difficulty).to eql(10)
+                expect(@entry.views).to eql(0)
+            end 
+
         end 
 
-        it 'has default views' do 
-            expect(@entry.views).to eql(0)
+        context 'has assigned attributes' do 
+
+            it 'has assigned values' do 
+                expect(@entry.term).to eql("Banana")
+                expect(@entry.entry_info).to eql("A yellow fruit")
+                expect(@entry.more_info).to eql("sweet and filling")
+                expect(@entry.views).to eql(0)
+                expect(@entry.difficulty).to eql(10)
+            end 
+            
         end 
 
-    end 
+        context 'has dynamic attribtutes' do 
 
-    context 'has assigned attributes' do 
 
-        it 'has a term' do 
-            expect(@entry.term).to eql("Banana")
+            it 'can decrease difficulty' do 
+                @entry.decrease
+                expect(@entry.difficulty).to eql(9)
+            end 
+
+            it 'can increase views' do 
+                 @entry.viewed 
+                 expect(@entry.views).to eql(1)
+            end     
+
         end 
 
-        it 'has entry_info' do 
-            expect(@entry.entry_info).to eql("A yellow fruit")
-        end 
-        
-    end 
 
     after do 
         Entry.delete_all

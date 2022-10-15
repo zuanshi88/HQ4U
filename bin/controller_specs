@@ -4,10 +4,9 @@
 #spec runner -- take second argument to run only controllers/models
 
 
-echo "running cosntroller specs" 
+echo "running controller specs" 
 
-
-
+rspec ./spec/controller_spec/application_controller_spec.rb ./spec/controller_spec/dictionaries_controllers_spec.rb
 
 
 echo "successful run!!"
