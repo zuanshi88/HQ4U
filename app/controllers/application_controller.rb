@@ -77,23 +77,6 @@ class ApplicationController < Sinatra::Base
 
 # below are some somewhat random notes from sinatra docs
 
-        get '/stream' do
-                stream do |out|
-                    out << "It's gonna be legen -\n"
-                    "#{out}"
-                    sleep 2
-                    out << " (wait for it) \n"
-                    "#{out}"
-                    sleep 2
-                    out << "- dary!\n"
-                    "#{out}"
-                end
-                array = []
-                array << session[:secret_message]
-                array << session[:quote]
-                array.each{|s| s }
-        end
-
         get "/about" do
             erb :"app/about"
         end

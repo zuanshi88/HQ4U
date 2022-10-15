@@ -68,6 +68,18 @@ get '/flashbox' do
     erb :"dictionaries/flashbox"
 end
 
+get '/flashcards' do
+    erb :"flashcards/flashcards_index"
+end 
+
+get '/flashcards/session' do 
+    @number = params[:number] 
+    @difficulty = params[:difficulty] 
+    @views = params[:views]
+    
+    erb :"flashcards/session"
+end 
+
 
 get '/decks' do 
      @dictionaries = Dictionary.all
