@@ -33,6 +33,12 @@
      font-size: 75%;
  }
 
+  .difficulty-button {
+     margin-left: 5px; 
+     background: orange; 
+     font-size: 75%;
+ }
+
  .entry-info {
     background-color: <%= rand_color %>;
  }
@@ -47,11 +53,11 @@
     <% @entry = result%>
         <div class="result-box" style="background-color: <%= rand_color %>; border: <%= rand_color %> solid 2px;"> 
            <span> 
-                <h2 class="ms-3 bottom-20">
-                    <span class="term-box" style="background-color: <%=rand_color%>; border: <%=rand_color%> solid 2px; ">
-                        <a href="/dictionary/<%=result.dictionary_id%>/<%=result.id%>"><%=result.term%></a>
-                    </span> 
-                </h2>  
+                    <h2 class="ms-3 bottom-20">
+                        <span class="term-box" style="background-color: <%=rand_color%>; border: <%=rand_color%> solid 2px; ">
+                            <a href="/dictionary/<%=result.dictionary_id%>/<%=result.id%>"><%=result.term%></a>
+                        </span> 
+                    </h2> 
                 <span class="ms-4 mt-1">                      
                     <a href="/dictionary/entry/edit/<%=result.dictionary_id%>/<%=result.id%>">
                         <span class="edit-button" style="background: <%= @edit_color = rand_color %>;">
@@ -61,8 +67,14 @@
                 <span onclick="call('add-ex-<%=result.id%>')" class="add-button" style="background-color: <%=rand_color%>">
                     <b> add </b>
                 </span>
+                    <span class="add-button difficulty-button">
+                        <a href="/dictionary/entry/update/difficulty/<%=result.dictionary_id%>/<%=result.id%>">adj</a>
+                    </span>
                     <span class="add-button tag-button">
                         <a href="/search/tag/dictionary/<%=result.dictionary_id%>/<%=result.topic_tag%>">[<%=result.topic_tag%>]</a>
+                    </span>
+                    <span style="float: right; margin-right: 20px; font-weight: bolder; font-size: 125%">  
+                        <%= "#{@entry.difficulty} | #{@entry.views}"%>
                     </span>
              </span>
                     <div id="add-ex-<%=result.id%>" style="display: none;">

@@ -187,10 +187,10 @@ end
 
 
 
-patch '/dictionary/entry/update/difficulty/:id/:entry_id' do
+get '/dictionary/entry/update/difficulty/:id/:entry_id' do
      @dictionary = Dictionary.find(params[:id])
      @entry = Entry.find(params[:entry_id])
-     @entry.difficulty -= 1
+     @entry.decrease
      @entry.save 
      @dictionary.touch
 
@@ -199,7 +199,7 @@ patch '/dictionary/entry/update/difficulty/:id/:entry_id' do
       erb :"dictionaries/dictionary"
 end 
 
-patch '/dictionary/entry/update/views/:id/:entry_id' do
+get '/dictionary/entry/update/views/:id/:entry_id' do
      @dictionary = Dictionary.find(params[:id])
      @entry = Entry.find(params[:entry_id])
      @entry.viewed += 1
