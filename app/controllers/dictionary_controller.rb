@@ -143,6 +143,14 @@ get '/dictionary/:id/tag/:tag' do
     erb :"dictionaries/dictionary_collection"
 end 
 
+
+get '/entries' do 
+    @entries = Entry.all.first(20)
+
+    erb:"dictionaries/entries_index"
+end 
+
+
 post '/dictionary/entry/:id' do
     @entry = Entry.create(term: params[:term], entry_info: params[:entry_info], more_info: params[:more_info], topic_tag: params[:topic_tag], photo: params[:photo])
     @dictionary = Dictionary.find(params[:id])
