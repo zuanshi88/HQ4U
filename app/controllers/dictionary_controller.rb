@@ -116,10 +116,14 @@ end
 
 get '/dictionary/:id/:entry_id' do 
     @dictionary = Dictionary.find(params[:id])
-    @results = []
-    @results[0] = Entry.find_by_id(params[:entry_id])
+    @entry = Entry.find(params[:entry_id])
+    @entry.viewed 
+    @entry.save 
+    @results = [@entry] 
     erb :"dictionaries/dictionary"
 end 
+
+
 
 # are the following two routes different???? Serve different
 
@@ -190,7 +194,7 @@ end
 get '/dictionary/entry/update/difficulty/:id/:entry_id' do
      @dictionary = Dictionary.find(params[:id])
      @entry = Entry.find(params[:entry_id])
-     @entry.decrease
+     @entry.decrease 
      @entry.save 
      @dictionary.touch
 
@@ -278,7 +282,11 @@ get '/dictionary/redirect/:id/:result' do
     @dictionary = Dictionary.find(params[:id])
 
     # assigning @result to an array to make it pass when passed to the dictionary view
-    @results = [Entry.find(params[:result])]
+    @entry = Entry.find(params[:result])
+    @entry.viewed 
+    @entry.save 
+
+    @results = [@entry]
  
     erb :"dictionaries/dictionary"
         

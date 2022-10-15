@@ -7,7 +7,6 @@
         
         extend ModelHelper
 
-        attr_reader :decrease
        
     def decrease 
         self.difficulty -= 1
