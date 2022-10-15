@@ -19,6 +19,7 @@ require_relative "../models/example.rb"
 require_relative "../models/book.rb"
 require_relative "../models/quote.rb"
 require_relative "../models/addendum.rb"
+require_relative "../models/session.rb"
 
 require "./application_helper"
 

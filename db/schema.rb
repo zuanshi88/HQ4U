@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_07_02_225330) do
+ActiveRecord::Schema.define(version: 2022_10_15_220311) do
 
   create_table "accounts", force: :cascade do |t|
     t.string "name"
@@ -144,6 +144,14 @@ ActiveRecord::Schema.define(version: 2022_07_02_225330) do
     t.integer "book_id"
     t.index ["book_id"], name: "index_quotes_on_book_id"
     t.index ["entry_id"], name: "index_quotes_on_entry_id"
+  end
+
+  create_table "sessions", force: :cascade do |t|
+    t.integer "number"
+    t.string "difficulty"
+    t.string "views"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "topics", force: :cascade do |t|

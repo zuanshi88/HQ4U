@@ -76,7 +76,27 @@ post '/flashcards/session' do
     @number = params[:number] 
     @difficulty = params[:difficulty] 
     @views = params[:views]
+
+    @session = Session.create({number: @number, difficulty: @difficulty, views: @views})
     
+    if @session.level == 6
+        @cards = Entry.select{ |e| e.difficulty >= 6 }
+    elsif @session.level == 5
+        @cards = Entry.select{ |e| e.difficult <= 5 }
+    else 
+        @cards = Entry.all
+    end 
+
+    if @session.views == 6
+        @cards = @cards.select{ |c| c.views >= 6 }
+    elsif @session.views == 5
+        @cards = @cards.select{ |c| c.views <= 5 }
+    else 
+        @cards 
+    end 
+
+    @cards =@cards.shuffle.first(@session.number)
+
     erb :"flashcards/session"
 end 
 
