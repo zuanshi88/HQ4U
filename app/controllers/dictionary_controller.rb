@@ -82,7 +82,7 @@ post '/flashcards/session' do
     if @session.level == 6
         @cards = Entry.select{ |e| e.difficulty >= 6 }
     elsif @session.level == 5
-        @cards = Entry.select{ |e| e.difficult <= 5 }
+        @cards = Entry.select{ |e| e.difficulty <= 5 }
     else 
         @cards = Entry.all
     end 
@@ -95,7 +95,7 @@ post '/flashcards/session' do
         @cards 
     end 
 
-    @cards =@cards.shuffle.first(@session.number)
+    @cards = @cards.shuffle.first(@session.number)
 
     erb :"flashcards/session"
 end 
