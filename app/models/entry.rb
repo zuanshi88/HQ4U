@@ -16,6 +16,12 @@
         self.views += 1
     end 
 
+    def self.viewed(array)
+        array.each do |entry|
+            entry.viewed 
+        end 
+    end 
+
       def self.index_content
             # information = ["name", "last_name", "first_name"]
 

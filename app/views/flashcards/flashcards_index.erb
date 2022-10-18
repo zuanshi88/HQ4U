@@ -2,6 +2,11 @@
 
 <h1>FLASHCARDS</h1>
 
+<% if @message %>
+<h2><%= @message %> </h2>
+<% end %>
+
+
 <form method="POST" action="/flashcards/session">
  
 

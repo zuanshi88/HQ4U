@@ -72,6 +72,11 @@ get '/flashcards' do
     erb :"flashcards/flashcards_index"
 end 
 
+get '/flashcards/complete' do 
+    @message = "Cards updated and session complete"
+    erb :"flashcards/flashcards_index"
+end 
+
 post '/flashcards/session' do 
     @number = params[:number] 
     @difficulty = params[:difficulty] 
@@ -94,10 +99,11 @@ post '/flashcards/session' do
     else 
         @cards 
     end 
-
+   
     @cards = @cards.shuffle.first(@session.number)
+    @cards.each(&:viewed)
 
-    erb :"flashcards/session"
+     erb :"flashcards/session"
 end 
 
 

@@ -1,7 +1,11 @@
     
     
 class Session < ActiveRecord::Base
-  def level
+  
+  
+  attr_accessor :cards
+  
+    def level
     if self.difficulty == 'greater'
         6
     elsif self.difficulty == 'less'

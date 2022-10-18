@@ -1,5 +1,15 @@
 
+<style>
 
+.flash-info {
+    display: inline; 
+    background: white; 
+    padding: 3px;
+}
+
+
+
+</style>
 
 
 <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
@@ -7,19 +17,64 @@
  
     <div class="carousel-item active">
       <div class="d-block w-100">
-          <p><%= @cards[0].term %></p>
-           <p><%= @cards[0].entry_info %></p>
-      </div>
+      <h2 style="background-color: yellow">START!!!</h2>
+                <h2 class="ms-3 bottom-20">
+                    <p onclick="call('flip-<%=@cards[0].id%>')" style="color: white; background-color: <%=rand_color%>; margins: 0; border: <%=rand_color%> solid 2px; ">
+                        <%=@cards[0].term%>
+                    </p> 
+                </h2> 
+            <div id="flip-<%=@cards[0].id%>" style="display: none;">
+                <div style="background-color: <%=rand_color%>; margins: 0; border: <%=rand_color%> solid 2px; background-color: <%=rand_color%>; margins: 0; border: <%=rand_color%> solid 2px;">
+                    <ul>
+                        <li style="float: right; margin-bottom: 5px; margin-right: 10px; background: white; padding: 3px;"><%= @cards[0].topic_tag %></li>
+                        <li style="float: right; margin-bottom: 5px; margin-right: 10px; background: white; padding: 3px;"><%= @cards[0].difficulty %></li>
+                        <li style="float: right; margin-bottom: 5px; margin-right: 10px; background: white; padding: 3px;"><%= @cards[0].views %></li>
+                        <li class="entry-info"><%= @cards[0].entry_info %></li>
+                        <% unless @cards[0].more_info == "" %>
+                            <li class="entry-info"><%= @cards[0].more_info %></li>
+                        <% end %>
+                        <% if @cards[0].examples %>
+                                <% @cards[0].examples.each do |example| %>
+                                    <li class="entry-info"><%= example.info %></li>
+                                <% end %>
+                        <% end %>
+                    </ul>
+                </div>
+            </div>  
+        </div>
     </div>
-     <% @cards[1..-1].each do |card|%>
+    <% @counter = 0 %>
+     <% @cards[1..-1].each do |card| %>
+     <% @counter += 1 %>
     <div class="carousel-item">
       <div src="..." class="d-block w-100">
-      <p><%= card.term %></p>
-      <p><%= card.entry_info %></p>
+       <h2 class="ms-3 bottom-20">
+        <p onclick="call('flip-<%=card.id%>')" style="color: white; background-color: <%=rand_color%>; margins: 0; border: <%=rand_color%> solid 2px; ">
+           <%=card.term%>
+        </p>
+        </h2>
+        <div id="flip-<%=card.id%>" style="display: none;">
+            <div style="color: white; background-color: <%=rand_color%>; margins: 0; border: <%=rand_color%> solid 2px; background-color: <%=rand_color%>; margins: 0; border: <%=rand_color%> solid 2px;">
+                <ul>
+                    <li style="float: right; margin-bottom: 5px; margin-right: 10px; background: white; padding: 3px; color: black;"><%= card.topic_tag %></li>
+                    <li style="float: right; margin-bottom: 5px; margin-right: 10px; background: white; padding: 3px; color: black;"><%= card.difficulty %></li>
+                    <li style="float: right; margin-bottom: 5px; background: white; padding: 3px; color: black;"><%= card.views %> / </li>
+                    <li class="entry-info" style="background-color: <%=rand_color%>"><%= card.entry_info %></li>
+                    <% unless card.more_info == "" %>
+                        <li class="entry-info"style="background-color: <%=rand_color%>"><%= card.more_info %></li>
+                    <% end %>
+                    <% if card.examples %>
+                            <% card.examples.each do |example| %>
+                                <li class="entry-info" style="background-color: <%=rand_color%>"><%= example.info %></li>
+                            <% end %>
+                    <% end %>
+                </ul>
+            </div>
+        </div>  
       </div>
     </div>
- 
     <% end %>
+
   </div>
   <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -30,3 +85,9 @@
     <span class="visually-hidden">Next</span>
   </button>
 </div>
+
+<div style="margin-top: 100px;"></div>
+    <h4 style="display: inline; padding: 3px; background-color: <%= rand_color %>; border: 2px, solid, <%= rand_color %>;"><a href="/flashcards/complete">complete</a></h4>
+
+
+
