@@ -54,8 +54,6 @@ class ApplicationController < Sinatra::Base
             # find where this has been left in -- could search
             # @person = Account.find(40)
             session[:user] = @default_account || nil 
-            session[:secret_message] = "Zhe shi mimi, ni zhidao, ma?"
-            session[:quote] = "Try, try again, fail again, fail better."
         end 
         
     

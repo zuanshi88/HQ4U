@@ -24,6 +24,14 @@ class PhotoController < ApplicationController
 
         end
 
+        get "/photoroom/carousel/:person_id/:project_id" do 
+            @project = Project.find(params[:project_id])
+            @person = Account.find(@project.account_id)
+            @photos = @project.photos
+
+            erb:"photos/photoroom_carousel"
+        end 
+
 
         get "/photoroom/:id" do 
             @project = Project.all.find_by_id(params[:id])
@@ -58,6 +66,8 @@ class PhotoController < ApplicationController
             erb :"books/book"
 
         end 
+
+
 
 
 end 
