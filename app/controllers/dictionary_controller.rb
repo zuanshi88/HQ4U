@@ -69,11 +69,13 @@ get '/flashbox' do
 end
 
 get '/flashcards' do
+    @dictionaries = Dictionary.all
     erb :"flashcards/flashcards_index"
 end 
 
 get '/flashcards/complete' do 
     @message = "Cards updated and session complete"
+    @dictionaries = Dictionary.all
     erb :"flashcards/flashcards_index"
 end 
 
@@ -81,6 +83,9 @@ post '/flashcards/session' do
     @number = params[:number] 
     @difficulty = params[:difficulty] 
     @views = params[:views]
+    @dictionary_title = params[:dictionary]
+
+    @dictionary = Dictionary.all.select{|d| d.title == @dictionary_title}[0]
 
     @session = Session.create({number: @number, difficulty: @difficulty, views: @views})
     
@@ -98,6 +103,10 @@ post '/flashcards/session' do
         @cards = @cards.select{ |c| c.views <= 5 }
     else 
         @cards 
+    end 
+
+    if @dictionary 
+        @cards = @cards.select{|c| c.dictionary_id == @dictionary.id}
     end 
    
     @cards = @cards.shuffle.first(@session.number)

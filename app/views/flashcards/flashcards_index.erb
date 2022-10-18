@@ -30,6 +30,14 @@
   <option value="greater">greater than 5</option>
   <option value="less">less than 5</option>
 </select>
+  <% @dictionaries.each_with_index do |dictionary, index| %>
+    <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" id="inlineCheckbox<%=index%>" value="<%=dictionary.title%>" name="dictionary">
+        <label class="form-check-label" for="inlineCheckbox<%=index%>"><%= dictionary.title %></label>
+      </div>
+    <% end %>
+
+
 
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
