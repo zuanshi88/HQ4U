@@ -109,8 +109,8 @@ post '/flashcards/session' do
         @cards = @cards.select{|c| c.dictionary_id == @dictionary.id}
     end 
    
-    @cards = @cards.shuffle.first(@session.number)
     @cards.each(&:viewed)
+    @cards = @cards.shuffle.first(@session.number)
 
      erb :"flashcards/session"
 end 

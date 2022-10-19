@@ -14,6 +14,7 @@
 
     def viewed 
         self.views += 1
+        self.save
     end 
 
     def self.viewed(array)
