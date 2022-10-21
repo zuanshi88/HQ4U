@@ -3,10 +3,10 @@
 <h1>FLASHCARDS</h1>
 
 <% if @message %>
-<h2><%= @message %> </h2>
+<h2 style="text-align: center; color: maroon;"><%= @message %> </h2>
 <% end %>
 
-
+<div style="background-color: <%= rand_color %>; border: 3px, solid, black;">
 <form method="POST" action="/flashcards/session">
  
 
@@ -41,6 +41,6 @@
   </div>
 
 
-
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
+</div>
