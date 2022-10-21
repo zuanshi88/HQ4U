@@ -161,11 +161,14 @@ background: <%= rand_color %>;
 
                                         <% unless addendum.notes[0] == nil %>
                                             <ul>
-                                                <%addendum.notes.reverse.each do |note|%>
+                                                <%addendum.notes.sort_by{|add| add.updated_at }.reverse.each do |note|%>
                                                 <% @add_note = note %>
                                                     <li style="background: <%=rand_color%>; margin-top: 5px; padding: 20px; border: 2px solid <%= rand_color %>">
                                                         <span style="font-size: 75%; font-weight: bold; margin-right: 5px;">
                                                             <%= note.addendums[0] ? note.addendums[-1].updated_at.strftime('%m/%d/%y') : note.updated_at.strftime('%m/%d/%y') %> 
+                                                           <span style="background: <%= rand_color %>; border: solid black 2px; text-align: center; padding: 1px; margin-right: 5px;">
+                                                                <a href="/nong/addendum/note/<%= note.id %>/<%=addendum.id%>"><b>弄</b></a>
+                                                            </span>
                                                         </span>
                                                     <%=note.comment%>
                                                         <a href="/edit/note/addendum/note/<%=note.id%>"><span class="edit-button" style="float: right; margin-right: 10px;">

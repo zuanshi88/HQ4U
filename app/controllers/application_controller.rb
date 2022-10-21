@@ -175,6 +175,7 @@ class ApplicationController < Sinatra::Base
             @addendum.updated_at = Time.now
             @addendum.save
             @note.touch
+            @addendum.touch
             @project.touch
 
             if @note.book_id != nil 
@@ -191,6 +192,35 @@ class ApplicationController < Sinatra::Base
         
 
     end 
+
+     get '/nong/addendum/note/:note_id/:addendum_id' do 
+
+        #could add an updated at method here to make addendum float to top of search
+            @addendum = Addendum.find(params[:addendum_id])
+            @parent_note = Note.find(@addendum.note_id)
+            @note = Note.find(params[:note_id])
+            @project = Project.find(@note.project_id)
+            @addendum.updated_at = Time.now
+            @addendum.save
+            @note.touch
+            @addendum.touch
+            @project.touch
+
+            if @note.book_id != nil 
+                @book = Book.find(@note.book_id)
+            end 
+
+        
+         
+
+            @notes = [@note]
+            @open = true
+
+        erb :"app/display"
+        
+
+    end 
+
 
 
 
