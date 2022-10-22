@@ -187,6 +187,7 @@ class ApplicationController < Sinatra::Base
 
             @notes = [@note]
             @open = true
+            @add_open = true
 
         erb :"app/display"
         
@@ -213,8 +214,9 @@ class ApplicationController < Sinatra::Base
         
          
 
-            @notes = [@note]
+            @notes = [@parent_note]
             @open = true
+            @add_open = true
 
         erb :"app/display"
         

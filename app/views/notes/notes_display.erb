@@ -141,6 +141,9 @@ background: <%= rand_color %>;
                                     <%=addendum.updated_at.strftime('%m/%d/%y')%> | 
                                     <%=addendum.notes.size%> |
                                     <%=addendum.created_at.strftime('%m/%d/%y') %>
+                                     <span style="background: <%= rand_color %>; border: solid black 2px; text-align: center; padding: 1px; margin-right: 5px;">
+                                        <a href="/redirect_search/addendum/<%= "nong'd" %>/<%=addendum.id%>"><b>弄</b></a>
+                                    </span>
                                  </span>
                                     
                                     <div id="create-addendum-weblink-<%=addendum.id%>"  style="display: none;">

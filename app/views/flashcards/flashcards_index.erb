@@ -1,46 +1,75 @@
 
+<style>
+
+.flashcard-label {
+  text-align: center; 
+  display: block;  
+  padding: 3px;
+  font-size: 125%;
+  color: orange; 
+  font-weight: bolder; 
+  text-shadow:
+    -1px -1px 0 #000,
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+    1px 1px 0 #000;
+}
+
+.option-box {
+  width: 40%; 
+  margin: auto;
+}
+
+
+</style>
 
 <h1>FLASHCARDS</h1>
 
 <% if @message %>
 <h2 style="text-align: center; color: maroon;"><%= @message %> </h2>
 <% end %>
-
-<div style="background-color: <%= rand_color %>; border: 3px, solid, black;">
-<form method="POST" action="/flashcards/session">
- 
-
-<select class="form-select form-select-sm" aria-label=".form-select-sm example" name="number">
-  <option selected>Number of cards</option>
-  <option value="10">10</option>
-  <option value="50">50</option>
-  <option value="100">100</option>
-</select>
-
-<select class="form-select form-select-sm" aria-label=".form-select-sm example" name="difficulty">
-  <option selected>Difficulty</option>
-  <option value="all">All</option>
-  <option value="greater">greater than 5</option>
-  <option value="less">less than 5</option>
-</select>
-
-<select class="form-select form-select-sm" aria-label=".form-select-sm example" name="views">
-  <option selected>Views</option>
-  <option value="all">All</option>
-  <option value="greater">greater than 5</option>
-  <option value="less">less than 5</option>
-</select>
- 
- <div style="background-color: <%= rand_color %>;">
-  <% @dictionaries.each_with_index do |dictionary, index| %>
-    <div class="form-check form-check-inline">
-        <input class="form-check-input" type="checkbox" id="inlineCheckbox<%=index%>" value="<%=dictionary.title%>" name="dictionary">
-        <label class="form-check-label" for="inlineCheckbox<%=index%>"><%= dictionary.title %></label>
-      </div>
-    <% end %>
+<div style="width: 75%; border: 10px solid black; margin: auto; padding: 2px;">
+    <form method="POST" action="/flashcards/session">
+        <div style="display: block; background-color: <%= rand_color %>; border: 3px solid black; padding: 10px; margin-left: 0px;">
+            <div>
+                <label for="dictionary" class="flashcard-label" onclick="call('dictionary-box');">Topic</label>
+                  <div id="dictionary-box" style="display: none; background-color: <%= rand_color %>; padding: 3px; border: 3px solid <%= rand_color %>; margin-right: 0;">
+                        <% @dictionaries.each_with_index do |dictionary, index| %>
+                            <div class="form-check form-check-inline p-1" style="padding-left: 5px; width: 30%;">
+                                <input  style="margin-left: 5px;" class="form-check-input" type="checkbox" id="inlineCheckbox<%=index%>" value="<%=dictionary.title%>" name="dictionary">
+                                <label style="margin-left: 10px;" class="form-check-label" for="inlineCheckbox<%=index%>"><%= dictionary.title %></label>
+                            </div>
+                      <% end %>
+                  </div>
+                    <div class="text-center mt-1">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                <div>
+                  <label for="number" class="flashcard-label">Number of cards</label>
+                  <select class="form-select form-select-sm option-box" aria-label=".form-select-sm example" name="number">
+                    <option selected="selected" value="10">10</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                  </select>
+                </div>
+              <div>
+                <label for="difficulty" class="flashcard-label">Difficulty</label>
+                <select class="form-select form-select-sm option-box" aria-label=".form-select-sm example" name="difficulty" default="all">
+                  <option selected="selected" value="all">All</option>
+                  <option value="greater">greater than 5</option>
+                  <option value="less">less than 5</option>
+                </select>
+              </div>
+              <div>
+                <label for="views" class="flashcard-label">Views</label>
+                <select class="form-select form-select-sm option-box" aria-label=".form-select-sm example" name="views" default="all">
+                  <option selected="selected" value="all">All</option>
+                  <option value="greater">greater than 5</option>
+                  <option value="less">less than 5</option>
+                </select>
+              </div>
+            </div>
+        </div>
+    </form>
   </div>
-
-
-  <button type="submit" class="btn btn-primary">Submit</button>
-</form>
 </div>
