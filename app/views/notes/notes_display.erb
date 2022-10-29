@@ -113,6 +113,7 @@ background: <%= rand_color %>;
                                     </span> 
                                   <span id="options-buttons-<%=addendum.id%>" style="display: none; margin-left: 10px; margin-top: 5px;">    
                                     <span class="link-button" onclick="call('create-addendum-weblink-<%=addendum.id%>')">link</span>
+                                    <span class="doc-button"><a href="/open_file/addendum/<%=addendum.id%>">doc</a></span>
                                     <span class="edit-button"><a href="/addendum/edit/<%=addendum.id%>">edit</a></span>
                                     <span class="add-button" onclick="call('create-add-add-note-<%=addendum.id%>')">add</span>
                                     <span class="link-button"><a href="/addendum/pending/<%=addendum.id%>">pend</a></span>

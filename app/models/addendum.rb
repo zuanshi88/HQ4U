@@ -44,5 +44,12 @@
         content_hash
     end
 
+        
+    def open_file
+      file_name = self.addition.gsub(" ", "")[0..6].downcase
+      system("touch ./doc_files/#{file_name}.docx")
+      system("start ./doc_files/#{file_name}.docx")
+    end 
+
 
 end 

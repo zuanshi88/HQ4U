@@ -8,7 +8,7 @@ class AccountController < ApplicationController
             end 
 
             post "/people/create" do 
-                Account.create(name: params[:name], street_address: params[:street_address], city: params[:city], state: params[:state], zipcode: params[:zipcode], photo: params[:photo])
+                Account.create(name: params[:name], street_address: params[:street_address], city: params[:city], state: params[:state], zipcode: params[:zipcode], photo: params[:photo], email: params[:email])
             
                 @people = Account.all
             
@@ -71,6 +71,7 @@ class AccountController < ApplicationController
                 @person.state = params[:state]
                 @person.zipcode = params[:zipcode]
                 @person.photo = params[:photo]
+                @person.email = params[:email]
                 @person.save
 
                 erb :"people/person"

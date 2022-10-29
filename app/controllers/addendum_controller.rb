@@ -108,6 +108,18 @@ class AddendumController < ApplicationController
 
         end 
 
+    get '/open_file/addendum/:addendum_id' do 
+        @addendum = Addendum.find_by_id(params[:addendum_id])
+        @addendum.open_file
+        @note = Note.find(@addendum.note_id)
+        @project = Project.find(@note.project_id)
+        @project.touch
+        @note.touch
+        @addendum.touch
+        @notes = @project.project_notes
+
+        erb :"projects/project"
+    end 
 
 
 
