@@ -97,6 +97,12 @@ post '/flashcards/session' do
         @cards = Entry.all
     end 
 
+    # put this extra check in here because selecting a session with difficulty level less than five was returning an 
+    # empty array, because all of the entries start out at 10
+    if @cards == []
+        @cards = Entry.all
+    end 
+
     if @session.views == 6
         @cards = @cards.select{ |c| c.views >= 6 }
     elsif @session.views == 5
