@@ -24,7 +24,6 @@
         end 
 
          def self.index_content
-            # information = ["name", "last_name", "first_name"]
             content_hash = {}
             self.all.each do |add|
                 unless add.addition == nil 
@@ -33,20 +32,13 @@
                             content_hash[word.downcase].push(add)
                     end 
                 end 
-
-                    # note.description.split(' ').each do |word|
-                    #        unless word == nil 
-                    #             content_hash[word.downcase] = [] if content_hash[word.downcase].nil? 
-                    #             content_hash[word.downcase].push(note)
-                    #         end 
-                    # end 
             end 
         content_hash
     end
 
         
     def open_file
-      file_name = self.addition.gsub(" ", "")[0..6].downcase
+      file_name = self.addition.gsub(/[\s'"]/, "")[0..6].downcase
       system("touch ./doc_files/#{file_name}.docx")
       system("start ./doc_files/#{file_name}.docx")
     end 

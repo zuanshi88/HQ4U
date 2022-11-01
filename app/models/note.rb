@@ -60,7 +60,7 @@
 
     
     def open_file
-      file_name = self.comment.gsub(" ", "")[0..6].downcase
+      file_name = self.comment.gsub(/[\s'"]/, "")[0..6].downcase
       system("touch ./doc_files/#{file_name}.docx")
       system("start ./doc_files/#{file_name}.docx")
     end 
